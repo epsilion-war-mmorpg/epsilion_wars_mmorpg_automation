@@ -6,12 +6,12 @@ import time
 from telethon import events, types
 
 from app.actions import search_enemy_call
-from app.message_parsers import is_hunting_ready_message, parse_hp_level
+from app.message_parsers import is_hunting_ready_message, parse_hp_level, is_died_state
 from app.settings import app_settings
 from app.telegram_client import client
 
 
-async def main(execution_limit_minutes: int | None = None):
+async def main(execution_limit_minutes: int | None = None) -> None:
     logging.info('start grinding (%d)', execution_limit_minutes)
     me = await client.get_me()
     logging.info('auth as %s', me.username)
@@ -33,8 +33,8 @@ async def main(execution_limit_minutes: int | None = None):
     )
 
     start_time = time.time()
-    execution_time = 0
-    time_limit = (execution_limit_minutes * 60) or 0
+    execution_time = 0.0
+    time_limit = (execution_limit_minutes or 0) * 60
 
     while not time_limit or execution_time < time_limit:
         await asyncio.sleep(10)
@@ -44,7 +44,7 @@ async def main(execution_limit_minutes: int | None = None):
     logging.info('end grinding by time left')
 
 
-async def _grind_handler(event: events.NewMessage.Event):
+async def _grind_handler(event: events.NewMessage.Event) -> None:
     message_content = event.message.message
     logging.info('handle event %s', message_content)
 
@@ -67,8 +67,11 @@ async def _grind_handler(event: events.NewMessage.Event):
     # elif is_selector_special_attack():
     #     await select_special_attack()
 
-    # elif is_win_message():
+    # elif is_win_state():
     #     await complete_battle()
+
+    elif is_died_state(event):
+        raise RuntimeError('U died :RIP:')
 
     else:
         logging.debug('skip event')
