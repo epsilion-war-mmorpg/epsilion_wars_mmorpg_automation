@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "epsilion-wars-mmorpg-automation"
+version = "0.1.0"
+description = "Epsilion War mmorpg automation"
+authors = ["Simon <spam@esemi.ru>"]
+readme = "README.md"
+packages = [{include = "epsilion_wars_mmorpg_automation"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+telethon = "^1.26.1"
+cryptg = "^0.4.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
