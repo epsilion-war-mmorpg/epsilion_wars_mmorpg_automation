@@ -1,0 +1,9 @@
+.mypy_cache
+.pytest_cache
+venv
+__pycache__
+.env
+.coverage
+*.pyc
+coverage.xml
+.epsilion_automation_session.session*

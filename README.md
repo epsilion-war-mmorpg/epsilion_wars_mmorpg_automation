@@ -3,26 +3,21 @@
 
 ---
 [![tests](https://github.com/esemi/epsilion_wars_mmorpg_automation/actions/workflows/tests.yml/badge.svg?branch=master)](https://github.com/esemi/epsilion_wars_mmorpg_automation/actions/workflows/tests.yml)
-[![codecov](https://codecov.io/github/esemi/epsilion_wars_mmorpg_automation/branch/master/graph/badge.svg?token=4D3V7NMX9Q)](https://codecov.io/github/esemi/epsilion_wars_mmorpg_automation)
 [![linters](https://github.com/esemi/epsilion_wars_mmorpg_automation/actions/workflows/linters.yml/badge.svg?branch=master)](https://github.com/esemi/epsilion_wars_mmorpg_automation/actions/workflows/linters.yml)
 
 ### TODO
-- CI
-- mvp - telegram auth
 - mvp - simple grinding
-- codecov
-- update run docs (use telegram api-key)
-- nice runner like poetry run grinding
 - mvp - random awaits
 - mvp - use specials
-- mvp - raise if unknown state
-- mvp - wait HP-level >= 70%
-- mvp - random choice attack and block 
+- CI
+- update run docs (use telegram api-key)
 - mvp - graceful shutdown
+- nice runner like `poetry run grinding`
 
 
 ### Pre-requirements
 - [python 3.11+](https://www.python.org/downloads/)
+- [telegram account and API key](https://docs.telethon.dev/en/stable/basic/signing-in.html#signing-in)
 
 ### Local setup
 ```shell
