@@ -3,11 +3,10 @@ from unittest.mock import Mock
 from app.actions import complete_battle
 
 
-async def test_search_enemy_happy_path(mocker):
-    client_mock = mocker.patch('app.actions.client.send_message')
+async def test_complete_battle_happy_path(mocked_client_message_send):
     event_mock = Mock()
     event_mock.chat_id = 123456
 
     await complete_battle(event_mock)
 
-    assert client_mock.call_count == 1
+    assert mocked_client_message_send.call_count == 1

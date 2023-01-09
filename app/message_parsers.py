@@ -20,6 +20,10 @@ def is_hunting_ready_message(message_content: str) -> bool:
     return 'можно встретить врагов' in message_content.strip().lower()
 
 
+def is_hp_full_message(message_content: str) -> bool:
+    return 'ваше здоровье полностью восстановлено' in message_content.strip().lower()
+
+
 def is_died_state(event: events.NewMessage.Event) -> bool:
     if event.message.button_count != 1:
         return False

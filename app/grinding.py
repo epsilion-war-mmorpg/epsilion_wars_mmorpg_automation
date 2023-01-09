@@ -5,14 +5,16 @@ import time
 
 from telethon import events, types
 
-from app.actions import search_enemy, complete_battle
-from app.message_parsers import is_hunting_ready_message, parse_hp_level, is_died_state, is_win_state
+from app.actions import complete_battle, ping, search_enemy
+from app.message_parsers import is_died_state, is_hp_full_message, is_hunting_ready_message, is_win_state, parse_hp_level
 from app.settings import app_settings
 from app.telegram_client import client
 
 
 async def main(execution_limit_minutes: int | None = None) -> None:
     logging.info('start grinding (%d)', execution_limit_minutes)
+    logging.info('move u character to hunting location first')
+
     me = await client.get_me()
     logging.info('auth as %s', me.username)
 
@@ -27,10 +29,7 @@ async def main(execution_limit_minutes: int | None = None) -> None:
         ),
     )
 
-    await client.send_message(
-        entity=game_user,
-        message='/me',
-    )
+    await ping(game_user.user_id)
 
     start_time = time.time()
     execution_time = 0.0
@@ -46,7 +45,7 @@ async def main(execution_limit_minutes: int | None = None) -> None:
 
 async def _grind_handler(event: events.NewMessage.Event) -> None:
     message_content = event.message.message
-    logging.info('handle event %s', message_content)
+    logging.info('handle event %s', message_content[:200].strip())
 
     if is_hunting_ready_message(message_content):
         logging.info('is ready for hunting message')
@@ -55,22 +54,25 @@ async def _grind_handler(event: events.NewMessage.Event) -> None:
         if hp_level_percent >= app_settings.minimum_hp_level_for_grinding:
             await search_enemy(event)
 
-    # elif is_hp_full_message():
-    #     await search_enemy(event)
-    #
-    # elif is_selector_attack_direction():
-    #     await select_attack_direction()
+    elif is_hp_full_message(message_content):
+        logging.info('is full HP message')
+        await search_enemy(event)
 
-    # elif is_selector_defence_direction():
-    #     await select_defence_direction()
+    # elif is_selector_attack_direction(event):
+    #     await select_attack_direction(event)
 
-    # elif is_selector_special_attack():
+    # elif is_selector_defence_direction(event):
+    #     await select_defence_direction(event)
+
+    # elif is_selector_special_attack(event):
     #     await select_special_attack()
 
     elif is_win_state(event):
+        logging.info('is win state')
         await complete_battle(event)
 
     elif is_died_state(event):
+        logging.info('is died state')
         raise RuntimeError('U died :RIP:')
 
     else:
