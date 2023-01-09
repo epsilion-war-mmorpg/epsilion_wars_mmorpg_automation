@@ -3,6 +3,8 @@ from math import ceil
 
 from telethon import events
 
+from app.buttons import COMPLETE_BATTLE, RIP
+
 _hp_level_pattern = re.compile(r'❤️\((\d+)/(\d+)\)\n')
 
 
@@ -21,7 +23,13 @@ def is_hunting_ready_message(message_content: str) -> bool:
 def is_died_state(event: events.NewMessage.Event) -> bool:
     if event.message.button_count != 1:
         return False
-    return event.message.buttons[0][0].text == '💀 Принять участь'
+    return event.message.buttons[0][0].text == RIP
+
+
+def is_win_state(event: events.NewMessage.Event) -> bool:
+    if event.message.button_count != 1:
+        return False
+    return event.message.buttons[0][0].text == COMPLETE_BATTLE
 
 
 def parse_hp_level(message_content: str) -> int:

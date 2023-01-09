@@ -5,8 +5,8 @@ import time
 
 from telethon import events, types
 
-from app.actions import search_enemy_call
-from app.message_parsers import is_hunting_ready_message, parse_hp_level, is_died_state
+from app.actions import search_enemy, complete_battle
+from app.message_parsers import is_hunting_ready_message, parse_hp_level, is_died_state, is_win_state
 from app.settings import app_settings
 from app.telegram_client import client
 
@@ -53,10 +53,10 @@ async def _grind_handler(event: events.NewMessage.Event) -> None:
         hp_level_percent = parse_hp_level(message_content)
         logging.info('current HP level is %d%%', hp_level_percent)
         if hp_level_percent >= app_settings.minimum_hp_level_for_grinding:
-            await search_enemy_call(event)
+            await search_enemy(event)
 
     # elif is_hp_full_message():
-    #     await search_enemy_call(event)
+    #     await search_enemy(event)
     #
     # elif is_selector_attack_direction():
     #     await select_attack_direction()
@@ -67,8 +67,8 @@ async def _grind_handler(event: events.NewMessage.Event) -> None:
     # elif is_selector_special_attack():
     #     await select_special_attack()
 
-    # elif is_win_state():
-    #     await complete_battle()
+    elif is_win_state(event):
+        await complete_battle(event)
 
     elif is_died_state(event):
         raise RuntimeError('U died :RIP:')
@@ -76,13 +76,10 @@ async def _grind_handler(event: events.NewMessage.Event) -> None:
     else:
         logging.debug('skip event')
 
-    # todo impl
-
 
 if __name__ == '__main__':
-    # todo getopt timelimig
-    max_time = 1
-    # todo getopt debug
+    # todo getopt timelimit
+    max_time = 10
 
     logging.basicConfig(
         level=logging.DEBUG if app_settings.debug else logging.INFO,
