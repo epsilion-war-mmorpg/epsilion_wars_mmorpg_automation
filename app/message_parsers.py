@@ -3,17 +3,10 @@ from math import ceil
 
 from telethon import events
 
-from app.buttons import COMPLETE_BATTLE, RIP
+from app.buttons import COMPLETE_BATTLE, RIP, get_buttons_flat
+from app.exceptions import InvalidMessageError
 
 _hp_level_pattern = re.compile(r'❤️\((\d+)/(\d+)\)\n')
-
-
-class UnprocessableMessage(Exception):
-    pass
-
-
-class InvalidMessageHP(UnprocessableMessage):
-    pass
 
 
 def is_hunting_ready_message(message_content: str) -> bool:
@@ -25,23 +18,28 @@ def is_hp_full_message(message_content: str) -> bool:
 
 
 def is_died_state(event: events.NewMessage.Event) -> bool:
-    if event.message.button_count != 1:
+    found_buttons = get_buttons_flat(event)
+    if len(found_buttons) != 1:
         return False
-    return event.message.buttons[0][0].text == RIP
+    return found_buttons[0].text == RIP
+
+
+def is_selector_defence_direction(event: events.NewMessage.Event) -> bool:
+    return 'что будешь блокировать?' in event.message.message.strip().lower()
 
 
 def is_win_state(event: events.NewMessage.Event) -> bool:
-    if event.message.button_count != 1:
+    found_buttons = get_buttons_flat(event)
+    if len(found_buttons) != 1:
         return False
-    return event.message.buttons[0][0].text == COMPLETE_BATTLE
+    return found_buttons[0].text == COMPLETE_BATTLE
 
 
 def parse_hp_level(message_content: str) -> int:
     found = _hp_level_pattern.search(message_content.strip(), re.MULTILINE)
     if not found:
-        raise InvalidMessageHP()
+        raise InvalidMessageError('HP not found')
 
     current_level, max_level = found.group(1, 2)
     return ceil(int(current_level) / int(max_level) * 100)
-
 

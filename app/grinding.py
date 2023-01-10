@@ -5,8 +5,9 @@ import time
 
 from telethon import events, types
 
-from app.actions import complete_battle, ping, search_enemy
-from app.message_parsers import is_died_state, is_hp_full_message, is_hunting_ready_message, is_win_state, parse_hp_level
+from app.actions import complete_battle, ping, search_enemy, select_defence_direction
+from app.message_parsers import is_died_state, is_hp_full_message, is_hunting_ready_message, is_win_state, \
+    parse_hp_level, is_selector_defence_direction
 from app.settings import app_settings
 from app.telegram_client import client
 
@@ -31,6 +32,11 @@ async def main(execution_limit_minutes: int | None = None) -> None:
 
     await ping(game_user.user_id)
 
+    await _run_wait_loop(execution_limit_minutes)
+    logging.info('end grinding by time left')
+
+
+async def _run_wait_loop(execution_limit_minutes: int | None) -> None:
     start_time = time.time()
     execution_time = 0.0
     time_limit = (execution_limit_minutes or 0) * 60
@@ -39,8 +45,6 @@ async def main(execution_limit_minutes: int | None = None) -> None:
         await asyncio.sleep(10)
         logging.debug('next iteration')
         execution_time = time.time() - start_time
-
-    logging.info('end grinding by time left')
 
 
 async def _grind_handler(event: events.NewMessage.Event) -> None:
@@ -61,8 +65,8 @@ async def _grind_handler(event: events.NewMessage.Event) -> None:
     # elif is_selector_attack_direction(event):
     #     await select_attack_direction(event)
 
-    # elif is_selector_defence_direction(event):
-    #     await select_defence_direction(event)
+    elif is_selector_defence_direction(event):
+        await select_defence_direction(event)
 
     # elif is_selector_special_attack(event):
     #     await select_special_attack()
@@ -81,6 +85,7 @@ async def _grind_handler(event: events.NewMessage.Event) -> None:
 
 if __name__ == '__main__':
     # todo getopt timelimit
+    # todo getopt debug
     max_time = 10
 
     logging.basicConfig(

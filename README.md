@@ -8,11 +8,12 @@
 ### TODO
 - mvp - simple grinding
 - mvp - random awaits
-- mvp - use specials
+- mvp - use combos
 - CI
 - update run docs (use telegram api-key)
-- mvp - graceful shutdown
-- nice runner like `poetry run grinding`
+- mvp - counters
+- mvp - graceful shutdown 
+- nice runner like `poetry run grinding 10`
 
 
 ### Pre-requirements
@@ -33,7 +34,8 @@ $ poetry install
 Create env file to override default config
 ```bash
 cat > .env << EOF
-debug=true
+telegram_api_id=%U_API_ID%
+telegram_api_hash=%U_API_HASH%
 EOF
 ```
 
