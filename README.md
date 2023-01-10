@@ -9,7 +9,6 @@
 
 
 ### TODO
-- mvp - random awaits
 - nice runner like `poetry run grinding 10`
 - update quick start
 - record a demo gif
