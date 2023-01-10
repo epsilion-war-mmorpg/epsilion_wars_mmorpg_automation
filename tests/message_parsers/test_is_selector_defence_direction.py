@@ -2,7 +2,7 @@ from unittest.mock import Mock
 
 import pytest
 
-from app.message_parsers import is_selector_defence_direction
+from app.message_parsers.checks import is_selector_defence_direction
 
 
 @pytest.mark.parametrize('payload,expected', [

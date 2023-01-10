@@ -1,7 +1,7 @@
 import pytest
 
 from app.exceptions import InvalidMessageError
-from app.message_parsers import parse_hp_level
+from app.message_parsers.parsers import get_hp_level
 
 
 @pytest.mark.parametrize('payload,expected', [
@@ -9,12 +9,12 @@ from app.message_parsers import parse_hp_level
     ('🧟‍♂Unikcname 🔸9 ❤️(509/509)\n🔸 Уровень монстров: 7-10', 100),
     ('🧟‍♂Ник ащет 🔸9 ❤️(1/509)\n🔸 Уровень монстров: 7-10', 1),
 ])
-def test_parse_hp_level_happy_path(payload: str, expected: int):
-    result = parse_hp_level(payload)
+def test_get_hp_level_happy_path(payload: str, expected: int):
+    result = get_hp_level(payload)
 
     assert result == expected
 
 
-def test_parse_hp_level_not_found():
+def test_get_hp_level_not_found():
     with pytest.raises(InvalidMessageError):
-        parse_hp_level('')
+        get_hp_level('')

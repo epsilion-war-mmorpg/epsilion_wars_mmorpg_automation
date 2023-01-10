@@ -2,24 +2,18 @@
 import asyncio
 import logging
 import time
+from typing import Callable
 
 from telethon import events, types
 
 from app.actions import complete_battle, ping, search_enemy, select_attack_direction, select_defence_direction
-from app.message_parsers import (
-    is_died_state,
-    is_hp_full_message,
-    is_hunting_ready_message,
-    is_selector_attack_direction,
-    is_selector_defence_direction,
-    is_win_state,
-    parse_hp_level,
-)
+from app.message_parsers import checks, parsers
 from app.settings import app_settings
 from app.telegram_client import client
 
 
 async def main(execution_limit_minutes: int | None = None) -> None:
+    """Grinding runner."""
     logging.info('start grinding (%d)', execution_limit_minutes)
     logging.info('move u character to hunting location first')
 
@@ -45,7 +39,7 @@ async def main(execution_limit_minutes: int | None = None) -> None:
 
 async def _run_wait_loop(execution_limit_minutes: int | None) -> None:
     start_time = time.time()
-    execution_time = 0.0
+    execution_time = float(0)
     time_limit = (execution_limit_minutes or 0) * 60
 
     while not time_limit or execution_time < time_limit:
@@ -55,45 +49,52 @@ async def _run_wait_loop(execution_limit_minutes: int | None) -> None:
 
 
 async def _grind_handler(event: events.NewMessage.Event) -> None:
-    message_content = event.message.message
-    logging.info('handle event %s', message_content[:200].strip())
+    message_content = parsers.strip_message(event.message.message)
+    logging.info('handle event %s', message_content[:app_settings.message_log_limit])
 
-    if is_hunting_ready_message(message_content):
-        logging.info('is ready for hunting message')
-        hp_level_percent = parse_hp_level(message_content)
-        logging.info('current HP level is %d%%', hp_level_percent)
-        if hp_level_percent >= app_settings.minimum_hp_level_for_grinding:
-            await search_enemy(event)
+    select_callback = _select_action_by_event(event)
+    await select_callback(event)
 
-    elif is_hp_full_message(message_content):
-        logging.info('is full HP message')
+
+def _select_action_by_event(event: events.NewMessage.Event) -> Callable:
+    mapping = [
+        (checks.is_selector_attack_direction, select_attack_direction),
+        (checks.is_selector_defence_direction, select_defence_direction),
+        (checks.is_hp_full_message, search_enemy),
+        (checks.is_win_state, complete_battle),
+        (checks.is_died_state, _end_game),
+        (checks.is_hunting_ready_message, _hunting_optional),
+    ]
+
+    for check_function, callback_function in mapping:
+        if check_function(event):
+            logging.debug('is %s event', check_function.__name__)
+            return callback_function
+
+    return _skip_event
+
+
+async def _end_game(event: events.NewMessage.Event) -> None:
+    raise RuntimeError('U died :RIP:')
+
+
+async def _hunting_optional(event: events.NewMessage.Event) -> None:
+    hp_level_percent = parsers.get_hp_level(
+        message_content=parsers.strip_message(event.message.message),
+    )
+    logging.info('current HP level is %d%%', hp_level_percent)
+    if hp_level_percent >= app_settings.minimum_hp_level_for_grinding:
         await search_enemy(event)
 
-    elif is_selector_attack_direction(event):
-        await select_attack_direction(event)
 
-    elif is_selector_defence_direction(event):
-        await select_defence_direction(event)
-
-    # elif is_selector_special_attack(event):
-    #     await select_special_attack()
-
-    elif is_win_state(event):
-        logging.info('is win state')
-        await complete_battle(event)
-
-    elif is_died_state(event):
-        logging.info('is died state')
-        raise RuntimeError('U died :RIP:')
-
-    else:
-        logging.debug('skip event')
+async def _skip_event(event: events.NewMessage.Event) -> None:
+    logging.debug('skip event')
 
 
 if __name__ == '__main__':
     # todo getopt timelimit
     # todo getopt debug
-    max_time = 10
+    max_time = 25
 
     logging.basicConfig(
         level=logging.DEBUG if app_settings.debug else logging.INFO,

@@ -1,3 +1,5 @@
+"""In-game actions."""
+
 import logging
 import random
 
@@ -10,6 +12,7 @@ from app.telegram_client import client
 
 
 async def search_enemy(event: events.NewMessage.Event) -> None:
+    """Start searching enemy."""
     logging.info('call search enemy command')
     # todo throttling
     await client.send_message(
@@ -19,6 +22,7 @@ async def search_enemy(event: events.NewMessage.Event) -> None:
 
 
 async def complete_battle(event: events.NewMessage.Event) -> None:
+    """Get rewards after battle."""
     logging.info('call complete battle command')
     # todo throttling
     await client.send_message(
@@ -28,6 +32,7 @@ async def complete_battle(event: events.NewMessage.Event) -> None:
 
 
 async def ping(game_bot_id: int) -> None:
+    """Random short message for update current location state."""
     logging.info('call ping command')
     # todo throttling
     await client.send_message(
@@ -37,6 +42,7 @@ async def ping(game_bot_id: int) -> None:
 
 
 async def select_defence_direction(event: events.NewMessage.Event) -> None:
+    """Select defence direction."""
     logging.info('call select defence command')
     # todo throttling
     options = get_buttons_flat(event)[:5]
@@ -52,6 +58,7 @@ async def select_defence_direction(event: events.NewMessage.Event) -> None:
 
 
 async def select_attack_direction(event: events.NewMessage.Event) -> None:
+    """Select attack direction."""
     logging.info('call select attack command')
     # todo throttling
     options = get_buttons_flat(event)[:5]

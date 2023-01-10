@@ -1,6 +1,6 @@
 from unittest.mock import Mock
 
-from app.message_parsers import is_selector_attack_direction
+from app.message_parsers.checks import is_selector_attack_direction
 
 
 def test_is_selector_attack_direction_happy_path():

@@ -9,4 +9,3 @@ client = TelegramClient(
     api_id=app_settings.telegram_api_id,
     api_hash=app_settings.telegram_api_hash,
 )
-
