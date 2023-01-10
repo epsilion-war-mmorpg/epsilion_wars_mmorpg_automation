@@ -1,7 +1,7 @@
 import pytest
 
-from app.message_parsers import parse_hp_level
 from app.exceptions import InvalidMessageError
+from app.message_parsers import parse_hp_level
 
 
 @pytest.mark.parametrize('payload,expected', [

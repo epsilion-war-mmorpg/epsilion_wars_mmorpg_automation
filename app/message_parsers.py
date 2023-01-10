@@ -3,7 +3,7 @@ from math import ceil
 
 from telethon import events
 
-from app.buttons import COMPLETE_BATTLE, RIP, get_buttons_flat
+from app.buttons import ATTACK_HEAD, COMPLETE_BATTLE, RIP, RUN_OUT_OF_BATTLE, get_buttons_flat
 from app.exceptions import InvalidMessageError
 
 _hp_level_pattern = re.compile(r'❤️\((\d+)/(\d+)\)\n')
@@ -26,6 +26,13 @@ def is_died_state(event: events.NewMessage.Event) -> bool:
 
 def is_selector_defence_direction(event: events.NewMessage.Event) -> bool:
     return 'что будешь блокировать?' in event.message.message.strip().lower()
+
+
+def is_selector_attack_direction(event: events.NewMessage.Event) -> bool:
+    found_buttons = get_buttons_flat(event)
+    if len(found_buttons) != 6:
+        return False
+    return found_buttons[5].text == RUN_OUT_OF_BATTLE and found_buttons[0].text == ATTACK_HEAD
 
 
 def is_win_state(event: events.NewMessage.Event) -> bool:

@@ -48,3 +48,18 @@ async def select_defence_direction(event: events.NewMessage.Event) -> None:
         entity=event.chat_id,
         message=select.text,
     )
+
+
+async def select_attack_direction(event: events.NewMessage.Event) -> None:
+    logging.info('call select attack command')
+    # todo throttling
+    options = get_buttons_flat(event)[:5]
+    logging.debug('attack options %s', options)
+    if not options:
+        raise InvalidMessageError('Attack selector buttons not found.')
+
+    select = random.choice(options)
+    await client.send_message(
+        entity=event.chat_id,
+        message=select.text,
+    )

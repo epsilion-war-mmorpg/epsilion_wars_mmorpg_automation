@@ -5,9 +5,16 @@ import time
 
 from telethon import events, types
 
-from app.actions import complete_battle, ping, search_enemy, select_defence_direction
-from app.message_parsers import is_died_state, is_hp_full_message, is_hunting_ready_message, is_win_state, \
-    parse_hp_level, is_selector_defence_direction
+from app.actions import complete_battle, ping, search_enemy, select_attack_direction, select_defence_direction
+from app.message_parsers import (
+    is_died_state,
+    is_hp_full_message,
+    is_hunting_ready_message,
+    is_selector_attack_direction,
+    is_selector_defence_direction,
+    is_win_state,
+    parse_hp_level,
+)
 from app.settings import app_settings
 from app.telegram_client import client
 
@@ -62,8 +69,8 @@ async def _grind_handler(event: events.NewMessage.Event) -> None:
         logging.info('is full HP message')
         await search_enemy(event)
 
-    # elif is_selector_attack_direction(event):
-    #     await select_attack_direction(event)
+    elif is_selector_attack_direction(event):
+        await select_attack_direction(event)
 
     elif is_selector_defence_direction(event):
         await select_defence_direction(event)

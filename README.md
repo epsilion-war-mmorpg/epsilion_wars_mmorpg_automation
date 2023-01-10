@@ -9,11 +9,10 @@
 - mvp - simple grinding
 - mvp - random awaits
 - mvp - use combos
-- CI
-- update run docs (use telegram api-key)
-- mvp - counters
-- mvp - graceful shutdown 
+- CI + badges
 - nice runner like `poetry run grinding 10`
+- update quick start
+- record a demo gif
 
 
 ### Pre-requirements
