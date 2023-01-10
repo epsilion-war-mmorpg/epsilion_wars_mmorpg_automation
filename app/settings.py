@@ -7,9 +7,9 @@ from pydantic import BaseSettings, Field
 class AppSettings(BaseSettings):
     """Application settings class."""
 
+    telegram_api_id: int = 123456
+    telegram_api_hash: str = 'u_api_hash_here'
     debug: bool = Field(default=False, description='Logging level')
-    telegram_api_id: int
-    telegram_api_hash: str
     game_username: str = 'EpsilionWarBot'
     minimum_hp_level_for_grinding: int = 70
     ping_message: str = '/me'
