@@ -12,6 +12,7 @@ class AppSettings(BaseSettings):
     telegram_api_hash: str
     game_username: str = 'EpsilionWarBot'
     minimum_hp_level_for_grinding: int = 70
+    ping_message: str = '/me'
 
 
 app_settings = AppSettings(

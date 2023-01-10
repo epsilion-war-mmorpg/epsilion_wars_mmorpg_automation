@@ -5,6 +5,7 @@ from telethon import events
 
 from app.buttons import COMPLETE_BATTLE, SEARCH_ENEMY, get_buttons_flat
 from app.exceptions import InvalidMessageError
+from app.settings import app_settings
 from app.telegram_client import client
 
 
@@ -31,7 +32,7 @@ async def ping(game_bot_id: int) -> None:
     # todo throttling
     await client.send_message(
         entity=game_bot_id,
-        message='/me',
+        message=app_settings.ping_message,
     )
 
 
