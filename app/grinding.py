@@ -6,7 +6,7 @@ from typing import Callable
 
 from telethon import events, types
 
-from app.actions import complete_battle, ping, search_enemy, select_attack_direction, select_defence_direction
+from app.actions import complete_battle, ping, search_enemy, select_attack_direction, select_combo, select_defence_direction
 from app.message_parsers import checks, parsers
 from app.settings import app_settings
 from app.telegram_client import client
@@ -52,12 +52,15 @@ async def _grind_handler(event: events.NewMessage.Event) -> None:
     message_content = parsers.strip_message(event.message.message)
     logging.info('handle event %s', message_content[:app_settings.message_log_limit])
 
+    await event.message.mark_read()
+
     select_callback = _select_action_by_event(event)
     await select_callback(event)
 
 
 def _select_action_by_event(event: events.NewMessage.Event) -> Callable:
     mapping = [
+        (checks.is_selector_combo, select_combo),
         (checks.is_selector_attack_direction, select_attack_direction),
         (checks.is_selector_defence_direction, select_defence_direction),
         (checks.is_hp_full_message, search_enemy),

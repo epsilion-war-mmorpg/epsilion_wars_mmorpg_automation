@@ -1,5 +1,6 @@
 [flake8]
 max-line-length = 125
+max-module-members = 9
 
 ignore =
     DAR101,  # Missing parameter(s) in Docstring
@@ -13,6 +14,8 @@ ignore =
 
 per-file-ignores =
     #  WPS420 Found wrong keyword: pass
+    #  WPS432 Found magic number
     #  WPS604 Found incorrect node inside `class` body
 
     app/exceptions.py: WPS420, WPS604
+    app/settings.py: WPS432,

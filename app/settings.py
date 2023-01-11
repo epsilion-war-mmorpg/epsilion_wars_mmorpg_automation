@@ -11,7 +11,7 @@ class AppSettings(BaseSettings):
     telegram_api_hash: str = 'u_api_hash_here'
     debug: bool = Field(default=False, description='Logging level')
     game_username: str = 'EpsilionWarBot'
-    minimum_hp_level_for_grinding: int = 70
+    minimum_hp_level_for_grinding: int = Field(default=70, ge=1, le=100)
     ping_message: str = '/me'
     message_log_limit: int = 100
 

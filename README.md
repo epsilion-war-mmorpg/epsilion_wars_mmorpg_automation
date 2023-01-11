@@ -11,6 +11,8 @@
 ### TODO
 - nice runner like `poetry run grinding 10`
 - update quick start
+- sigint and shutdown by time
+- counters
 - record a demo gif
 
 
