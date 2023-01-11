@@ -8,6 +8,7 @@ from telethon import events, types
 
 from epsilion_wars_mmorpg_automation.actions import (
     complete_battle,
+    healing,
     ping,
     search_enemy,
     select_attack_direction,
@@ -21,7 +22,12 @@ from epsilion_wars_mmorpg_automation.telegram_client import client
 
 async def main(execution_limit_minutes: int | None = None) -> None:
     """Grinding runner."""
-    logging.info('start grinding (%s minutes)', execution_limit_minutes or 'infinite')
+    local_settings = {
+        'execution_limit_minutes': execution_limit_minutes or 'infinite',
+        'minimum_hp_level_for_grinding': app_settings.minimum_hp_level_for_grinding,
+        'auto_healing_enabled': app_settings.auto_healing_enabled,
+    }
+    logging.info(f'start grinding ({local_settings=})')
     logging.info('move u character to hunting location first')
 
     me = await client.get_me()
@@ -62,6 +68,7 @@ async def _grind_handler(event: events.NewMessage.Event) -> None:
     await event.message.mark_read()
 
     select_callback = _select_action_by_event(event)
+
     await select_callback(event)
 
 
@@ -70,9 +77,9 @@ def _select_action_by_event(event: events.NewMessage.Event) -> Callable:
         (checks.is_selector_combo, select_combo),
         (checks.is_selector_attack_direction, select_attack_direction),
         (checks.is_selector_defence_direction, select_defence_direction),
-        (checks.is_hp_full_message, search_enemy),
         (checks.is_win_state, complete_battle),
         (checks.is_died_state, _end_game),
+        (checks.is_hp_updated_message, ping),
         (checks.is_hunting_ready_message, _hunting_optional),
     ]
 
@@ -93,8 +100,11 @@ async def _hunting_optional(event: events.NewMessage.Event) -> None:
         message_content=parsers.strip_message(event.message.message),
     )
     logging.info('current HP level is %d%%', hp_level_percent)
+
     if hp_level_percent >= app_settings.minimum_hp_level_for_grinding:
         await search_enemy(event)
+    elif app_settings.auto_healing_enabled:
+        await healing(event)
 
 
 async def _skip_event(event: events.NewMessage.Event) -> None:

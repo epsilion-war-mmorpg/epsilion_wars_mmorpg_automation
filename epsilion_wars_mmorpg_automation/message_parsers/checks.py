@@ -17,9 +17,18 @@ def is_hunting_ready_message(event: events.NewMessage.Event) -> bool:
     return 'можно встретить врагов' in event.message.message.strip().lower()
 
 
-def is_hp_full_message(event: events.NewMessage.Event) -> bool:
-    """HP is full message."""
-    return 'ваше здоровье полностью восстановлено' in event.message.message.strip().lower()
+def is_hp_updated_message(event: events.NewMessage.Event) -> bool:
+    """HP updated message."""
+    message = event.message.message.strip().lower()
+    patterns = {
+        'ваше здоровье полностью восстановлено',
+        'ваше здоровье восстановлено',
+        'ед. здоровья. текущее здоровье:',  # after success use heal pot
+    }
+    for pattern in patterns:
+        if pattern in message:
+            return True
+    return False
 
 
 def is_died_state(event: events.NewMessage.Event) -> bool:
