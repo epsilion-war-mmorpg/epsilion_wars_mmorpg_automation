@@ -54,8 +54,15 @@ def is_selector_attack_direction(event: events.NewMessage.Event) -> bool:
         return False
 
     message_content = event.message.message.strip()
-    if 'Куда будешь бить?' not in message_content and 'Ход' not in message_content:
-        # missed buttons
+    patterns = [
+        'Куда будешь бить?',
+        'Ход',
+        'Куда бить?',
+    ]
+    is_message_valid = any([
+        pattern in message_content for pattern in patterns
+    ])
+    if not is_message_valid:
         return False
 
     return found_buttons[5].text == RUN_OUT_OF_BATTLE and found_buttons[0].text == ATTACK_HEAD

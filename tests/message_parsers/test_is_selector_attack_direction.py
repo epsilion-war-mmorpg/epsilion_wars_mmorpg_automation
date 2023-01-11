@@ -5,7 +5,11 @@ import pytest
 from epsilion_wars_mmorpg_automation.message_parsers.checks import is_selector_attack_direction
 
 
-@pytest.mark.parametrize('payload', ['Ход 6\n', 'Куда будешь бить?'])
+@pytest.mark.parametrize('payload', [
+    'Ход 6\n',
+    'Куда будешь бить?',
+    'Куда бить?',
+])
 def test_is_selector_attack_direction_happy_path(payload: str):
     button_first = Mock()
     button_first.text = 'В голову'
