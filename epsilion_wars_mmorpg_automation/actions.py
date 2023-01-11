@@ -5,11 +5,11 @@ import random
 
 from telethon import events
 
-from app.buttons import COMPLETE_BATTLE, SEARCH_ENEMY, get_buttons_flat
-from app.exceptions import InvalidMessageError
-from app.settings import app_settings
-from app.telegram_client import client
-from app.wait_utils import wait_for
+from epsilion_wars_mmorpg_automation.buttons import COMPLETE_BATTLE, SEARCH_ENEMY, get_buttons_flat
+from epsilion_wars_mmorpg_automation.exceptions import InvalidMessageError
+from epsilion_wars_mmorpg_automation.settings import app_settings
+from epsilion_wars_mmorpg_automation.telegram_client import client
+from epsilion_wars_mmorpg_automation.wait_utils import wait_for
 
 
 async def search_enemy(event: events.NewMessage.Event) -> None:

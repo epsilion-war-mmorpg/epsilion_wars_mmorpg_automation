@@ -17,5 +17,5 @@ per-file-ignores =
     #  WPS432 Found magic number
     #  WPS604 Found incorrect node inside `class` body
 
-    app/exceptions.py: WPS420, WPS604
-    app/settings.py: WPS432,
+    epsilion_wars_mmorpg_automation/exceptions.py: WPS420, WPS604
+    epsilion_wars_mmorpg_automation/settings.py: WPS432,

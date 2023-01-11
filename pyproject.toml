@@ -40,3 +40,7 @@ filterwarnings = [
 [tool.isort]
 line_length = 125
 profile = "black"
+
+
+[tool.poetry.scripts]
+grind = 'epsilion_wars_mmorpg_automation.cli:grind_start'

@@ -24,4 +24,4 @@ jobs:
 
     - name: Run tests
       run: |
-        poetry run pytest --cov app --cov-report=xml
+        poetry run pytest --cov=epsilion_wars_mmorpg_automation

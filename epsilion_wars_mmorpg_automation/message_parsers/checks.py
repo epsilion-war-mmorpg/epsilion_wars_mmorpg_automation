@@ -2,7 +2,14 @@
 
 from telethon import events
 
-from app.buttons import ATTACK_HEAD, COMPLETE_BATTLE, RIP, RUN_OUT_OF_BATTLE, SKIP, get_buttons_flat
+from epsilion_wars_mmorpg_automation.buttons import (
+    ATTACK_HEAD,
+    COMPLETE_BATTLE,
+    RIP,
+    RUN_OUT_OF_BATTLE,
+    SKIP,
+    get_buttons_flat,
+)
 
 
 def is_hunting_ready_message(event: events.NewMessage.Event) -> bool:

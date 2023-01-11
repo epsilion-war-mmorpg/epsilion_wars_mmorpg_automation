@@ -2,7 +2,7 @@ from unittest.mock import Mock
 
 import pytest
 
-from app.message_parsers.checks import is_died_state
+from epsilion_wars_mmorpg_automation.message_parsers.checks import is_died_state
 
 
 @pytest.mark.parametrize('button_text,expected', [

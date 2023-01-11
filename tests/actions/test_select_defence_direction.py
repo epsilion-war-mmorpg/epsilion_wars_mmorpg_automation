@@ -2,8 +2,8 @@ from unittest.mock import Mock
 
 import pytest
 
-from app.actions import select_defence_direction
-from app.exceptions import InvalidMessageError
+from epsilion_wars_mmorpg_automation.actions import select_defence_direction
+from epsilion_wars_mmorpg_automation.exceptions import InvalidMessageError
 
 
 async def test_select_defence_direction_happy_path(mocked_client_message_send):

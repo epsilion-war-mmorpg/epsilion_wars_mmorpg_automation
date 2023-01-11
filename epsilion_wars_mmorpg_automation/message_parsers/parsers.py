@@ -3,7 +3,7 @@
 import re
 from math import ceil
 
-from app.exceptions import InvalidMessageError
+from epsilion_wars_mmorpg_automation.exceptions import InvalidMessageError
 
 _hp_level_pattern = re.compile(r'❤️\((\d+)/(\d+)\)')
 

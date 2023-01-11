@@ -2,7 +2,7 @@ from unittest.mock import Mock
 
 import pytest
 
-from app.message_parsers.checks import is_hp_full_message
+from epsilion_wars_mmorpg_automation.message_parsers.checks import is_hp_full_message
 
 
 @pytest.mark.parametrize('payload,expected', [

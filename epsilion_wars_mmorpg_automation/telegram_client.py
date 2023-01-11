@@ -2,7 +2,7 @@
 
 from telethon import TelegramClient
 
-from app.settings import app_settings
+from epsilion_wars_mmorpg_automation.settings import app_settings
 
 client = TelegramClient(
     session='.epsilion_automation_session',

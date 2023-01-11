@@ -6,15 +6,22 @@ from typing import Callable
 
 from telethon import events, types
 
-from app.actions import complete_battle, ping, search_enemy, select_attack_direction, select_combo, select_defence_direction
-from app.message_parsers import checks, parsers
-from app.settings import app_settings
-from app.telegram_client import client
+from epsilion_wars_mmorpg_automation.actions import (
+    complete_battle,
+    ping,
+    search_enemy,
+    select_attack_direction,
+    select_combo,
+    select_defence_direction,
+)
+from epsilion_wars_mmorpg_automation.message_parsers import checks, parsers
+from epsilion_wars_mmorpg_automation.settings import app_settings
+from epsilion_wars_mmorpg_automation.telegram_client import client
 
 
 async def main(execution_limit_minutes: int | None = None) -> None:
     """Grinding runner."""
-    logging.info('start grinding (%d)', execution_limit_minutes)
+    logging.info('start grinding (%s minutes)', execution_limit_minutes or 'infinite')
     logging.info('move u character to hunting location first')
 
     me = await client.get_me()
@@ -92,17 +99,3 @@ async def _hunting_optional(event: events.NewMessage.Event) -> None:
 
 async def _skip_event(event: events.NewMessage.Event) -> None:
     logging.debug('skip event')
-
-
-if __name__ == '__main__':
-    # todo getopt timelimit
-    # todo getopt debug
-    max_time = 25
-
-    logging.basicConfig(
-        level=logging.DEBUG if app_settings.debug else logging.INFO,
-        format='%(asctime)s %(levelname)-8s %(message)s',  # noqa: WPS323
-    )
-
-    with client:
-        client.loop.run_until_complete(main(max_time))
