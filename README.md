@@ -1,5 +1,5 @@
 # Epsilion Trainer
----
+
 [![tests](https://github.com/esemi/epsilion_wars_mmorpg_automation/actions/workflows/tests.yml/badge.svg?branch=master)](https://github.com/esemi/epsilion_wars_mmorpg_automation/actions/workflows/tests.yml)
 [![linters](https://github.com/esemi/epsilion_wars_mmorpg_automation/actions/workflows/linters.yml/badge.svg?branch=master)](https://github.com/esemi/epsilion_wars_mmorpg_automation/actions/workflows/linters.yml)
 
@@ -37,12 +37,11 @@ EOF
 
 
 ### TODO
-- update github repo
 - stop grinding when equip loss
 - describe customer settings in readme
 - record a demo gif
 - publish as package
-- captcha handler "На пути ты встретил капчу"
+- captcha solver
 
 - desktop notifications about equip loss and battle failed
 - print counters

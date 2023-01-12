@@ -89,6 +89,13 @@ def is_win_state(event: events.NewMessage.Event) -> bool:
     return found_buttons[0].text == COMPLETE_BATTLE
 
 
+def is_captcha_state(event: events.NewMessage.Event) -> bool:
+    """Captcha shot."""
+    # todo test
+    message_content = event.message.message.strip()
+    return 'ты встретил капчу' in message_content
+
+
 def _is_already_ended_turn(event: events.NewMessage.Event) -> bool:
     """Last turn of ended battle."""
     message_content = event.message.message.strip()

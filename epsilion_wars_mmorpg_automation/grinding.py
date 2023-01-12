@@ -44,8 +44,8 @@ async def main(execution_limit_minutes: int | None = None) -> None:
     logging.info('end grinding by time left')
 
 
-def sigint_handler(current_signal, frame) -> None:  # type: ignore
-    """Handle keyboard interrupt signal."""
+def exit_handler(*args, **kwargs) -> None:  # type: ignore
+    """Stop training by captcha or keyboard interrupt signal."""
     global _has_stop_request  # noqa: WPS420, WPS442
     _has_stop_request = True  # noqa: WPS122, WPS442
 
@@ -82,6 +82,7 @@ async def _grind_handler(event: events.NewMessage.Event) -> None:
 
 def _select_action_by_event(event: events.NewMessage.Event) -> Callable:
     mapping = [
+        (checks.is_captcha_state, _captcha_event),
         (checks.is_selector_combo, actions.select_combo),
         (checks.is_selector_attack_direction, actions.select_attack_direction),
         (checks.is_selector_defence_direction, actions.select_defence_direction),
@@ -114,3 +115,8 @@ async def _hunting_optional(event: events.NewMessage.Event) -> None:
 
 async def _skip_event(event: events.NewMessage.Event) -> None:
     logging.debug('skip event')
+
+
+async def _captcha_event(event: events.NewMessage.Event) -> None:
+    logging.warning('captcha event shot!')
+    exit_handler()
