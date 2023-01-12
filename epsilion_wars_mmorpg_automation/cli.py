@@ -1,6 +1,7 @@
 """Command-line interface."""
 import argparse
 import logging
+import signal
 
 from epsilion_wars_mmorpg_automation import grinding
 from epsilion_wars_mmorpg_automation.settings import app_settings
@@ -21,6 +22,8 @@ def grind_start() -> None:
     args = parser.parse_args()
 
     _setup_logging()
+    signal.signal(signal.SIGINT, grinding.sigint_handler)
+
     with client:
         client.loop.run_until_complete(grinding.main(args.minutes_limit))
 

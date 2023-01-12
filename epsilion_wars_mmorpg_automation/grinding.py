@@ -6,18 +6,12 @@ from typing import Callable
 
 from telethon import events, types
 
-from epsilion_wars_mmorpg_automation.actions import (
-    complete_battle,
-    healing,
-    ping,
-    search_enemy,
-    select_attack_direction,
-    select_combo,
-    select_defence_direction,
-)
+from epsilion_wars_mmorpg_automation import actions
 from epsilion_wars_mmorpg_automation.message_parsers import checks, parsers
 from epsilion_wars_mmorpg_automation.settings import app_settings
 from epsilion_wars_mmorpg_automation.telegram_client import client
+
+_has_stop_request: bool = False
 
 
 async def main(execution_limit_minutes: int | None = None) -> None:
@@ -44,10 +38,15 @@ async def main(execution_limit_minutes: int | None = None) -> None:
         ),
     )
 
-    await ping(game_user.user_id)
+    await actions.ping(game_user.user_id)
 
     await _run_wait_loop(execution_limit_minutes)
     logging.info('end grinding by time left')
+
+
+def sigint_handler(current_signal, frame) -> None:  # type: ignore
+    global _has_stop_request
+    _has_stop_request = True
 
 
 async def _run_wait_loop(execution_limit_minutes: int | None) -> None:
@@ -55,9 +54,17 @@ async def _run_wait_loop(execution_limit_minutes: int | None) -> None:
     execution_time = float(0)
     time_limit = (execution_limit_minutes or 0) * 60
 
-    while not time_limit or execution_time < time_limit:
-        await asyncio.sleep(10)
-        logging.debug('next iteration')
+    while True:
+        if time_limit and execution_time >= time_limit:
+            logging.info('stop training by time left')
+            break
+
+        if _has_stop_request:
+            logging.info('stop training by request')
+            break
+
+        logging.debug('next wait iteration')
+        await asyncio.sleep(app_settings.wait_loop_iteration_seconds)
         execution_time = time.time() - start_time
 
 
@@ -74,12 +81,12 @@ async def _grind_handler(event: events.NewMessage.Event) -> None:
 
 def _select_action_by_event(event: events.NewMessage.Event) -> Callable:
     mapping = [
-        (checks.is_selector_combo, select_combo),
-        (checks.is_selector_attack_direction, select_attack_direction),
-        (checks.is_selector_defence_direction, select_defence_direction),
-        (checks.is_win_state, complete_battle),
+        (checks.is_selector_combo, actions.select_combo),
+        (checks.is_selector_attack_direction, actions.select_attack_direction),
+        (checks.is_selector_defence_direction, actions.select_defence_direction),
+        (checks.is_win_state, actions.complete_battle),
         (checks.is_died_state, _end_game),
-        (checks.is_hp_updated_message, ping),
+        (checks.is_hp_updated_message, actions.ping),
         (checks.is_hunting_ready_message, _hunting_optional),
     ]
 
@@ -92,7 +99,8 @@ def _select_action_by_event(event: events.NewMessage.Event) -> Callable:
 
 
 async def _end_game(event: events.NewMessage.Event) -> None:
-    raise RuntimeError('U died :RIP:')
+    logging.debug('u died - call stop')
+    # todo press return to town
 
 
 async def _hunting_optional(event: events.NewMessage.Event) -> None:
@@ -102,9 +110,10 @@ async def _hunting_optional(event: events.NewMessage.Event) -> None:
     logging.info('current HP level is %d%%', hp_level_percent)
 
     if hp_level_percent >= app_settings.minimum_hp_level_for_grinding:
-        await search_enemy(event)
+        await actions.search_enemy(event)
+
     elif app_settings.auto_healing_enabled:
-        await healing(event)
+        await actions.healing(event)
 
 
 async def _skip_event(event: events.NewMessage.Event) -> None:

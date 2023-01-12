@@ -8,6 +8,8 @@ Epsilion Trainer is an automated tool that allows users to quickly and easily le
 It will automatically control your character in the monster hunt area, instantly earning experience points, money and items.
 With Epsilion Trainer, you can quickly become the strongest player on the server.
 
+Good guide about grinding [here](https://teletype.in/@nathan_banana/3VVnxGQdp). 
+
 ### Setup
 To run the Epsilion Trainer for the first time, you will need to:
 1. Install [Python 3.11 or later](https://www.python.org/downloads/).
@@ -17,31 +19,34 @@ To run the Epsilion Trainer for the first time, you will need to:
 ```shell
 git clone https://github.com/esemi/epsilion_wars_mmorpg_automation.git
 cd epsilion_wars_mmorpg_automation
-python3.11 -m venv venv
-source venv/bin/activate
-pip install -U poetry pip setuptools
+pip install -U poetry
 poetry install --only main
-
 ```
-5. Place the Telegram credentials (from step #2) in the .env file
+
+5. Place the Telegram credentials (from step #2) in the `.env` file
 ```shell
 cat > .env << EOF
-telegram_api_id=%U_API_ID%
-telegram_api_hash=%U_API_HASH%
+telegram_api_id=U_API_ID
+telegram_api_hash=U_API_HASH
 EOF
 ```
 
-### Run:
+### Run grind:
 1. Use `poetry run grind -t 30` to start a workout with a time limit of thirty minutes.
 2. To start a workout indefinitely, use `poetry run grind` without the -t flag
 
 
 ### TODO
-- record a demo gif
+- use combos by order (versus random choice)
 - update github repo
-- sigint and shutdown by time
-- counters
+- stop grinding when equip loss
+- describe customer settings in readme
+- record a demo gif
 - publish as package
+
+- desktop notifications about equip loss and battle failed
+- print counters
+- send stats to me
 
 
 ### Local run linters and tests
