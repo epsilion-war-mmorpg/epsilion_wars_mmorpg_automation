@@ -85,7 +85,7 @@ def _select_action_by_event(event: events.NewMessage.Event) -> Callable:
         (checks.is_selector_attack_direction, actions.select_attack_direction),
         (checks.is_selector_defence_direction, actions.select_defence_direction),
         (checks.is_win_state, actions.complete_battle),
-        (checks.is_died_state, _end_game),
+        (checks.is_died_state, actions.complete_battle),
         (checks.is_hp_updated_message, actions.ping),
         (checks.is_hunting_ready_message, _hunting_optional),
     ]
@@ -96,11 +96,6 @@ def _select_action_by_event(event: events.NewMessage.Event) -> Callable:
             return callback_function
 
     return _skip_event
-
-
-async def _end_game(event: events.NewMessage.Event) -> None:
-    logging.debug('u died - call stop')
-    # todo press return to town
 
 
 async def _hunting_optional(event: events.NewMessage.Event) -> None:

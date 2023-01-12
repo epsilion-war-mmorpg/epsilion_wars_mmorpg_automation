@@ -43,6 +43,7 @@ EOF
 - describe customer settings in readme
 - record a demo gif
 - publish as package
+- captcha handler "На пути ты встретил капчу"
 
 - desktop notifications about equip loss and battle failed
 - print counters

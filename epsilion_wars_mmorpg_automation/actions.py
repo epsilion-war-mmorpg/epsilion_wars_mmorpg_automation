@@ -25,11 +25,13 @@ async def search_enemy(event: events.NewMessage.Event) -> None:
 
 async def complete_battle(event: events.NewMessage.Event) -> None:
     """Get rewards after battle."""
-    logging.info('call complete battle command')
-    await wait_for(1, 1)
+    option = get_buttons_flat(event)[-1]
+    logging.info('call complete battle command (%s)', option.text)
+
+    await wait_for(1, 3)
     await client.send_message(
         entity=event.chat_id,
-        message=COMPLETE_BATTLE,
+        message=option.text,
     )
 
 
