@@ -5,7 +5,7 @@ import random
 
 from telethon import events
 
-from epsilion_wars_mmorpg_automation.buttons import COMPLETE_BATTLE, SEARCH_ENEMY, get_buttons_flat
+from epsilion_wars_mmorpg_automation.buttons import SEARCH_ENEMY, get_buttons_flat
 from epsilion_wars_mmorpg_automation.exceptions import InvalidMessageError
 from epsilion_wars_mmorpg_automation.message_parsers import parsers
 from epsilion_wars_mmorpg_automation.settings import app_settings
@@ -90,11 +90,10 @@ async def select_combo(event: events.NewMessage.Event) -> None:
     if not options:
         raise InvalidMessageError('Combo selector buttons not found.')
 
-    select = random.choice(options)
     await wait_for(1, 3)
     await client.send_message(
         entity=event.chat_id,
-        message=select.text,
+        message=options[0].text,
     )
 
 

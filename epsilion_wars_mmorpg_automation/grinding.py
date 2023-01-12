@@ -45,8 +45,9 @@ async def main(execution_limit_minutes: int | None = None) -> None:
 
 
 def sigint_handler(current_signal, frame) -> None:  # type: ignore
-    global _has_stop_request
-    _has_stop_request = True
+    """Handle keyboard interrupt signal."""
+    global _has_stop_request  # noqa: WPS420, WPS442
+    _has_stop_request = True  # noqa: WPS122, WPS442
 
 
 async def _run_wait_loop(execution_limit_minutes: int | None) -> None:

@@ -37,7 +37,6 @@ EOF
 
 
 ### TODO
-- use combos by order (versus random choice)
 - update github repo
 - stop grinding when equip loss
 - describe customer settings in readme
