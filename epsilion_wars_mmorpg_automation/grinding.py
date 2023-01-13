@@ -20,6 +20,7 @@ async def main(execution_limit_minutes: int | None = None) -> None:
         'execution_limit_minutes': execution_limit_minutes or 'infinite',
         'minimum_hp_level_for_grinding': app_settings.minimum_hp_level_for_grinding,
         'auto_healing_enabled': app_settings.auto_healing_enabled,
+        'stop_if_equip_broken': app_settings.stop_if_equip_broken,
     }
     logging.info(f'start grinding ({local_settings=})')
     logging.info('move u character to hunting location first')
@@ -41,13 +42,14 @@ async def main(execution_limit_minutes: int | None = None) -> None:
     await actions.ping(game_user.user_id)
 
     await _run_wait_loop(execution_limit_minutes)
-    logging.info('end grinding by time left')
+    logging.info('end grinding')
 
 
 def exit_handler(*args, **kwargs) -> None:  # type: ignore
     """Stop training by captcha or keyboard interrupt signal."""
     global _has_stop_request  # noqa: WPS420, WPS442
     _has_stop_request = True  # noqa: WPS122, WPS442
+    logging.info('force exit')
 
 
 async def _run_wait_loop(execution_limit_minutes: int | None) -> None:
@@ -83,6 +85,7 @@ async def _grind_handler(event: events.NewMessage.Event) -> None:
 def _select_action_by_event(event: events.NewMessage.Event) -> Callable:
     mapping = [
         (checks.is_captcha_state, _captcha_event),
+        (checks.is_equip_broken_message, _equip_broken_event),
         (checks.is_selector_combo, actions.select_combo),
         (checks.is_selector_attack_direction, actions.select_attack_direction),
         (checks.is_selector_defence_direction, actions.select_defence_direction),
@@ -120,3 +123,9 @@ async def _skip_event(event: events.NewMessage.Event) -> None:
 async def _captcha_event(event: events.NewMessage.Event) -> None:
     logging.warning('captcha event shot!')
     exit_handler()
+
+
+async def _equip_broken_event(event: events.NewMessage.Event) -> None:
+    logging.info('equip broken event')
+    if app_settings.stop_if_equip_broken:
+        exit_handler()

@@ -37,21 +37,12 @@ EOF
 
 
 ### TODO
-- stop grinding when equip loss
-- describe customer settings in readme
+- desktop notifications about equip loss, battle failed, captcha check
+- captcha solver - simple text math
+- captcha solver - simple text grammarly
+- captcha solver - image
 - record a demo gif
+- describe customer settings in readme
 - publish as package
-- captcha solver
-
-- desktop notifications about equip loss and battle failed
-- print counters
-- send stats to me
-
-
-### Local run linters and tests
-```shell
-poetry install
-poetry run flake8 epsilion_wars_mmorpg_automation/
-poetry run mypy epsilion_wars_mmorpg_automation/
-poetry run pytest
-```
+- display training stats every 15 min and at the end
+- send usage stats
