@@ -37,7 +37,7 @@ EOF
 
 
 ### TODO
-- desktop notifications about equip loss, battle failed, captcha check
+- desktop notifications about equip loss, battle start, battle end, captcha fire
 - captcha solver - simple text math
 - captcha solver - simple text grammarly
 - captcha solver - image

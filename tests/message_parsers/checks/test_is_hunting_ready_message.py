@@ -2,7 +2,7 @@ from unittest.mock import Mock
 
 import pytest
 
-from epsilion_wars_mmorpg_automation.message_parsers.checks import is_hunting_ready_message
+from epsilion_wars_mmorpg_automation.parsers.checks.messages import is_hunting_ready_message
 
 
 @pytest.mark.parametrize('payload,expected', [

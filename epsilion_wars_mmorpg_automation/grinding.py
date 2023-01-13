@@ -7,7 +7,8 @@ from typing import Callable
 from telethon import events, types
 
 from epsilion_wars_mmorpg_automation import actions
-from epsilion_wars_mmorpg_automation.message_parsers import checks, parsers
+from epsilion_wars_mmorpg_automation.parsers import parsers
+from epsilion_wars_mmorpg_automation.parsers.checks import messages, states
 from epsilion_wars_mmorpg_automation.settings import app_settings
 from epsilion_wars_mmorpg_automation.telegram_client import client
 
@@ -84,15 +85,15 @@ async def _grind_handler(event: events.NewMessage.Event) -> None:
 
 def _select_action_by_event(event: events.NewMessage.Event) -> Callable:
     mapping = [
-        (checks.is_captcha_state, _captcha_event),
-        (checks.is_equip_broken_message, _equip_broken_event),
-        (checks.is_selector_combo, actions.select_combo),
-        (checks.is_selector_attack_direction, actions.select_attack_direction),
-        (checks.is_selector_defence_direction, actions.select_defence_direction),
-        (checks.is_win_state, actions.complete_battle),
-        (checks.is_died_state, actions.complete_battle),
-        (checks.is_hp_updated_message, actions.ping),
-        (checks.is_hunting_ready_message, _hunting_optional),
+        (messages.is_captcha_message, _captcha_event),
+        (messages.is_equip_broken_message, _equip_broken_event),
+        (states.is_selector_combo, actions.select_combo),
+        (states.is_selector_attack_direction, actions.select_attack_direction),
+        (states.is_selector_defence_direction, actions.select_defence_direction),
+        (states.is_win_state, actions.complete_battle),
+        (states.is_died_state, actions.complete_battle),
+        (messages.is_hp_updated_message, actions.ping),
+        (messages.is_hunting_ready_message, _hunting_optional),
     ]
 
     for check_function, callback_function in mapping:
@@ -105,7 +106,7 @@ def _select_action_by_event(event: events.NewMessage.Event) -> Callable:
 
 async def _hunting_optional(event: events.NewMessage.Event) -> None:
     hp_level_percent = parsers.get_hp_level(
-        message_content=parsers.strip_message(event.message.message),
+        message_content=event.message.message,
     )
     logging.info('current HP level is %d%%', hp_level_percent)
 
@@ -122,7 +123,8 @@ async def _skip_event(event: events.NewMessage.Event) -> None:
 
 async def _captcha_event(event: events.NewMessage.Event) -> None:
     logging.warning('captcha event shot!')
-    exit_handler()
+    if app_settings.stop_if_captcha_fire:
+        exit_handler()
 
 
 async def _equip_broken_event(event: events.NewMessage.Event) -> None:

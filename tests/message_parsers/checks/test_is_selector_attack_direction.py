@@ -2,7 +2,7 @@ from unittest.mock import Mock
 
 import pytest
 
-from epsilion_wars_mmorpg_automation.message_parsers.checks import is_selector_attack_direction
+from epsilion_wars_mmorpg_automation.parsers.checks.states import is_selector_attack_direction
 
 
 @pytest.mark.parametrize('payload', [

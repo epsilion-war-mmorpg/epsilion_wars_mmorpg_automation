@@ -2,7 +2,7 @@ from unittest.mock import Mock
 
 import pytest
 
-from epsilion_wars_mmorpg_automation.message_parsers.checks import is_captcha_state
+from epsilion_wars_mmorpg_automation.parsers.checks.messages import is_captcha_message
 
 
 @pytest.mark.parametrize('payload,expected', [
@@ -13,6 +13,6 @@ def test_is_captcha_state(payload: str, expected: bool):
     event_mock = Mock()
     event_mock.message.message = payload
 
-    result = is_captcha_state(event_mock)
+    result = is_captcha_message(event_mock)
 
     assert result is expected

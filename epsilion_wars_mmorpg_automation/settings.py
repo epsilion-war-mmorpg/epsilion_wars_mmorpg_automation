@@ -13,6 +13,7 @@ class AppSettings(BaseSettings):
     minimum_hp_level_for_grinding: int = Field(default=75, ge=1, le=100)
     auto_healing_enabled: bool = True
     stop_if_equip_broken: bool = True
+    stop_if_captcha_fire: bool = True
     ping_message: str = '/me'
 
     # developer settings

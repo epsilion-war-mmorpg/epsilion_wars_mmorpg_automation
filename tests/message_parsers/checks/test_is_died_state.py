@@ -2,20 +2,20 @@ from unittest.mock import Mock
 
 import pytest
 
-from epsilion_wars_mmorpg_automation.message_parsers.checks import is_win_state
+from epsilion_wars_mmorpg_automation.parsers.checks.states import is_died_state
 
 
 @pytest.mark.parametrize('button_text,expected', [
     ('Непонятная кнопка', False),
-    ('✅ Забрать нaграду', True),
+    ('💀 Принять участь', True),
 ])
-def test_is_win_state(button_text: str, expected: bool):
+def test_is_died_state(button_text: str, expected: bool):
     button = Mock()
     button.text = button_text
     event_mock = Mock()
     event_mock.message.button_count = 1
     event_mock.message.buttons = [[button]]
 
-    result = is_win_state(event_mock)
+    result = is_died_state(event_mock)
 
     assert result is expected

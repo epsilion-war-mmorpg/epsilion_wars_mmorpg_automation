@@ -11,7 +11,7 @@ _character_level_pattern = re.compile(r'(\d+)[\s]{0,}❤️\(\d+/\d+\)')
 
 def get_hp_level(message_content: str) -> int:
     """Get current HP in percent."""
-    found = _hp_level_pattern.search(message_content.strip(), re.MULTILINE)
+    found = _hp_level_pattern.search(strip_message(message_content), re.MULTILINE)
     if not found:
         raise InvalidMessageError('HP not found')
 
@@ -21,7 +21,7 @@ def get_hp_level(message_content: str) -> int:
 
 def get_character_level(message_content: str) -> int:
     """Get character level."""
-    found = _character_level_pattern.search(message_content.strip(), re.MULTILINE)
+    found = _character_level_pattern.search(strip_message(message_content), re.MULTILINE)
     if not found:
         raise InvalidMessageError('Level not found')
 
@@ -30,4 +30,4 @@ def get_character_level(message_content: str) -> int:
 
 def strip_message(original_message: str) -> str:
     """Return message content without EOL symbols."""
-    return original_message.strip().replace('\n', ' ')
+    return original_message.replace('\n', ' ').strip().lower()

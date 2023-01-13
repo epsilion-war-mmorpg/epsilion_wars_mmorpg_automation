@@ -7,7 +7,7 @@ from telethon import events
 
 from epsilion_wars_mmorpg_automation.buttons import SEARCH_ENEMY, get_buttons_flat
 from epsilion_wars_mmorpg_automation.exceptions import InvalidMessageError
-from epsilion_wars_mmorpg_automation.message_parsers import parsers
+from epsilion_wars_mmorpg_automation.parsers import parsers
 from epsilion_wars_mmorpg_automation.settings import app_settings
 from epsilion_wars_mmorpg_automation.telegram_client import client
 from epsilion_wars_mmorpg_automation.wait_utils import wait_for
@@ -101,9 +101,8 @@ async def healing(event: events.NewMessage.Event) -> None:
     """Try to use heal pots if needed."""
     logging.info('call healing command')
 
-    message_content = parsers.strip_message(event.message.message)
-    hp_level_percent = parsers.get_hp_level(message_content)
-    character_level = parsers.get_character_level(message_content)
+    hp_level_percent = parsers.get_hp_level(event.message.message)
+    character_level = parsers.get_character_level(event.message.message)
     logging.info('HP and character level is [%d%%; %d]', hp_level_percent, character_level)
 
     if character_level >= app_settings.character_high_level_threshold:
