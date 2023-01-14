@@ -37,7 +37,7 @@ EOF
 
 
 ### TODO
-- desktop notifications about equip loss, battle start, battle end, captcha fire
+- stop grinding on prison
 - captcha solver - simple text math
 - captcha solver - simple text grammarly
 - captcha solver - image

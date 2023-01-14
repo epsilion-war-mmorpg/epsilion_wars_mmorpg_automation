@@ -6,7 +6,7 @@ from typing import Callable
 
 from telethon import events, types
 
-from epsilion_wars_mmorpg_automation import actions
+from epsilion_wars_mmorpg_automation import actions, notifications
 from epsilion_wars_mmorpg_automation.parsers import parsers
 from epsilion_wars_mmorpg_automation.parsers.checks import messages, states
 from epsilion_wars_mmorpg_automation.settings import app_settings
@@ -22,6 +22,8 @@ async def main(execution_limit_minutes: int | None = None) -> None:
         'minimum_hp_level_for_grinding': app_settings.minimum_hp_level_for_grinding,
         'auto_healing_enabled': app_settings.auto_healing_enabled,
         'stop_if_equip_broken': app_settings.stop_if_equip_broken,
+        'stop_if_captcha_fire': app_settings.stop_if_captcha_fire,
+        'notifications_enabled': app_settings.notifications_enabled,
     }
     logging.info(f'start grinding ({local_settings=})')
     logging.info('move u character to hunting location first')
@@ -87,11 +89,12 @@ def _select_action_by_event(event: events.NewMessage.Event) -> Callable:
     mapping = [
         (messages.is_captcha_message, _captcha_event),
         (messages.is_equip_broken_message, _equip_broken_event),
+        (messages.is_battle_start_message, _battle_start_event),
         (states.is_selector_combo, actions.select_combo),
         (states.is_selector_attack_direction, actions.select_attack_direction),
         (states.is_selector_defence_direction, actions.select_defence_direction),
-        (states.is_win_state, actions.complete_battle),
-        (states.is_died_state, actions.complete_battle),
+        (states.is_win_state, _battle_end_event),
+        (states.is_died_state, _battle_end_event),
         (messages.is_hp_updated_message, actions.ping),
         (messages.is_hunting_ready_message, _hunting_optional),
     ]
@@ -117,17 +120,46 @@ async def _hunting_optional(event: events.NewMessage.Event) -> None:
         await actions.healing(event)
 
 
+async def _battle_start_event(event: events.NewMessage.Event) -> None:
+    if app_settings.notifications_enabled:
+        await notifications.send_desktop_notify(
+            message='battle start\n"{0}"'.format(event.message.message),
+        )
+    # force recall battle start message
+    await actions.ping(event)
+
+
+async def _battle_end_event(event: events.NewMessage.Event) -> None:
+    await actions.complete_battle(event)
+    if app_settings.notifications_enabled:
+        await notifications.send_desktop_notify(
+            message='battle end\n"{0}"'.format(event.message.message),
+        )
+
+
 async def _skip_event(event: events.NewMessage.Event) -> None:
     logging.debug('skip event')
 
 
 async def _captcha_event(event: events.NewMessage.Event) -> None:
     logging.warning('captcha event shot!')
+    if app_settings.notifications_enabled:
+        notify_message = parsers.strip_message(event.message.message)
+        await notifications.send_desktop_notify(
+            message=f'captcha fire!\n"{notify_message}"',
+        )
+
     if app_settings.stop_if_captcha_fire:
         exit_handler()
 
 
 async def _equip_broken_event(event: events.NewMessage.Event) -> None:
     logging.info('equip broken event')
+    if app_settings.notifications_enabled:
+        notify_message = parsers.strip_message(event.message.message)
+        await notifications.send_desktop_notify(
+            message=f'equip is broken!\n"{notify_message}"',
+        )
+
     if app_settings.stop_if_equip_broken:
         exit_handler()

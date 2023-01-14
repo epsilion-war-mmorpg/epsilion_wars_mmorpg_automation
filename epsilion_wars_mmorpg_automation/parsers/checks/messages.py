@@ -3,21 +3,23 @@
 
 from telethon import events
 
+from epsilion_wars_mmorpg_automation.parsers.parsers import strip_message
+
 
 def is_hunting_ready_message(event: events.NewMessage.Event) -> bool:
     """Ready for hunt."""
-    return 'можно встретить врагов' in event.message.message.strip().lower()
+    return 'можно встретить врагов' in strip_message(event.message.message)
 
 
 def is_equip_broken_message(event: events.NewMessage.Event) -> bool:
     """Equip broken message."""
-    message = event.message.message.strip().lower()
+    message = strip_message(event.message.message)
     return 'экипировка' in message and 'снята из-за поломки' in message
 
 
 def is_hp_updated_message(event: events.NewMessage.Event) -> bool:
     """HP updated message."""
-    message = event.message.message.strip().lower()
+    message = strip_message(event.message.message)
     patterns = {
         'ваше здоровье полностью восстановлено',
         'ваше здоровье восстановлено',
@@ -31,5 +33,9 @@ def is_hp_updated_message(event: events.NewMessage.Event) -> bool:
 
 def is_captcha_message(event: events.NewMessage.Event) -> bool:
     """Captcha shot."""
-    message_content = event.message.message.strip()
-    return 'ты встретил капчу' in message_content
+    return 'ты встретил капчу' in strip_message(event.message.message)
+
+
+def is_battle_start_message(event: events.NewMessage.Event) -> bool:
+    """Battle started."""
+    return 'ты и встретил своего врага' in strip_message(event.message.message)

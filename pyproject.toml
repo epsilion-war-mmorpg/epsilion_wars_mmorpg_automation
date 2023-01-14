@@ -10,6 +10,7 @@ python = "^3.11"
 telethon = "^1.26.1"
 cryptg = "^0.4.0"
 pydantic = {extras = ["dotenv"], version = "^1.10.4"}
+desktop-notifier = "^3.4.2"
 
 
 [tool.poetry.group.dev.dependencies]

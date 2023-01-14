@@ -11,6 +11,7 @@ from epsilion_wars_mmorpg_automation.buttons import (
     SKIP,
     get_buttons_flat,
 )
+from epsilion_wars_mmorpg_automation.parsers.parsers import strip_message
 
 
 def is_died_state(event: events.NewMessage.Event) -> bool:
@@ -23,7 +24,7 @@ def is_died_state(event: events.NewMessage.Event) -> bool:
 
 def is_selector_defence_direction(event: events.NewMessage.Event) -> bool:
     """Select defence."""
-    return 'что будешь блокировать?' in event.message.message.strip().lower()
+    return 'что будешь блокировать?' in strip_message(event.message.message)
 
 
 def is_selector_attack_direction(event: events.NewMessage.Event) -> bool:
