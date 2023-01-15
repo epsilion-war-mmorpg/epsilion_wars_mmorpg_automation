@@ -8,7 +8,10 @@ from epsilion_wars_mmorpg_automation.parsers.parsers import strip_message
 
 def is_hunting_ready_message(event: events.NewMessage.Event) -> bool:
     """Ready for hunt."""
-    return 'можно встретить врагов' in strip_message(event.message.message)
+    message = strip_message(event.message.message)
+    if 'тюрьма' in message:
+        return False
+    return 'можно встретить врагов' in message
 
 
 def is_equip_broken_message(event: events.NewMessage.Event) -> bool:

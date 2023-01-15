@@ -37,7 +37,6 @@ EOF
 
 
 ### TODO
-- stop grinding on prison
 - captcha solver - simple text math
 - captcha solver - simple text grammarly
 - captcha solver - image

@@ -7,6 +7,7 @@ from epsilion_wars_mmorpg_automation.parsers.checks.messages import is_hunting_r
 
 @pytest.mark.parametrize('payload,expected', [
     ('ololo', False),
+    ('Тюрьма /hunt_info\nВ локации можно встретить врагов.', False),
     ('❕ Информация: /hunt_info\nВ локации можно встретить врагов. Кто же будет следующим?', True),
 ])
 def test_is_hunting_ready_message(payload: str, expected: bool):
