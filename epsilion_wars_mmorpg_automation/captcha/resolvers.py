@@ -5,6 +5,7 @@ from typing import Callable
 
 from telethon import events
 
+from epsilion_wars_mmorpg_automation.captcha.game_specific import game_specific
 from epsilion_wars_mmorpg_automation.captcha.simple_math import simple_math
 
 
@@ -21,6 +22,7 @@ def try_resolve(event: events.NewMessage.Event) -> CaptchaAnswer:
     """Try to resolve captcha."""
     resolvers_enabled: list[Callable] = [
         simple_math,
+        game_specific,
     ]
 
     for resolver in resolvers_enabled:

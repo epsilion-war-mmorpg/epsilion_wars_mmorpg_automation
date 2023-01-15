@@ -7,6 +7,7 @@ from epsilion_wars_mmorpg_automation.captcha.resolvers import try_resolve
 
 @pytest.mark.parametrize('payload, expected', [
     ('unknown question', False),
+    ('На пути ты встретил капчу.\n столицa Эпсилионa - Нaпишите ответ с большой буквы.\n\n❓ Отправь ответ или отправишься в тюрьму. У тебя есть 90 секунд', True),
     ('На пути ты встретил капчу.\n 2 делить нa 2 - Нaпишите ответ числом.\n\n❓ Отправь ответ или отправишься в тюрьму. У тебя есть 90 секунд', True),
 ])
 def test_try_resolve_happy_path(payload: str, expected: bool):
