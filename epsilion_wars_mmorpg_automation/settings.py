@@ -32,7 +32,7 @@ class AppSettings(BaseSettings):
     character_high_level_threshold: int = 20
     character_middle_level_threshold: int = 10
     wait_loop_iteration_seconds: int = 5
-    desktop_notification_timeout: int = 5
+    desktop_notification_timeout: int = 10
 
 
 app_settings = AppSettings(

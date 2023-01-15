@@ -16,6 +16,8 @@ from epsilion_wars_mmorpg_automation.parsers.parsers import strip_message
 
 def is_died_state(event: events.NewMessage.Event) -> bool:
     """U died state."""
+    # fixme message after killed in PVP
+    #  "ты отправляешься в ближайший город на восстановление"
     found_buttons = get_buttons_flat(event)
     if len(found_buttons) != 1:
         return False

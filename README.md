@@ -37,11 +37,14 @@ EOF
 
 
 ### TODO
-- captcha solver - simple text math
-- captcha solver - simple text grammarly
-- captcha solver - image
+- captcha solver - simple text emoji 
+ 
+- captcha solver - image and anticaptcha
+- captcha solver - text and anticaptcha
+
 - record a demo gif
 - describe customer settings in readme
+
 - publish as package
 - display training stats every 15 min and at the end
 - send usage stats
