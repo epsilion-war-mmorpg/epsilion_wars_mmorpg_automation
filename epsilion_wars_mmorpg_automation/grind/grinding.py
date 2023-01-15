@@ -46,6 +46,11 @@ async def main(execution_limit_minutes: int | None = None) -> None:
     logging.info('end grinding')
 
 
+def setup_signals_handlers() -> None:
+    """Set up signal handlers."""
+    signal.signal(signal.SIGINT, loop.exit_request)
+
+
 async def _message_handler(event: events.NewMessage.Event) -> None:
     message_content = parsers.strip_message(event.message.message)
     logging.info('handle event %s', message_content[:app_settings.message_log_limit])
@@ -77,8 +82,3 @@ def _select_action_by_event(event: events.NewMessage.Event) -> Callable:
             return callback_function
 
     return handlers.skip_turn_handler
-
-
-def setup_signals_handlers() -> None:
-    """Set up signal handlers."""
-    signal.signal(signal.SIGINT, loop.exit_request)

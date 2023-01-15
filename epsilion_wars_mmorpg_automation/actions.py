@@ -125,3 +125,14 @@ async def healing(event: events.NewMessage.Event) -> None:
         entity=event.chat_id,
         message=command,
     )
+
+
+async def captcha_answer(event: events.NewMessage.Event, answer: str) -> None:
+    """Send captcha answer."""
+    logging.info('call captcha answer command')
+
+    await wait_for(2, 4)
+    await client.send_message(
+        entity=event.chat_id,
+        message=answer,
+    )

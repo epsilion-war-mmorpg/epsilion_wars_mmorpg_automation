@@ -7,15 +7,20 @@ from pydantic import BaseSettings, Field
 class AppSettings(BaseSettings):
     """Application settings class."""
 
-    # customer settings
+    # required customer settings
     telegram_api_id: int = 123456
     telegram_api_hash: str = 'u_api_hash_here'
+
+    # optional customer settings
     minimum_hp_level_for_grinding: int = Field(default=75, ge=1, le=100)
     auto_healing_enabled: bool = True
     stop_if_equip_broken: bool = True
-    stop_if_captcha_fire: bool = True
+    stop_if_captcha_fire: bool = False
     notifications_enabled: bool = True
     ping_message: str = '/me'
+
+    # advanced customer settings
+    captcha_solver_enabled: bool = False
 
     # developer settings
     debug: bool = Field(default=False, description='Logging level')

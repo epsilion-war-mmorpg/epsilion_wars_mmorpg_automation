@@ -4,6 +4,7 @@ import logging
 from telethon import events
 
 from epsilion_wars_mmorpg_automation import actions, notifications
+from epsilion_wars_mmorpg_automation.captcha import resolvers
 from epsilion_wars_mmorpg_automation.grind.loop import exit_request
 from epsilion_wars_mmorpg_automation.parsers import parsers
 from epsilion_wars_mmorpg_automation.settings import app_settings
@@ -50,13 +51,23 @@ async def skip_turn_handler(event: events.NewMessage.Event) -> None:
 async def captcha_fire_handler(event: events.NewMessage.Event) -> None:
     """Try to solve captcha."""
     logging.warning('captcha event shot!')
+
     if app_settings.notifications_enabled:
         notify_message = parsers.strip_message(event.message.message)
         await notifications.send_desktop_notify(
             message=f'captcha fire!\n"{notify_message}"',
         )
 
-    if app_settings.stop_if_captcha_fire:
+    if app_settings.captcha_solver_enabled:
+        captcha_answer = resolvers.try_resolve(event)
+        logging.info(f'captcha answer {captcha_answer}')
+
+        if captcha_answer.answer:
+            await actions.captcha_answer(event, captcha_answer.answer)
+        else:
+            await notifications.send_desktop_notify('captcha not solved!')
+
+    elif app_settings.stop_if_captcha_fire:
         exit_request()
 
 
