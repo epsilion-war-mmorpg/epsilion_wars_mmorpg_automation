@@ -2,7 +2,7 @@
 import logging
 import re
 
-from epsilion_wars_mmorpg_automation.captcha.utils import capitalize_by_question
+from epsilion_wars_mmorpg_automation.captcha.symbol_traps_utils import capitalize_by_question, replace_eng_chars
 
 _common_pattern = re.compile(r'(?P<question>[\wёЁ*]+)-нaпишитепрaвильно(месяц|слово)')
 _old_generation_pattern = re.compile(r'(город)?(?P<question>[\wёЁ*]+)-нaпишитеответ')
@@ -58,18 +58,10 @@ def simple_grammar(message: str) -> str | None:
         return None
 
     found_word_pattern = found.group('question').replace('*', '.').strip().lower()
-    found_word_pattern = _replace_eng_chars(found_word_pattern)
+    found_word_pattern = replace_eng_chars(found_word_pattern)
     logging.debug(f'grammar captcha resolver: {found_word_pattern=}')
 
     for answer in _words:
         if re.match(found_word_pattern, answer):
             return capitalize_by_question(answer, question)
     return None
-
-
-def _replace_eng_chars(source: str) -> str:
-    mapping = dict(zip('acekmnopruy', 'асектпоргиу'))
-    return ''.join([
-        mapping.get(char, char)
-        for char in source
-    ])

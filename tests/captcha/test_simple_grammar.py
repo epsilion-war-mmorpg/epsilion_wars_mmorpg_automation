@@ -1,6 +1,6 @@
 import pytest
 
-from epsilion_wars_mmorpg_automation.captcha.simple_grammar import simple_grammar, _replace_eng_chars
+from epsilion_wars_mmorpg_automation.captcha.simple_grammar import simple_grammar
 
 
 @pytest.mark.parametrize('payload, expected_answer', [
@@ -31,14 +31,3 @@ def test_simple_grammar_happy_path(payload: str, expected_answer: str | None):
     result = simple_grammar(payload)
 
     assert result == expected_answer
-
-
-@pytest.mark.parametrize('payload, expected', [
-    ('a c e k m n o p r u y',
-     'а с е к т п о р г и у')
-])
-def test_replace_eng_chars(payload: str, expected: str):
-    result = _replace_eng_chars(payload)
-
-    assert result == expected
-    assert payload == payload

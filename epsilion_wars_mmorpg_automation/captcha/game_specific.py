@@ -1,5 +1,5 @@
 """Game-specific captcha resolver."""
-from epsilion_wars_mmorpg_automation.captcha.utils import capitalize_by_question
+from epsilion_wars_mmorpg_automation.captcha.symbol_traps_utils import capitalize_by_question
 
 _question_answer = {
     'столицaэпсилионa': 'Мелидон',

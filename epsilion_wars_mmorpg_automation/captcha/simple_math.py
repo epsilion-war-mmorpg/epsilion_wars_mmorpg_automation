@@ -4,6 +4,8 @@ import math
 import operator
 import re
 
+from epsilion_wars_mmorpg_automation.captcha.symbol_traps_utils import convert_number_words
+
 _math_patterns = [
     re.compile(r'(\d+)(.+?)(\d+)-нaпишитеответчислом'),
     re.compile(r'(.+?)(\d+)-нaпишитеответчислом'),
@@ -13,11 +15,13 @@ _math_patterns = [
 def simple_math(message: str) -> str | None:
     """Resolve simple math operations captcha."""
     try:
-        question = message.split('\n')[1].lower().replace(' ', '')
+        question = message.split('\n')[1].lower()
     except IndexError:
         return None
 
-    operator_str, operands = _get_math_operation(question)
+    operator_str, operands = _get_math_operation(
+        question=convert_number_words(question.replace(' ', '')),
+    )
     if not operator_str:
         return None
 
