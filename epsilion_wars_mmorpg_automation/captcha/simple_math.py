@@ -4,11 +4,11 @@ import math
 import operator
 import re
 
-from epsilion_wars_mmorpg_automation.captcha.symbol_traps_utils import convert_number_words
+from epsilion_wars_mmorpg_automation.captcha.symbol_traps_utils import convert_number_words, replace_eng_chars
 
 _math_patterns = [
-    re.compile(r'(\d+)(.+?)(\d+)-нaпишитеответчислом'),
-    re.compile(r'(.+?)(\d+)-нaпишитеответчислом'),
+    re.compile(r'(\d+)(.+?)(\d+)-напишитеответчислом'),
+    re.compile(r'(.+?)(\d+)-напишитеответчислом'),
 ]
 
 
@@ -19,6 +19,7 @@ def simple_math(message: str) -> str | None:
     except IndexError:
         return None
 
+    question = replace_eng_chars(question)
     operator_str, operands = _get_math_operation(
         question=convert_number_words(question.replace(' ', '')),
     )
@@ -29,17 +30,16 @@ def simple_math(message: str) -> str | None:
         '+': operator.add,
         '-': operator.sub,
         '*': operator.mul,
-        'x': operator.mul,
         'х': operator.mul,
         '/': operator.truediv,
         'плюс': operator.add,
         'минус': operator.sub,
-        'умножитьнa': operator.mul,
-        'умножнa': operator.mul,
-        'умннa': operator.mul,
-        'делитьнa': operator.truediv,
-        'делинa': operator.truediv,
-        'делнa': operator.truediv,
+        'умножитьна': operator.mul,
+        'умножна': operator.mul,
+        'умнна': operator.mul,
+        'делитьна': operator.truediv,
+        'делина': operator.truediv,
+        'делна': operator.truediv,
         'кореньиз': math.sqrt,
     }.get(operator_str)
 

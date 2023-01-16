@@ -4,8 +4,8 @@ from epsilion_wars_mmorpg_automation.captcha.symbol_traps_utils import replace_e
 
 
 @pytest.mark.parametrize('payload, expected', [
-    ('a b c e k m n o p r u y',
-     'а ь с е к т п о р г и у')
+    ('a b c e k m n o p r u y x',
+     'а ь с е к т п о р г и у х')
 ])
 def test_replace_eng_chars(payload: str, expected: str):
     result = replace_eng_chars(payload)

@@ -3,16 +3,16 @@
 
 def capitalize_by_question(answer: str, message: str) -> str:
     """Capitalize answer by question request."""
-    if 'ответсмаленькойбуквы' in message:
+    if 'смаленькойбуквы' in message:
         return answer.lower()
-    if 'ответсбольшойбуквы' in message:
+    if 'сбольшойбуквы' in message:
         return answer.capitalize()
     return answer
 
 
 def replace_eng_chars(source: str) -> str:
     """Replace eng chars by ru."""
-    mapping = dict(zip('abcekmnopruy', 'аьсектпоргиу'))
+    mapping = dict(zip('abcekmnopruyx', 'аьсектпоргиух'))
     return ''.join([
         mapping.get(char, char)
         for char in source
