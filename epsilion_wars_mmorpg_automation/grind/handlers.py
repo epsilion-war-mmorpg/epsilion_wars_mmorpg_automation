@@ -36,7 +36,9 @@ async def battle_start_handler(event: events.NewMessage.Event) -> None:
 
 async def battle_end_handler(event: events.NewMessage.Event) -> None:
     """Complete win/fail battle."""
-    await actions.complete_battle(event)
+    if event.message.button_count:
+        await actions.complete_battle(event)
+
     if app_settings.notifications_enabled:
         await notifications.send_desktop_notify(
             message='battle end\n"{0}"'.format(event.message.message),

@@ -6,6 +6,7 @@ from typing import Callable
 from telethon import events, types
 
 from epsilion_wars_mmorpg_automation import actions
+from epsilion_wars_mmorpg_automation.buttons import get_buttons_flat
 from epsilion_wars_mmorpg_automation.grind import handlers, loop
 from epsilion_wars_mmorpg_automation.parsers import parsers
 from epsilion_wars_mmorpg_automation.parsers.checks import messages, states
@@ -52,14 +53,22 @@ def setup_signals_handlers() -> None:
 
 
 async def _message_handler(event: events.NewMessage.Event) -> None:
-    message_content = parsers.strip_message(event.message.message)
-    logging.info('handle event %s', message_content[:app_settings.message_log_limit])
+    _log_event_information(event)
 
     await event.message.mark_read()
 
     select_callback = _select_action_by_event(event)
 
     await select_callback(event)
+
+
+def _log_event_information(event: events.NewMessage.Event) -> None:
+    message_content = parsers.strip_message(event.message.message)
+    logging.info(
+        'handle event message="%s"; buttons="%s"',
+        message_content[:app_settings.message_log_limit],
+        [button.text for button in get_buttons_flat(event)],
+    )
 
 
 def _select_action_by_event(event: events.NewMessage.Event) -> Callable:

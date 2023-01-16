@@ -16,12 +16,19 @@ from epsilion_wars_mmorpg_automation.parsers.parsers import strip_message
 
 def is_died_state(event: events.NewMessage.Event) -> bool:
     """U died state."""
-    # fixme message after killed in PVP
-    #  "ты отправляешься в ближайший город на восстановление"
     found_buttons = get_buttons_flat(event)
-    if len(found_buttons) != 1:
-        return False
-    return found_buttons[0].text == RIP
+    if len(found_buttons) == 1 and found_buttons[0].text == RIP:
+        return True
+
+    message_content = strip_message(event.message.message)
+    patterns = [
+        'отправляешься в ближайший город на восстановление',
+        'был отправлен восстанавливаться в город',
+    ]
+    return any([
+        pattern in message_content
+        for pattern in patterns
+    ])
 
 
 def is_selector_defence_direction(event: events.NewMessage.Event) -> bool:
