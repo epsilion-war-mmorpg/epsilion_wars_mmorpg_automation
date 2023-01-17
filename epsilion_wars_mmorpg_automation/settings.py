@@ -17,7 +17,6 @@ class AppSettings(BaseSettings):
     stop_if_equip_broken: bool = True
     stop_if_captcha_fire: bool = False
     notifications_enabled: bool = True
-    ping_message: str = '/me'
 
     # advanced customer settings
     captcha_solver_enabled: bool = False

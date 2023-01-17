@@ -2,6 +2,7 @@
 
 import logging
 import random
+import string
 
 from telethon import events
 
@@ -44,9 +45,12 @@ async def ping(entity: int | events.NewMessage.Event) -> None:
     else:
         game_bot_id = entity
 
+    message = random.choice(
+        seq=string.ascii_lowercase,
+    )
     await client.send_message(
         entity=game_bot_id,
-        message=app_settings.ping_message,
+        message=message,
     )
 
 
