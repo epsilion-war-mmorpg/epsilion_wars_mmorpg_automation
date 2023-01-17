@@ -11,15 +11,16 @@ telethon = "^1.26.1"
 cryptg = "^0.4.0"
 pydantic = {extras = ["dotenv"], version = "^1.10.4"}
 desktop-notifier = "^3.4.2"
+httpx = "^0.23.3"
 
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.2.0"
-pytest-mock = "^3.10.0"
 pytest-asyncio = "^0.20.3"
 mypy = "^0.991"
 wemake-python-styleguide = "^0.17.0"
 pytest-cov = "^4.0.0"
+pytest-mock = "^3.10.0"
 
 [build-system]
 requires = ["poetry-core"]

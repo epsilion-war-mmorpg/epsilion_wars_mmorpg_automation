@@ -27,7 +27,7 @@ from epsilion_wars_mmorpg_automation.captcha.simple_grammar import simple_gramma
     ('На пути ты встретил капчу.\n город Ц*ртa - Нaпишите ответ с большой буквы.', 'Цирта'),
     ('На пути ты встретил капчу.\n выносливост* - Нaпишите ответ с большой буквы.', 'Выносливость'),
 ])
-def test_simple_grammar_happy_path(payload: str, expected_answer: str | None):
-    result = simple_grammar(payload)
+async def test_simple_grammar_happy_path(payload: str, expected_answer: str | None):
+    result = await simple_grammar(payload)
 
     assert result == expected_answer

@@ -1,4 +1,6 @@
 """Emoji-captcha resolver."""
+from typing import Any
+
 from epsilion_wars_mmorpg_automation.captcha.symbol_traps_utils import capitalize_by_question, replace_eng_chars
 
 _common_pattern = 'название'
@@ -17,7 +19,7 @@ _question_answer = {
 }
 
 
-def simple_emoji(message: str) -> str | None:
+async def simple_emoji(message: str, *_: Any) -> str | None:
     """Resolve emoji text captcha."""
     try:
         question = message.split('\n')[1].lower().replace(' ', '')

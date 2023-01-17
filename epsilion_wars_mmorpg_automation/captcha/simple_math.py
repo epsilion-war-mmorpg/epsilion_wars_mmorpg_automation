@@ -3,6 +3,7 @@
 import math
 import operator
 import re
+from typing import Any
 
 from epsilion_wars_mmorpg_automation.captcha.symbol_traps_utils import convert_number_words, replace_eng_chars
 
@@ -12,7 +13,7 @@ _math_patterns = [
 ]
 
 
-def simple_math(message: str) -> str | None:
+async def simple_math(message: str, *_: Any) -> str | None:
     """Resolve simple math operations captcha."""
     try:
         question = message.split('\n')[1].lower()

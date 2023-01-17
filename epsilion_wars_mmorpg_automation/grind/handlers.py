@@ -61,7 +61,7 @@ async def captcha_fire_handler(event: events.NewMessage.Event) -> None:
         )
 
     if app_settings.captcha_solver_enabled:
-        captcha_answer = resolvers.try_resolve(event)
+        captcha_answer = await resolvers.try_resolve(event)
         logging.info(f'captcha answer {captcha_answer}')
 
         if captcha_answer.answer:

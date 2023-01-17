@@ -1,6 +1,7 @@
 """Resolver for simple grammar operations captcha."""
 import logging
 import re
+from typing import Any
 
 from epsilion_wars_mmorpg_automation.captcha.symbol_traps_utils import capitalize_by_question, replace_eng_chars
 
@@ -42,7 +43,7 @@ _words = [
 ]
 
 
-def simple_grammar(message: str) -> str | None:
+async def simple_grammar(message: str, *_: Any) -> str | None:
     """Resolve simple grammar captcha."""
     try:
         question = message.split('\n')[1].lower().replace(' ', '')

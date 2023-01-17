@@ -30,7 +30,7 @@ from epsilion_wars_mmorpg_automation.captcha.simple_math import simple_math
     ('На пути ты встретил капчу.\n 1x0 - Нaпишите ответ числом.\n\n❓ Отправь ответ или отправишься в тюрьму. У тебя есть 90 секунд', '0'),
 
 ])
-def test_simple_math_happy_path(payload: str, expected_answer: str | None):
-    result = simple_math(payload)
+async def test_simple_math_happy_path(payload: str, expected_answer: str | None):
+    result = await simple_math(payload)
 
     assert result == expected_answer

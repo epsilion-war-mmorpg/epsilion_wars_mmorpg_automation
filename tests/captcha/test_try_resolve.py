@@ -12,11 +12,11 @@ from epsilion_wars_mmorpg_automation.captcha.resolvers import try_resolve
     ('На пути ты встретил капчу.\n ок*ябрь - Нaпишите прaвильно месяц с мaленькой буквы.', True),
     ('На пути ты встретил капчу.\n ⚽️ - Напишите название вида спорта с маленькой буквы.', True),
 ])
-def test_try_resolve_happy_path(payload: str, expected: bool):
+async def test_try_resolve_happy_path(payload: str, expected: bool):
     event_mock = Mock()
     event_mock.message.message = payload
 
-    answer = try_resolve(event_mock)
+    answer = await try_resolve(event_mock)
 
     assert answer.question == payload
     assert bool(answer.resolver_type) is expected

@@ -22,7 +22,7 @@ from epsilion_wars_mmorpg_automation.captcha.simple_emoji import simple_emoji
     ('На пути ты встретил капчу.\n 🍕пи**а, напишите правильно название предмета.', 'пицца'),
 
 ])
-def test_simple_emoji_happy_path(payload: str, expected_answer: str | None):
-    result = simple_emoji(payload)
+async def test_simple_emoji_happy_path(payload: str, expected_answer: str | None):
+    result = await simple_emoji(payload)
 
     assert result == expected_answer

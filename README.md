@@ -45,5 +45,3 @@ EOF
 - publish as package
 - display training stats every 15 min and at the end
 - send usage stats
-
-- captcha solver - text and anticaptcha
