@@ -1,6 +1,3 @@
-import pytest
-
-from epsilion_wars_mmorpg_automation.captcha.anti_captcha_provider import AntiCaptchaClient
 from epsilion_wars_mmorpg_automation.settings import app_settings
 
 

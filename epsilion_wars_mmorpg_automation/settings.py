@@ -20,12 +20,10 @@ class AppSettings(BaseSettings):
 
     # advanced customer settings
     captcha_solver_enabled: bool = True
-
-    # anti-captcha provider
     anti_captcha_com_apikey: str = Field(default='', description='see https://anti-captcha.com for more information')
     anti_captcha_com_timeout: int = 15
 
-    # developer settings
+    # developer section
     game_username: str = 'EpsilionWarBot'
     trainer_name: str = 'Epsilion Trainer'
     debug: bool = Field(default=False, description='Logging level')

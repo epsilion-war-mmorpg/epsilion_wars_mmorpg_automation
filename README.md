@@ -32,13 +32,13 @@ EOF
 ```
 
 ### Run grind:
-1. Use `poetry run grind -t 30` to start a workout with a time limit of thirty minutes.
-2. To start a workout indefinitely, use `poetry run grind` without the -t flag
+1. Use `grind -t 30` to start a workout with a time limit of thirty minutes.
+2. To start a workout indefinitely, use `grind` without the -t flag
 
 
 ### TODO
-- captcha solver - image and anticaptcha
-
+- rm desktop notification default button
+- combo-order strategy setting
 - record a demo gif
 - describe customer settings in readme
 

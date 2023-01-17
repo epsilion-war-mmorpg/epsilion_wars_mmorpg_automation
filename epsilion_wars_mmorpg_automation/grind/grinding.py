@@ -53,7 +53,7 @@ def setup_signals_handlers() -> None:
 
 
 async def _message_handler(event: events.NewMessage.Event) -> None:
-    _log_event_information(event)
+    await _log_event_information(event)
 
     await event.message.mark_read()
 
@@ -62,12 +62,14 @@ async def _message_handler(event: events.NewMessage.Event) -> None:
     await select_callback(event)
 
 
-def _log_event_information(event: events.NewMessage.Event) -> None:
+async def _log_event_information(event: events.NewMessage.Event) -> None:
     message_content = parsers.strip_message(event.message.message)
+    media = event.message.media
     logging.info(
-        'handle event message="%s"; buttons="%s"',
+        'handle event message="%s"; buttons="%s"; photos="%s"',
         message_content[:app_settings.message_log_limit],
         [button.text for button in get_buttons_flat(event)],
+        media,
     )
 
 

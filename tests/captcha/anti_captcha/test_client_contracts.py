@@ -38,13 +38,17 @@ async def test_client_get_task_success():
 @pytest.mark.skipif(
     not anti_captcha_configured(), reason="requires configured anti_captcha_com_apikey in settings"
 )
-@pytest.mark.parametrize('payload, expected_error', [
-    ('sdsd', 'ERROR_ZERO_CAPTCHA_FILESIZE'),
-    (f'invalid_base64{real_captcha_image_base64}', 'ERROR_IMAGE_TYPE_NOT_SUPPORTED'),
-])
-async def test_client_create_task_invalid_data(payload: str, expected_error: str):
-    with pytest.raises(AntiCaptchaError, match=expected_error):
-        await client.create_task(payload)
+async def test_client_create_task_empty_image(payload: str, expected_error: str):
+    with pytest.raises(AntiCaptchaError, match='ERROR_ZERO_CAPTCHA_FILESIZE'):
+        await client.create_task('sdsdsdsd')
+
+
+@pytest.mark.skipif(
+    not anti_captcha_configured(), reason="requires configured anti_captcha_com_apikey in settings"
+)
+async def test_client_create_task_empty_image():
+    with pytest.raises(AntiCaptchaError, match='ERROR_IMAGE_TYPE_NOT_SUPPORTED'):
+        await client.create_task(f'invalid_base64{real_captcha_image_base64}')
 
 
 @pytest.mark.skipif(
