@@ -37,10 +37,10 @@ EOF
 
 
 ### TODO
-- rm desktop notification default button
 - record a demo gif
 - describe customer settings in readme
 
+### Feature-requests
 - publish as package
 - display training stats every 15 min and at the end
 - send usage stats

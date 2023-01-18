@@ -16,4 +16,5 @@ async def send_desktop_notify(message: str) -> None:
         title=app_settings.trainer_name,
         message=message,
         timeout=app_settings.desktop_notification_timeout,
+        buttons=[],
     )

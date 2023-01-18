@@ -28,7 +28,7 @@ async def battle_start_handler(event: events.NewMessage.Event) -> None:
     """Notify about battle started."""
     if app_settings.notifications_enabled:
         await notifications.send_desktop_notify(
-            message='battle start\n"{0}"'.format(event.message.message),
+            message=event.message.message,
         )
     # force recall battle start message
     await actions.ping(event)
@@ -41,7 +41,7 @@ async def battle_end_handler(event: events.NewMessage.Event) -> None:
 
     if app_settings.notifications_enabled:
         await notifications.send_desktop_notify(
-            message='battle end\n"{0}"'.format(event.message.message),
+            message=event.message.message,
         )
 
 
@@ -57,7 +57,7 @@ async def captcha_fire_handler(event: events.NewMessage.Event) -> None:
     if app_settings.notifications_enabled:
         notify_message = parsers.strip_message(event.message.message)
         await notifications.send_desktop_notify(
-            message=f'captcha fire!\n"{notify_message}"',
+            message=notify_message,
         )
 
     if app_settings.captcha_solver_enabled:
@@ -79,7 +79,7 @@ async def equip_broken_handler(event: events.NewMessage.Event) -> None:
     if app_settings.notifications_enabled:
         notify_message = parsers.strip_message(event.message.message)
         await notifications.send_desktop_notify(
-            message=f'equip is broken!\n"{notify_message}"',
+            message=notify_message,
         )
 
     if app_settings.stop_if_equip_broken:

@@ -31,7 +31,7 @@ async def main(execution_limit_minutes: int | None = None) -> None:
     logging.info('auth as %s', me.username)
 
     game_user: types.InputPeerUser = await client.get_input_entity(app_settings.game_username)
-    logging.debug('game user is %s', game_user)
+    logging.info('game user is %s', game_user)
 
     client.add_event_handler(
         callback=_message_handler,
