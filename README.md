@@ -38,7 +38,6 @@ EOF
 
 ### TODO
 - rm desktop notification default button
-- combo-order strategy setting
 - record a demo gif
 - describe customer settings in readme
 

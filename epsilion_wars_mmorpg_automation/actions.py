@@ -46,7 +46,7 @@ async def ping(entity: int | events.NewMessage.Event) -> None:
         game_bot_id = entity
 
     message = random.choice(
-        seq=string.ascii_lowercase,
+        seq='ЙЦУКЕНГШЩЗХФЫВАПРОЛДЖЭЯЧСМИТЬБЮ.......      ',
     )
     await client.send_message(
         entity=game_bot_id,
