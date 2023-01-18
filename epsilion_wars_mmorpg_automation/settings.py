@@ -13,15 +13,19 @@ class AppSettings(BaseSettings):
 
     # optional customer settings
     minimum_hp_level_for_grinding: int = Field(default=75, ge=1, le=100)
+    notifications_enabled: bool = True
     auto_healing_enabled: bool = True
     stop_if_equip_broken: bool = True
     stop_if_captcha_fire: bool = False
-    notifications_enabled: bool = True
+    captcha_solver_enabled: bool = True
 
     # advanced customer settings
-    captcha_solver_enabled: bool = True
     anti_captcha_com_apikey: str = Field(default='', description='see https://anti-captcha.com for more information')
     anti_captcha_com_timeout: int = 15
+    anti_captcha_com_create_task_tries: int = 3
+    anti_captcha_com_create_task_throttling: int = 10
+    anti_captcha_com_get_task_tries: int = 8
+    anti_captcha_com_get_task_throttling: int = 5
 
     # developer section
     game_username: str = 'EpsilionWarBot'

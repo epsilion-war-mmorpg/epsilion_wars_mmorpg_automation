@@ -1,8 +1,13 @@
 """anti-captcha.com service provider for resolve image-to-text captcha."""
+import asyncio
+import logging
+from typing import Any
 
 import httpx
 
 from epsilion_wars_mmorpg_automation.settings import app_settings
+
+TASK_READY_STATE = 'ready'
 
 
 class AntiCaptchaError(RuntimeError):
@@ -95,13 +100,54 @@ client = AntiCaptchaClient(
 
 async def resolve_image_to_number(image_source: str) -> str | None:
     """Create anti-captcha task and wait for answer."""
-    # todo impl
-    # todo test
-    created_task_response = await client.create_task(
+    created_task_response = await _call_create_few_times(
+        call_count_limit=app_settings.anti_captcha_com_create_task_tries,
+        throttling_time=app_settings.anti_captcha_com_create_task_throttling,
         image_base64=image_source,
     )
-    # todo wait solve
-    # todo max tries
-    # todo throttling
+    logging.info('AntiCaptchaClient create task response: %s', created_task_response)
+    if not created_task_response:
+        return None
 
-    return '1234'
+    task_solution_response = await _call_get_few_times(
+        call_count_limit=app_settings.anti_captcha_com_get_task_tries,
+        throttling_time=app_settings.anti_captcha_com_get_task_throttling,
+        task_id=created_task_response.get('taskId'),
+    )
+    logging.info('AntiCaptchaClient get task response: %s', task_solution_response)
+    if not task_solution_response:
+        return None
+
+    return task_solution_response.get('solution', {}).get('text', None)
+
+
+async def _call_create_few_times(call_count_limit: int, throttling_time: int, **kwargs: Any) -> dict | None:
+    try_num = 0
+
+    while try_num < call_count_limit:
+        try_num += 1
+        try:
+            return await client.create_task(**kwargs)
+        except AntiCaptchaError as exc:
+            logging.warning(f'AntiCaptchaClient error: {exc}')
+            await asyncio.sleep(throttling_time)
+
+    return None
+
+
+async def _call_get_few_times(call_count_limit: int, throttling_time: int, **kwargs: Any) -> dict | None:
+    try_num = 0
+
+    while try_num < call_count_limit:
+        try_num += 1
+        try:
+            task_data = await client.get_task(**kwargs)
+        except AntiCaptchaError as exc:
+            logging.warning(f'AntiCaptchaClient error: {exc}')
+            await asyncio.sleep(throttling_time)
+            continue
+
+        if task_data.get('status') == TASK_READY_STATE:
+            return task_data
+
+    return None

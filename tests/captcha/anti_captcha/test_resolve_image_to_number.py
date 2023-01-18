@@ -1,69 +1,85 @@
-from unittest.mock import Mock
-
-from epsilion_wars_mmorpg_automation.captcha.image_with_numbers import image_with_numbers
-
-
-valid_captcha_message = '❓ На пути ты встретил капчу, отправь число с картинки или отправишься в тюрьму. У тебя есть 90 секунд'
+from epsilion_wars_mmorpg_automation.captcha.anti_captcha_provider import AntiCaptchaError, resolve_image_to_number
+from tests.captcha.anti_captcha.conftest import real_captcha_image_base64
 
 
-async def test_image_with_numbers_happy_path(mocker):
-    event_mock = Mock()
-    event_mock.message.media = 'media content mocked'
-    anticaptcha_mocked = mocker.patch(
-        'epsilion_wars_mmorpg_automation.captcha.image_with_numbers.anti_captcha_provider.resolve_image_to_number',
-        return_value='1234',
+async def test_resolve_image_to_number_happy_path(mocker):
+    create_task_mock = mocker.patch(
+        'epsilion_wars_mmorpg_automation.captcha.anti_captcha_provider.client.create_task',
+        return_value={
+            'taskId': 1234,
+            'errorId': 0,
+        },
     )
-    base64_getter_mocked = mocker.patch(
-        'epsilion_wars_mmorpg_automation.captcha.image_with_numbers.get_photo_base64',
-        return_value='base64/sdsd/sd/sd',
-    )
-
-    result = await image_with_numbers(
-        message=valid_captcha_message,
-        event=event_mock,
+    get_task_mock = mocker.patch(
+        'epsilion_wars_mmorpg_automation.captcha.anti_captcha_provider.client.get_task',
+        return_value={
+            'status': 'ready',
+            'solution': {'text': '4567'},
+        },
     )
 
-    assert base64_getter_mocked.call_count == 1
-    assert anticaptcha_mocked.call_count == 1
-    assert result == '1234'
+    result = await resolve_image_to_number(real_captcha_image_base64)
+
+    assert create_task_mock.call_count == 1
+    assert get_task_mock.call_count == 1
+    assert result == '4567'
 
 
-async def test_image_with_numbers_have_no_media():
-    event_mock = Mock()
-    event_mock.message.media = None
-
-    result = await image_with_numbers(
-        message=valid_captcha_message,
-        event=event_mock,
+async def test_resolve_image_to_number_create_task_exception(mocker):
+    create_task_mock = mocker.patch(
+        'epsilion_wars_mmorpg_automation.captcha.anti_captcha_provider.client.create_task',
+        side_effect=AntiCaptchaError('CREATE TASK ERROR'),
+    )
+    get_task_mock = mocker.patch(
+        'epsilion_wars_mmorpg_automation.captcha.anti_captcha_provider.client.get_task',
+        return_value={
+            'status': 'ready',
+            'solution': {'text': '4567'},
+        },
     )
 
+    result = await resolve_image_to_number(real_captcha_image_base64)
+
+    assert create_task_mock.call_count == 3
+    assert get_task_mock.call_count == 0
     assert result is None
 
 
-async def test_image_with_numbers_skip_by_message():
-    event_mock = Mock()
-    event_mock.message.media = 'media content mocked'
-
-    result = await image_with_numbers(
-        message='сообщение из другой капчи',
-        event=event_mock,
+async def test_resolve_image_to_number_task_not_ready(mocker):
+    create_task_mock = mocker.patch(
+        'epsilion_wars_mmorpg_automation.captcha.anti_captcha_provider.client.create_task',
+        return_value={
+            'taskId': 1234,
+            'errorId': 0,
+        },
+    )
+    get_task_mock = mocker.patch(
+        'epsilion_wars_mmorpg_automation.captcha.anti_captcha_provider.client.get_task',
+        return_value={'status': 'processing'},
     )
 
+    result = await resolve_image_to_number(real_captcha_image_base64)
+
+    assert create_task_mock.call_count == 1
+    assert get_task_mock.call_count == 8
     assert result is None
 
 
-async def test_image_with_numbers_media_not_loaded(mocker):
-    event_mock = Mock()
-    event_mock.message.media = 'media content mocked'
-    base64_getter_mocked = mocker.patch(
-        'epsilion_wars_mmorpg_automation.captcha.image_with_numbers.get_photo_base64',
-        return_value='',
+async def test_resolve_image_to_number_get_task_exception(mocker):
+    create_task_mock = mocker.patch(
+        'epsilion_wars_mmorpg_automation.captcha.anti_captcha_provider.client.create_task',
+        return_value={
+            'taskId': 1234,
+            'errorId': 0,
+        },
+    )
+    get_task_mock = mocker.patch(
+        'epsilion_wars_mmorpg_automation.captcha.anti_captcha_provider.client.get_task',
+        side_effect=AntiCaptchaError('GET TASK ERROR'),
     )
 
-    result = await image_with_numbers(
-        message=valid_captcha_message,
-        event=event_mock,
-    )
+    result = await resolve_image_to_number(real_captcha_image_base64)
 
+    assert create_task_mock.call_count == 1
+    assert get_task_mock.call_count == 8
     assert result is None
-    assert base64_getter_mocked.call_count == 1
