@@ -58,6 +58,7 @@ async def captcha_fire_handler(event: events.NewMessage.Event) -> None:
         notify_message = parsers.strip_message(event.message.message)
         await notifications.send_desktop_notify(
             message=notify_message,
+            is_urgent=True,
         )
 
     if app_settings.captcha_solver_enabled:
@@ -66,8 +67,9 @@ async def captcha_fire_handler(event: events.NewMessage.Event) -> None:
 
         if captcha_answer.answer:
             await actions.captcha_answer(event, captcha_answer.answer)
+            await notifications.send_desktop_notify(f'captcha answer found:\n"{captcha_answer.answer}"')
         else:
-            await notifications.send_desktop_notify('captcha not solved!')
+            await notifications.send_desktop_notify('captcha not solved!', is_urgent=True)
 
     elif app_settings.stop_if_captcha_fire:
         exit_request()
@@ -80,6 +82,7 @@ async def equip_broken_handler(event: events.NewMessage.Event) -> None:
         notify_message = parsers.strip_message(event.message.message)
         await notifications.send_desktop_notify(
             message=notify_message,
+            is_urgent=True,
         )
 
     if app_settings.stop_if_equip_broken:
