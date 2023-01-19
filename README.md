@@ -40,6 +40,7 @@ EOF
 - record a demo gif
 
 ### Feature-requests
+- ping every N minutes - for recovery after troubles
 - publish as package
 - display training stats every 15 min and at the end
 - send usage stats
