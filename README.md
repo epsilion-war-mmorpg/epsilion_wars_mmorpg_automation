@@ -37,6 +37,7 @@ EOF
 
 
 ### TODO
+- fix grinding flood by buttons missed
 - record a demo gif
 - describe customer settings in readme
 
@@ -44,3 +45,4 @@ EOF
 - publish as package
 - display training stats every 15 min and at the end
 - send usage stats
+- fishing tool
