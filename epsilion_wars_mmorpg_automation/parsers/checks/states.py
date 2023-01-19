@@ -85,3 +85,13 @@ def _is_already_ended_battle(event: events.NewMessage.Event) -> bool:
     """Last turn of ended battle."""
     message_content = event.message.message.strip()
     return 'Ход' in message_content and '(0/' in message_content
+
+
+def is_hunting_ready_state(event: events.NewMessage.Event) -> bool:
+    """Ready for hunt state."""
+    message = strip_message(event.message.message)
+    if 'тюрьма' in message:
+        return False
+    if 'монстров пока нет' in message:
+        return False
+    return 'можно встретить врагов' in message

@@ -2,7 +2,6 @@
 
 import logging
 import random
-import string
 
 from telethon import events
 
@@ -46,7 +45,7 @@ async def ping(entity: int | events.NewMessage.Event) -> None:
         game_bot_id = entity
 
     message = random.choice(
-        seq=',🙃.',
+        seq=',.-',
     )
     logging.info(f'call ping command debug {game_bot_id=} {message=}')
     await client.send_message(

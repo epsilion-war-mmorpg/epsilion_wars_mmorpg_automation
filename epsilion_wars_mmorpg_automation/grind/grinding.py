@@ -84,7 +84,7 @@ def _select_action_by_event(event: events.NewMessage.Event) -> Callable:
         (states.is_win_state, handlers.battle_end_handler),
         (states.is_died_state, handlers.battle_end_handler),
         (messages.is_hp_updated_message, actions.ping),
-        (messages.is_hunting_ready_message, handlers.hunting_handler),
+        (states.is_hunting_ready_state, handlers.hunting_handler),
     ]
 
     for check_function, callback_function in mapping:

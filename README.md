@@ -8,7 +8,6 @@ Epsilion Trainer is an automated tool that allows users to quickly and easily le
 It will automatically control your character in the monster hunt area, instantly earning experience points, money and items.
 With Epsilion Trainer, you can quickly become the strongest player on the server.
 
-Good guide about grinding [here](https://teletype.in/@nathan_banana/3VVnxGQdp). 
 
 ### Setup
 To run the Epsilion Trainer for the first time, you will need to:
@@ -37,9 +36,8 @@ EOF
 
 
 ### TODO
-- fix grinding flood by buttons missed
-- record a demo gif
 - describe customer settings in readme
+- record a demo gif
 
 ### Feature-requests
 - publish as package
