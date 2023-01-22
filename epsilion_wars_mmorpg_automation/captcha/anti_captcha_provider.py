@@ -35,6 +35,7 @@ class AntiCaptchaClient:
         https://anti-captcha.com/ru/apidoc/task-types/ImageToTextTask
         """
         async with httpx.AsyncClient() as http_client:
+            logging.info('request createTask')
             try:
                 response = await http_client.post(
                     url=f'{self._api_host}/createTask',
@@ -58,6 +59,7 @@ class AntiCaptchaClient:
                 raise AntiCaptchaError('network error') from fetch_exc
 
         task_data = response.json()
+        logging.info(f'response createTask {task_data=}')
         error = task_data.get('errorCode')
         if error:
             raise AntiCaptchaError(error)
@@ -71,6 +73,7 @@ class AntiCaptchaClient:
         https://anti-captcha.com/ru/apidoc/methods/getTaskResult
         """
         async with httpx.AsyncClient() as http_client:
+            logging.info('request getTaskResult')
             try:
                 response = await http_client.post(
                     url=f'{self._api_host}/getTaskResult',
@@ -85,6 +88,7 @@ class AntiCaptchaClient:
                 raise AntiCaptchaError('network error') from fetch_exc
 
         task_data = response.json()
+        logging.info(f'response getTaskResult {task_data=}')
         error = task_data.get('errorCode')
         if error:
             raise AntiCaptchaError(error)

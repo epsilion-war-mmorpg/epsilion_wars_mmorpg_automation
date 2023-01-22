@@ -43,7 +43,7 @@ async def get_photo_base64(event: events.NewMessage.Event) -> str | None:
     await client.download_media(
         message=event.message,
         file=image_bytes,
-        thumb=0,
+        thumb=-1,
     )
     image_str_base64 = base64.b64encode(image_bytes.getvalue()).decode('utf-8')
     return image_str_base64.replace('data:image/png;', '').replace('base64,', '')

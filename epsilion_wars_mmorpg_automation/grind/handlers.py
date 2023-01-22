@@ -66,8 +66,8 @@ async def captcha_fire_handler(event: events.NewMessage.Event) -> None:
         logging.info(f'captcha answer {captcha_answer}')
 
         if captcha_answer.answer:
-            await actions.captcha_answer(event, captcha_answer.answer)
             await notifications.send_desktop_notify(f'captcha answer found:\n"{captcha_answer.answer}"')
+            await actions.captcha_answer(event, captcha_answer.answer)
         else:
             await notifications.send_desktop_notify('captcha not solved!', is_urgent=True)
 

@@ -13,7 +13,7 @@ notifier = DesktopNotifier(
 async def send_desktop_notify(message: str, is_urgent: bool = False) -> None:
     """Send desktop notification."""
     await notifier.send(
-        urgency=Urgency.Critical if is_urgent else Urgency.Normal,
+        urgency=Urgency.Normal if is_urgent else Urgency.Low,
         title=app_settings.trainer_name,
         message=message,
         timeout=app_settings.desktop_notification_timeout,
