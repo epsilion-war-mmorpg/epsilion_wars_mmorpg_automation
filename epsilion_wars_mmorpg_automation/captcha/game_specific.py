@@ -4,7 +4,7 @@ from typing import Any
 from epsilion_wars_mmorpg_automation.captcha.symbol_traps_utils import capitalize_by_question, replace_eng_chars
 
 _question_answer = {
-    'столицаэпсилиона': 'Мелидон',
+    'столицаэпсилиона': 'Миледон',
 }
 
 
