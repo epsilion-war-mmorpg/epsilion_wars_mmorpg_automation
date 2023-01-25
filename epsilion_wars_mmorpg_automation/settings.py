@@ -37,6 +37,7 @@ class AppSettings(BaseSettings):
     character_high_level_threshold: int = 20
     character_middle_level_threshold: int = 10
     wait_loop_iteration_seconds: int = 3
+    show_stats_every_seconds: int = 10 * 60
     desktop_notification_timeout: int = 10
 
 

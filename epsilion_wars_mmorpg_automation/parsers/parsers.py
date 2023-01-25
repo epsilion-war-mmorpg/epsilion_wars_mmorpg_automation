@@ -11,6 +11,7 @@ from epsilion_wars_mmorpg_automation.telegram_client import client
 
 _hp_level_pattern = re.compile(r'❤️\((\d+)/(\d+)\)')
 _character_level_pattern = re.compile(r'(\d+)[\s]{0,}❤️\(\d+/\d+\)')
+_experience_gain_pattern = re.compile(r'✨\sопыта:\s(\d+)')
 
 
 def get_hp_level(message_content: str) -> int:
@@ -29,6 +30,14 @@ def get_character_level(message_content: str) -> int:
     if not found:
         raise InvalidMessageError('Level not found')
 
+    return int(found.group(1))
+
+
+def get_experience_gain(message_content: str) -> int:
+    """Get battle experience gain amount."""
+    found = _experience_gain_pattern.search(strip_message(message_content), re.MULTILINE)
+    if not found:
+        return 0
     return int(found.group(1))
 
 

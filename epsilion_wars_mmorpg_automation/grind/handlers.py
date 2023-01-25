@@ -3,7 +3,7 @@ import logging
 
 from telethon import events
 
-from epsilion_wars_mmorpg_automation import actions, notifications
+from epsilion_wars_mmorpg_automation import actions, notifications, stats
 from epsilion_wars_mmorpg_automation.captcha import resolvers
 from epsilion_wars_mmorpg_automation.grind.loop import exit_request
 from epsilion_wars_mmorpg_automation.parsers import parsers
@@ -39,6 +39,11 @@ async def battle_end_handler(event: events.NewMessage.Event) -> None:
     if event.message.button_count:
         await actions.complete_battle(event)
 
+    stats.collector.inc_value('battles')
+    experience_inc = parsers.get_experience_gain(event.message.message)
+    if experience_inc:
+        stats.collector.inc_value('experience', experience_inc)
+
     if app_settings.notifications_enabled:
         await notifications.send_desktop_notify(
             message=event.message.message,
@@ -53,6 +58,8 @@ async def skip_turn_handler(event: events.NewMessage.Event) -> None:
 async def captcha_fire_handler(event: events.NewMessage.Event) -> None:
     """Try to solve captcha."""
     logging.warning('captcha event shot!')
+
+    stats.collector.inc_value('captcha-s')
 
     if app_settings.notifications_enabled:
         notify_message = parsers.strip_message(event.message.message)

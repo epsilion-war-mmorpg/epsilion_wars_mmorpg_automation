@@ -81,7 +81,5 @@ TL;DR Screw [the rules](https://teletype.in/@epsilionwar/HkPsNEfZL)
 
 #### Feature-requests
 - readme for customers
-- ping every N minutes - for recovery after troubles
 - fishing tool
 - publish as package
-- display training stats every 15 min and at the end

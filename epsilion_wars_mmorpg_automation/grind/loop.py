@@ -4,6 +4,7 @@ import asyncio
 import logging
 import time
 
+from epsilion_wars_mmorpg_automation import stats
 from epsilion_wars_mmorpg_automation.settings import app_settings
 
 _has_stop_request: bool = False
@@ -19,6 +20,7 @@ def exit_request(*args, **kwargs) -> None:  # type: ignore
 async def run_wait_loop(execution_limit_minutes: int | None) -> None:
     """Wait execution time left or stop signals."""
     start_time = time.time()
+    stats_show_time = start_time
     execution_time = float(0)
     time_limit = (execution_limit_minutes or 0) * 60
 
@@ -33,4 +35,11 @@ async def run_wait_loop(execution_limit_minutes: int | None) -> None:
 
         logging.debug('next wait iteration')
         await asyncio.sleep(app_settings.wait_loop_iteration_seconds)
-        execution_time = time.time() - start_time
+        current_time = time.time()
+        execution_time = current_time - start_time
+
+        if int(current_time - stats_show_time) >= app_settings.show_stats_every_seconds:
+            stats_show_time = current_time
+            await stats.show_stats()
+
+    await stats.show_stats()

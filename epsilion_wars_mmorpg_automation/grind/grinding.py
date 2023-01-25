@@ -5,7 +5,7 @@ from typing import Callable
 
 from telethon import events, types
 
-from epsilion_wars_mmorpg_automation import actions
+from epsilion_wars_mmorpg_automation import actions, stats
 from epsilion_wars_mmorpg_automation.buttons import get_buttons_flat
 from epsilion_wars_mmorpg_automation.grind import handlers, loop
 from epsilion_wars_mmorpg_automation.parsers import parsers
@@ -54,6 +54,7 @@ def setup_signals_handlers() -> None:
 
 async def _message_handler(event: events.NewMessage.Event) -> None:
     await _log_event_information(event)
+    stats.collector.inc_value('events')
 
     await event.message.mark_read()
 

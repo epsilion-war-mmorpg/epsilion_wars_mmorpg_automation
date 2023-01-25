@@ -94,4 +94,4 @@ def is_hunting_ready_state(event: events.NewMessage.Event) -> bool:
         return False
     if 'монстров пока нет' in message:
         return False
-    return 'можно встретить врагов' in message
+    return 'в локации можно встретить врагов.' in message
