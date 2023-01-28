@@ -9,6 +9,8 @@ from epsilion_wars_mmorpg_automation.buttons import (
     RIP,
     RUN_OUT_OF_BATTLE,
     SKIP,
+    TO_HUNTING_ZONE,
+    TO_TOWN,
     get_buttons_flat,
 )
 from epsilion_wars_mmorpg_automation.parsers.parsers import strip_message
@@ -19,6 +21,9 @@ def is_died_state(event: events.NewMessage.Event) -> bool:
     found_buttons = get_buttons_flat(event)
     if len(found_buttons) == 1 and found_buttons[0].text == RIP:
         return True
+
+    if _is_battle_escape_try(event):
+        return found_buttons[0].text == TO_TOWN
 
     message_content = strip_message(event.message.message)
     patterns = [
@@ -78,13 +83,11 @@ def is_win_state(event: events.NewMessage.Event) -> bool:
     found_buttons = get_buttons_flat(event)
     if len(found_buttons) != 1:
         return False
+
+    if _is_battle_escape_try(event):
+        return found_buttons[0].text == TO_HUNTING_ZONE
+
     return found_buttons[0].text == COMPLETE_BATTLE
-
-
-def _is_already_ended_battle(event: events.NewMessage.Event) -> bool:
-    """Last turn of ended battle."""
-    message_content = event.message.message.strip()
-    return 'Ход' in message_content and '(0/' in message_content
 
 
 def is_hunting_ready_state(event: events.NewMessage.Event) -> bool:
@@ -95,3 +98,14 @@ def is_hunting_ready_state(event: events.NewMessage.Event) -> bool:
     if 'монстров пока нет' in message:
         return False
     return 'в локации можно встретить врагов.' in message
+
+
+def _is_already_ended_battle(event: events.NewMessage.Event) -> bool:
+    """Last turn of ended battle."""
+    message_content = event.message.message.strip()
+    return 'Ход' in message_content and '(0/' in message_content
+
+
+def _is_battle_escape_try(event: events.NewMessage.Event) -> bool:
+    message = strip_message(event.message.message)
+    return 'попытался сбежать от' in message and 'попытка была провалена' in message

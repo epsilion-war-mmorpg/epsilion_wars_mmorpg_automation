@@ -8,6 +8,7 @@ from epsilion_wars_mmorpg_automation.parsers.checks.states import is_died_state
 @pytest.mark.parametrize('button_text,expected', [
     ('Непонятная кнопка', False),
     ('💀 Принять участь', True),
+    ('В город', False),
 ])
 def test_is_died_state_by_button(button_text: str, expected: bool):
     button = Mock()
@@ -36,3 +37,16 @@ def test_is_died_state_without_button(message_text: str, expected: bool):
     result = is_died_state(event_mock)
 
     assert result is expected
+
+
+def test_is_died_state_after_escape():
+    button = Mock()
+    button.text = 'В город'
+    event_mock = Mock()
+    event_mock.message.message = '🧟‍♂️ FHFHF 🔸12 попытался сбежать от 🪶 🧝‍♂️ OEOEOE 🔸14, но попытка была провалена'
+    event_mock.message.button_count = 1
+    event_mock.message.buttons = [[button]]
+
+    result = is_died_state(event_mock)
+
+    assert result is True
