@@ -81,5 +81,7 @@ TL;DR Screw [the rules](https://teletype.in/@epsilionwar/HkPsNEfZL)
 
 #### Feature-requests
 - readme for customers
+- anti-captcha tool
+- traveling tool
 - fishing tool
 - publish as package

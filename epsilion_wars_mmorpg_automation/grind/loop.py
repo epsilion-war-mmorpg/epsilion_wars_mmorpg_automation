@@ -17,7 +17,7 @@ def exit_request(*args, **kwargs) -> None:  # type: ignore
     logging.info('force exit')
 
 
-async def run_wait_loop(execution_limit_minutes: int | None) -> None:
+async def run_wait_loop(execution_limit_minutes: int | None) -> None:  # noqa: WPS231
     """Wait execution time left or stop signals."""
     start_time = time.time()
     stats_show_time = start_time
