@@ -1,7 +1,7 @@
 import pytest
 
 from epsilion_wars_mmorpg_automation.exceptions import InvalidMessageError
-from epsilion_wars_mmorpg_automation.parsers.parsers import get_character_level
+from epsilion_wars_mmorpg_automation.game.parsers import get_character_level
 
 
 @pytest.mark.parametrize('payload,expected', [

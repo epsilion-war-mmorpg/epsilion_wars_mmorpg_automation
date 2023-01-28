@@ -1,6 +1,6 @@
 import pytest
 
-from epsilion_wars_mmorpg_automation.parsers.parsers import get_experience_gain
+from epsilion_wars_mmorpg_automation.game.parsers import get_experience_gain
 
 
 @pytest.mark.parametrize('payload, expected', [

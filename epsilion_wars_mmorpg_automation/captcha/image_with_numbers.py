@@ -6,7 +6,7 @@ from telethon import events
 
 from epsilion_wars_mmorpg_automation.captcha import anti_captcha_provider
 from epsilion_wars_mmorpg_automation.captcha.symbol_traps_utils import replace_eng_chars
-from epsilion_wars_mmorpg_automation.parsers.parsers import get_photo_base64
+from epsilion_wars_mmorpg_automation.game.parsers import get_photo_base64
 
 _common_pattern = 'отправьчислоскартинки'
 

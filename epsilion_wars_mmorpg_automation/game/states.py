@@ -3,7 +3,7 @@
 
 from telethon import events
 
-from epsilion_wars_mmorpg_automation.buttons import (
+from epsilion_wars_mmorpg_automation.game.buttons import (
     ATTACK_HEAD,
     COMPLETE_BATTLE,
     RIP,
@@ -13,7 +13,7 @@ from epsilion_wars_mmorpg_automation.buttons import (
     TO_TOWN,
     get_buttons_flat,
 )
-from epsilion_wars_mmorpg_automation.parsers.parsers import strip_message
+from epsilion_wars_mmorpg_automation.game.parsers import strip_message
 
 
 def is_died_state(event: events.NewMessage.Event) -> bool:

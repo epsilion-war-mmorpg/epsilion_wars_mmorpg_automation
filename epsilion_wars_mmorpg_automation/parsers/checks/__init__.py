@@ -1,1 +1,0 @@
-"""Checks of current state."""

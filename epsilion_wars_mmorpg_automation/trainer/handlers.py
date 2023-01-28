@@ -3,11 +3,11 @@ import logging
 
 from telethon import events
 
-from epsilion_wars_mmorpg_automation import actions, notifications, stats
+from epsilion_wars_mmorpg_automation import notifications, stats
 from epsilion_wars_mmorpg_automation.captcha import resolvers
-from epsilion_wars_mmorpg_automation.grind.loop import exit_request
-from epsilion_wars_mmorpg_automation.parsers import parsers
+from epsilion_wars_mmorpg_automation.game import actions, parsers
 from epsilion_wars_mmorpg_automation.settings import app_settings
+from epsilion_wars_mmorpg_automation.trainer.loop import exit_request
 
 
 async def hunting_handler(event: events.NewMessage.Event) -> None:

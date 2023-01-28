@@ -70,7 +70,14 @@ Just register there, top up your account with some $ and add your account key to
 
 You can have more information about registration and account funding on [their web site](http://getcaptchasolution.com/r4gkdobk03).   
 
+You can also run the Epsilion Trainer in captcha-only help mode. Use the command `captcha-solver`.
+
+In this mode, the tool will only help you solve the captcha automatically and nothing else.
+
+
 #### Settings
+
+`captcha_solver_enabled`: Try to solve simple captcha automatically. Enabled by default.
 
 `anti_captcha_com_apikey`: your account key (ex: 172ea50b3d12345678de199546c66b20)
 

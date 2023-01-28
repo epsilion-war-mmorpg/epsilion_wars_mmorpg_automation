@@ -1,17 +1,15 @@
 """Grinding functionality and runner."""
 import logging
-import signal
 from typing import Callable
 
 from telethon import events, types
 
-from epsilion_wars_mmorpg_automation import actions, stats
-from epsilion_wars_mmorpg_automation.buttons import get_buttons_flat
-from epsilion_wars_mmorpg_automation.grind import handlers, loop
-from epsilion_wars_mmorpg_automation.parsers import parsers
-from epsilion_wars_mmorpg_automation.parsers.checks import messages, states
+from epsilion_wars_mmorpg_automation import stats
+from epsilion_wars_mmorpg_automation.game import actions, messages, parsers, states
+from epsilion_wars_mmorpg_automation.game.buttons import get_buttons_flat
 from epsilion_wars_mmorpg_automation.settings import app_settings
 from epsilion_wars_mmorpg_automation.telegram_client import client
+from epsilion_wars_mmorpg_automation.trainer import handlers, loop
 
 
 async def main(execution_limit_minutes: int | None = None) -> None:
@@ -45,11 +43,6 @@ async def main(execution_limit_minutes: int | None = None) -> None:
 
     await loop.run_wait_loop(execution_limit_minutes)
     logging.info('end grinding')
-
-
-def setup_signals_handlers() -> None:
-    """Set up signal handlers."""
-    signal.signal(signal.SIGINT, loop.exit_request)
 
 
 async def _message_handler(event: events.NewMessage.Event) -> None:

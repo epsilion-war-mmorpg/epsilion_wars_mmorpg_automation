@@ -5,9 +5,9 @@ import random
 
 from telethon import events
 
-from epsilion_wars_mmorpg_automation.buttons import SEARCH_ENEMY, get_buttons_flat
 from epsilion_wars_mmorpg_automation.exceptions import InvalidMessageError
-from epsilion_wars_mmorpg_automation.parsers import parsers
+from epsilion_wars_mmorpg_automation.game import parsers
+from epsilion_wars_mmorpg_automation.game.buttons import SEARCH_ENEMY, get_buttons_flat
 from epsilion_wars_mmorpg_automation.settings import app_settings
 from epsilion_wars_mmorpg_automation.telegram_client import client
 from epsilion_wars_mmorpg_automation.wait_utils import wait_for

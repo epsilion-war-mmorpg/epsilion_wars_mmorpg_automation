@@ -3,7 +3,7 @@
 
 from telethon import events
 
-from epsilion_wars_mmorpg_automation.parsers.parsers import strip_message
+from epsilion_wars_mmorpg_automation.game.parsers import strip_message
 
 
 def is_equip_broken_message(event: events.NewMessage.Event) -> bool:

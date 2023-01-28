@@ -1,10 +1,12 @@
 """Command-line interface."""
 import argparse
 import logging
+import signal
+from typing import Any, Callable
 
-from epsilion_wars_mmorpg_automation.grind import grinding
 from epsilion_wars_mmorpg_automation.settings import app_settings
 from epsilion_wars_mmorpg_automation.telegram_client import client
+from epsilion_wars_mmorpg_automation.trainer import captcha_solver, grinding, loop
 
 
 def grind_start() -> None:
@@ -19,11 +21,19 @@ def grind_start() -> None:
         help='Execution limit in minutes',
     )
     args = parser.parse_args()
+    _run(grinding.main, args.minutes_limit)
 
+
+def captcha_solver_start() -> None:
+    """Start captcha-solver."""
+    _run(captcha_solver.main)
+
+
+def _run(main_func: Callable, *args: Any, **kwargs: Any) -> None:
     _setup_logging()
-    grinding.setup_signals_handlers()
+    signal.signal(signal.SIGINT, loop.exit_request)
     with client:
-        client.loop.run_until_complete(grinding.main(args.minutes_limit))
+        client.loop.run_until_complete(main_func(*args, **kwargs))
 
 
 def _setup_logging() -> None:

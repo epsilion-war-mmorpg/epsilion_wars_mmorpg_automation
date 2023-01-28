@@ -1,6 +1,6 @@
 import pytest
 
-from epsilion_wars_mmorpg_automation.parsers.parsers import strip_message
+from epsilion_wars_mmorpg_automation.game.parsers import strip_message
 
 
 @pytest.mark.parametrize('payload, expected', [

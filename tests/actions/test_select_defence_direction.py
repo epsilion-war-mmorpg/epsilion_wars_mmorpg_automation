@@ -2,7 +2,7 @@ from unittest.mock import Mock
 
 import pytest
 
-from epsilion_wars_mmorpg_automation.actions import select_defence_direction
+from epsilion_wars_mmorpg_automation.game.actions import select_defence_direction
 from epsilion_wars_mmorpg_automation.exceptions import InvalidMessageError
 
 

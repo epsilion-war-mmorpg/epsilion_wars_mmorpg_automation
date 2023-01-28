@@ -1,6 +1,6 @@
 from unittest.mock import Mock
 
-from epsilion_wars_mmorpg_automation.actions import search_enemy
+from epsilion_wars_mmorpg_automation.game.actions import search_enemy
 
 
 async def test_search_enemy_happy_path(mocked_client_message_send):

@@ -1,6 +1,6 @@
 from unittest.mock import Mock
 
-from epsilion_wars_mmorpg_automation.buttons import get_buttons_flat
+from epsilion_wars_mmorpg_automation.game.buttons import get_buttons_flat
 
 
 def test_get_buttons_flat_happy_path():

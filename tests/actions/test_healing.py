@@ -1,6 +1,6 @@
 from unittest.mock import Mock
 
-from epsilion_wars_mmorpg_automation.actions import healing
+from epsilion_wars_mmorpg_automation.game.actions import healing
 
 
 # async def test_healing_happy_path(mocked_client_message_send):
