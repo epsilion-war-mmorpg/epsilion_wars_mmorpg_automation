@@ -1,15 +1,14 @@
-"""Grinding functionality and runner."""
+"""Grinding tool."""
 import logging
 from typing import Callable
 
 from telethon import events, types
 
 from epsilion_wars_mmorpg_automation import stats
-from epsilion_wars_mmorpg_automation.game import actions, messages, parsers, states
-from epsilion_wars_mmorpg_automation.game.buttons import get_buttons_flat
+from epsilion_wars_mmorpg_automation.game import actions, messages, states
 from epsilion_wars_mmorpg_automation.settings import app_settings
 from epsilion_wars_mmorpg_automation.telegram_client import client
-from epsilion_wars_mmorpg_automation.trainer import handlers, loop
+from epsilion_wars_mmorpg_automation.trainer import event_logging, handlers, loop
 
 
 async def main(execution_limit_minutes: int | None = None) -> None:
@@ -46,7 +45,7 @@ async def main(execution_limit_minutes: int | None = None) -> None:
 
 
 async def _message_handler(event: events.NewMessage.Event) -> None:
-    await _log_event_information(event)
+    await event_logging.log_event_information(event)
     stats.collector.inc_value('events')
 
     await event.message.mark_read()
@@ -54,17 +53,6 @@ async def _message_handler(event: events.NewMessage.Event) -> None:
     select_callback = _select_action_by_event(event)
 
     await select_callback(event)
-
-
-async def _log_event_information(event: events.NewMessage.Event) -> None:
-    message_content = parsers.strip_message(event.message.message)
-    media = event.message.media
-    logging.info(
-        'handle event message="%s"; buttons="%s"; photos="%s"',
-        message_content[:app_settings.message_log_limit],
-        [button.text for button in get_buttons_flat(event)],
-        media,
-    )
 
 
 def _select_action_by_event(event: events.NewMessage.Event) -> Callable:

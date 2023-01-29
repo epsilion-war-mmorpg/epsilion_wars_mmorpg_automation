@@ -16,8 +16,8 @@ ignore =
 per-file-ignores =
     #  WPS229 Found too long - ok for httpx usages
     #  WPS420 Found wrong keyword: pass
-    #  WPS432 Found magic number
-    #  WPS604 Found incorrect node inside `class` body
+    #  WPS432 Found magic number - ok for settings
+    #  WPS604 Found incorrect node inside `class` body - custom exceptions
 
     epsilion_wars_mmorpg_automation/exceptions.py: WPS420, WPS604
     epsilion_wars_mmorpg_automation/settings.py: WPS432,
