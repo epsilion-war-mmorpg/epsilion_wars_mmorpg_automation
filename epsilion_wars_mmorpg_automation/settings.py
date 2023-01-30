@@ -23,7 +23,7 @@ class AppSettings(BaseSettings):
     anti_captcha_com_apikey: str = Field(default='', description='see https://anti-captcha.com for more information')
     anti_captcha_com_timeout: int = 15
     anti_captcha_com_create_task_tries: int = 3
-    anti_captcha_com_create_task_throttling: int = 10
+    anti_captcha_com_create_task_throttling: int = 15
     anti_captcha_com_get_task_tries: int = 8
     anti_captcha_com_get_task_throttling: int = 5
 

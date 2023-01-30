@@ -32,6 +32,8 @@ telegram_api_id=U_API_ID
 telegram_api_hash=U_API_HASH
 EOF
 ```
+The first time you use it, you'll need to log in to your Telegram account, but after that you'll be automatically logged in.
+
 
 ### Grinding:
 Grinding will save you from having to fight annoying monsters in the hunting grounds. 
@@ -88,7 +90,6 @@ TL;DR Screw [the rules](https://teletype.in/@epsilionwar/HkPsNEfZL)
 
 #### Feature-requests
 - readme for customers
-- anti-captcha tool
 - traveling tool
 - fishing tool
 - publish as package

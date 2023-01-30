@@ -135,7 +135,7 @@ async def captcha_answer(event: events.NewMessage.Event, answer: str) -> None:
     """Send captcha answer."""
     logging.info('call captcha answer command')
 
-    await wait_for(5, 10)
+    await wait_for(2, 5)
     await client.send_message(
         entity=event.chat_id,
         message=answer,
