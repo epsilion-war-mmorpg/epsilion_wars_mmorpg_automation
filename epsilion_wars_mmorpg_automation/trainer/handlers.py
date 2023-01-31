@@ -26,10 +26,6 @@ async def hunting_handler(event: events.NewMessage.Event) -> None:
 
 async def battle_start_handler(event: events.NewMessage.Event) -> None:
     """Notify about battle started."""
-    if app_settings.notifications_enabled:
-        await notifications.send_desktop_notify(
-            message=event.message.message,
-        )
     # force recall battle start message
     await actions.ping(event)
 

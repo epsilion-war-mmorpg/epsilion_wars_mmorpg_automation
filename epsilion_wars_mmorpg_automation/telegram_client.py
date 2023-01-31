@@ -9,5 +9,6 @@ client = TelegramClient(
     api_id=app_settings.telegram_api_id,
     api_hash=app_settings.telegram_api_hash,
     auto_reconnect=True,
-    retry_delay=3,
+    connection_retries=app_settings.tlg_client_retries,
+    retry_delay=app_settings.tlg_client_retry_delay,
 )

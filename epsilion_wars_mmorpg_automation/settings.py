@@ -29,6 +29,8 @@ class AppSettings(BaseSettings):
 
     # developer section
     game_username: str = 'EpsilionWarBot'
+    tlg_client_retries: int = 30
+    tlg_client_retry_delay: int = 15
     trainer_name: str = 'Epsilion Trainer'
     debug: bool = Field(default=False, description='Logging level')
     message_log_limit: int = 100
@@ -37,7 +39,7 @@ class AppSettings(BaseSettings):
     character_high_level_threshold: int = 20
     character_middle_level_threshold: int = 10
     wait_loop_iteration_seconds: int = 3
-    show_stats_every_seconds: int = 10 * 60
+    show_stats_every_seconds: int = 30 * 60
     desktop_notification_timeout: int = 10
 
 
