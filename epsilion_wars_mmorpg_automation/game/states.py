@@ -108,4 +108,7 @@ def _is_already_ended_battle(event: events.NewMessage.Event) -> bool:
 
 def _is_battle_escape_try(event: events.NewMessage.Event) -> bool:
     message = strip_message(event.message.message)
-    return 'попытался сбежать от' in message and 'попытка была провалена' in message
+    if 'попытался сбежать от' in message and 'попытка была провалена' in message:
+        return True
+
+    return 'успел от тебя сбежать' in message
