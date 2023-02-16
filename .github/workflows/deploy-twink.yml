@@ -1,4 +1,4 @@
-name: deploy-grinder
+name: deploy-grinder-twink
 
 on:
   push:
@@ -15,12 +15,12 @@ jobs:
       - name: deploy
         uses: cross-the-world/ssh-scp-ssh-pipelines@v1.1.4
         env:
-          TARGET_DIR: /home/${{ secrets.SSH_USERNAME }}
+          TARGET_DIR: /home/${{ secrets.SSH_USERNAME_TWINK }}
           VENV_BIN: venv/bin
         with:
           host: ${{ secrets.SSH_HOST }}
-          user: ${{ secrets.SSH_USERNAME }}
-          pass: ${{ secrets.SSH_PASSWORD }}
+          user: ${{ secrets.SSH_USERNAME_TWINK }}
+          pass: ${{ secrets.SSH_PASSWORD_TWINK }}
           port: 22
           connect_timeout: 10s
           first_ssh: |-
@@ -39,12 +39,12 @@ jobs:
             $VENV_BIN/poetry install --only main
             $VENV_BIN/pip cache purge
 
-            echo 'telegram_api_id=${{ secrets.TELEGRAM_API_ID }}' > .env
-            echo 'telegram_api_hash=${{ secrets.TELEGRAM_API_HASH }}' >> .env
+            echo 'telegram_api_id=${{ secrets.TELEGRAM_API_ID_TWINK }}' > .env
+            echo 'telegram_api_hash=${{ secrets.TELEGRAM_API_HASH_TWINK }}' >> .env
             echo 'anti_captcha_com_apikey=${{ secrets.ANTI_CAPTCHA_APIKEY }}' >> .env
             echo 'minimum_hp_level_for_grinding=95' >> .env
             echo 'stop_if_equip_broken=false' >> .env
             echo 'notifications_enabled=false' >> .env
             echo 'message_log_limit=400' >> .env
 
-            supervisorctl restart epsa:*
+            supervisorctl restart epsa-twink:*
