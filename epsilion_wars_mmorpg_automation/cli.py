@@ -32,8 +32,11 @@ def captcha_solver_start() -> None:
 def _run(main_func: Callable, *args: Any, **kwargs: Any) -> None:
     _setup_logging()
     signal.signal(signal.SIGINT, loop.exit_request)
-    with client:
-        client.loop.run_until_complete(main_func(*args, **kwargs))
+    try:
+        with client:
+            client.loop.run_until_complete(main_func(*args, **kwargs))
+    except ConnectionError:
+        loop.exit_request()
 
 
 def _setup_logging() -> None:

@@ -80,7 +80,9 @@ In this mode, the tool will only help you solve the captcha automatically and no
 #### Settings
 
 `captcha_solver_enabled`: Try to solve simple captcha automatically. Enabled by default.
+
 `notifications_enabled`: Send alerts about important events. On by default.
+
 `anti_captcha_com_apikey`: your account key (ex: 172ea50b3d12345678de199546c66b20)
 
 
@@ -89,7 +91,7 @@ TL;DR Screw [the rules](https://teletype.in/@epsilionwar/HkPsNEfZL)
 
 
 #### Feature-requests
+- exit when connection error
 - readme for customers
 - publish as package
-- traveling tool
 - fishing tool

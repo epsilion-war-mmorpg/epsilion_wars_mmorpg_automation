@@ -61,7 +61,7 @@ async def test_resolve_image_to_number_task_not_ready(mocker):
     result = await resolve_image_to_number(real_captcha_image_base64)
 
     assert create_task_mock.call_count == 1
-    assert get_task_mock.call_count == 8
+    assert get_task_mock.call_count == 20
     assert result is None
 
 
@@ -81,5 +81,5 @@ async def test_resolve_image_to_number_get_task_exception(mocker):
     result = await resolve_image_to_number(real_captcha_image_base64)
 
     assert create_task_mock.call_count == 1
-    assert get_task_mock.call_count == 8
+    assert get_task_mock.call_count == 20
     assert result is None
