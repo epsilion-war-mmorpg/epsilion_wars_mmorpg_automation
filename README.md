@@ -91,7 +91,6 @@ TL;DR Screw [the rules](https://teletype.in/@epsilionwar/HkPsNEfZL)
 
 
 #### Feature-requests
-- exit when connection error
 - readme for customers
 - publish as package
 - fishing tool
