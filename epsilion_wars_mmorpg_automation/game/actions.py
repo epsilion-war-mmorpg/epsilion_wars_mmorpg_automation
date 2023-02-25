@@ -89,15 +89,24 @@ async def select_attack_direction(event: events.NewMessage.Event) -> None:
 async def select_combo(event: events.NewMessage.Event) -> None:
     """Select combo block."""
     logging.info('call select combo command')
-    options = get_buttons_flat(event)[:-2]
-    logging.debug('combo options %s', options)
-    if not options:
+    combo_options = get_buttons_flat(event)[:-2]
+    logging.debug('combo options %s', combo_options)
+
+    if not combo_options:
         raise InvalidMessageError('Combo selector buttons not found.')
+
+    selected_option = combo_options[0]
+    if app_settings.select_random_combo and len(combo_options) > 1:
+        selected_option = random.choice(combo_options)
+
+    if app_settings.skip_combo:
+        if random.randint(0, 100) <= app_settings.skip_combo_chance:
+            selected_option = get_buttons_flat(event)[-2]
 
     await wait_for(1, 3)
     await client.send_message(
         entity=event.chat_id,
-        message=options[0].text,
+        message=selected_option.text,
     )
 
 

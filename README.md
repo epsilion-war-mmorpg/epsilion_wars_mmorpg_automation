@@ -57,7 +57,11 @@ You can change the settings in the .env file as follows
 
 `stop_if_equip_broken`: Stop when something breaks. On by default.
 
-`stop_if_captcha_fire`: Stop when captcha detected. Default is off. 
+`stop_if_captcha_fire`: Stop when captcha detected. Default is off.
+
+`select_random_combo`: Choose a random combo shot from the available ones. On by default.
+
+`skip_combo`: Skip the combo shots sometimes. On by default.
 
 `captcha_solver_enabled`: Try to solve simple captcha automatically. Enabled by default.
 
