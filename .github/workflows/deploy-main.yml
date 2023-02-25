@@ -3,7 +3,7 @@ name: deploy-grinder-main
 on:
   push:
     branches:
-      - master
+      - release-main
 
 jobs:
   on-success:
