@@ -21,7 +21,7 @@ Use the following commands to download and install the latest version of Epsilio
 ```shell
 git clone https://github.com/esemi/epsilion_wars_mmorpg_automation.git
 cd epsilion_wars_mmorpg_automation
-pip install --upgrade poetry pip setuptools
+pip install -U poetry pip setuptools
 poetry install --only main
 ```
 
