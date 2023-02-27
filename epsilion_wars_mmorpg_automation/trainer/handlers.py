@@ -40,10 +40,9 @@ async def battle_end_handler(event: events.NewMessage.Event) -> None:
     if experience_inc:
         stats.collector.inc_value('experience', experience_inc)
 
-    if app_settings.notifications_enabled:
-        await notifications.send_desktop_notify(
-            message=event.message.message,
-        )
+    await notifications.send_desktop_notify(
+        message=event.message.message,
+    )
 
 
 async def skip_turn_handler(event: events.NewMessage.Event) -> None:
@@ -56,13 +55,11 @@ async def captcha_fire_handler(event: events.NewMessage.Event) -> None:
     logging.warning('captcha event shot!')
 
     stats.collector.inc_value('captcha-s')
-
-    if app_settings.notifications_enabled:
-        notify_message = parsers.strip_message(event.message.message)
-        await notifications.send_desktop_notify(
-            message=notify_message,
-            is_urgent=True,
-        )
+    notify_message = parsers.strip_message(event.message.message)
+    await notifications.send_desktop_notify(
+        message=notify_message,
+        is_urgent=True,
+    )
 
     if app_settings.captcha_solver_enabled:
         captcha_answer = await resolvers.try_resolve(event)
@@ -81,12 +78,12 @@ async def captcha_fire_handler(event: events.NewMessage.Event) -> None:
 async def equip_broken_handler(event: events.NewMessage.Event) -> None:
     """Stop grinding when equip broken."""
     logging.info('equip broken event')
-    if app_settings.notifications_enabled:
-        notify_message = parsers.strip_message(event.message.message)
-        await notifications.send_desktop_notify(
-            message=notify_message,
-            is_urgent=True,
-        )
+
+    notify_message = parsers.strip_message(event.message.message)
+    await notifications.send_desktop_notify(
+        message=notify_message,
+        is_urgent=True,
+    )
 
     if app_settings.stop_if_equip_broken:
         exit_request()
