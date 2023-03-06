@@ -97,4 +97,7 @@ TL;DR Screw [the rules](https://teletype.in/@epsilionwar/HkPsNEfZL)
 #### Feature-requests
 - readme for customers
 - publish as package
+- daily-rewards tool
 - fishing tool
+- mover tool
+- repair tool

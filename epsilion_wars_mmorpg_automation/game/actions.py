@@ -99,7 +99,7 @@ async def select_combo(event: events.NewMessage.Event) -> None:
     if app_settings.select_random_combo and len(combo_options) > 1:
         selected_option = random.choice(combo_options)
 
-    if app_settings.skip_combo:
+    if app_settings.skip_combo and len(combo_options) == 1:
         if random.randint(0, 100) <= app_settings.skip_combo_chance:
             selected_option = get_buttons_flat(event)[-2]
 
