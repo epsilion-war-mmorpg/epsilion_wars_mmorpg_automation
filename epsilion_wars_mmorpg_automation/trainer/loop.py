@@ -17,6 +17,11 @@ def exit_request(*args, **kwargs) -> None:  # type: ignore
     logging.info('force exit')
 
 
+def has_exit_request() -> bool:
+    """Get True when exit was requested."""
+    return _has_stop_request
+
+
 async def run_wait_loop(execution_limit_minutes: int | None) -> None:  # noqa: WPS231
     """Wait execution time left or stop signals."""
     start_time = time.time()
@@ -29,7 +34,7 @@ async def run_wait_loop(execution_limit_minutes: int | None) -> None:  # noqa: W
             logging.info('stop training by time left')
             break
 
-        if _has_stop_request:
+        if has_exit_request():
             logging.info('stop training by request')
             break
 

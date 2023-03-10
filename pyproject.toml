@@ -47,3 +47,4 @@ profile = "black"
 [tool.poetry.scripts]
 grind = 'epsilion_wars_mmorpg_automation.cli:grind_start'
 captcha-solver = 'epsilion_wars_mmorpg_automation.cli:captcha_solver_start'
+reward-catcher = 'epsilion_wars_mmorpg_automation.cli:daily_reward_catcher_start'
