@@ -5,6 +5,7 @@ import itertools
 from telethon import events, types
 
 SEARCH_ENEMY = '⚔️ Найти врагов'
+REWARDS = '🎁 Награды'
 COMPLETE_BATTLE = '✅ Забрать нaграду'
 RIP = '💀 Принять участь'
 RUN_OUT_OF_BATTLE = 'Сбежать'

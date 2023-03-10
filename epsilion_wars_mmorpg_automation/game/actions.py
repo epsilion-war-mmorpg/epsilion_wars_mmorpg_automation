@@ -151,14 +151,3 @@ async def captcha_answer(event: events.NewMessage.Event, answer: str) -> None:
         entity=event.chat_id,
         message=answer,
     )
-
-
-async def show_rewards(entity: int) -> None:
-    """Call show rewards."""
-    logging.info('call rewards command')
-    game_bot_id = entity
-
-    await client.send_message(
-        entity=game_bot_id,
-        message='/rewards',
-    )

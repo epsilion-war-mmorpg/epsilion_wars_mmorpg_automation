@@ -7,7 +7,7 @@ from typing import Callable
 from telethon import events, types
 
 from epsilion_wars_mmorpg_automation import stats
-from epsilion_wars_mmorpg_automation.game import actions, messages, states
+from epsilion_wars_mmorpg_automation.game import actions
 from epsilion_wars_mmorpg_automation.game.action import rewards as reward_actions
 from epsilion_wars_mmorpg_automation.game.state import rewards as reward_states
 from epsilion_wars_mmorpg_automation.settings import app_settings
@@ -17,7 +17,7 @@ from epsilion_wars_mmorpg_automation.trainer import event_logging, handlers, loo
 
 async def main() -> None:
     """Reward-catcher runner."""
-    logging.info(f'start reward-catcher')
+    logging.info('start reward-catcher')
 
     if not app_settings.captcha_solver_enabled:
         logging.warning('Enable captcha_solver_enabled setting first')
@@ -44,7 +44,7 @@ async def _check_reward_periodically(game_user: types.InputPeerUser) -> None:
     start_time = time.time()
 
     # check immediately after run
-    await actions.show_rewards(game_user.user_id)
+    await reward_actions.show_rewards(game_user.user_id)
 
     while True:
         if loop.has_exit_request():
@@ -54,7 +54,7 @@ async def _check_reward_periodically(game_user: types.InputPeerUser) -> None:
         timer = time.time() - start_time
         if timer >= app_settings.check_rewards_every_seconds:
             start_time = time.time()
-            await actions.show_rewards(game_user.user_id)
+            await reward_actions.show_rewards(game_user.user_id)
 
         else:
             logging.debug('next wait iteration')
@@ -74,7 +74,9 @@ async def _message_handler(event: events.NewMessage.Event) -> None:
 
 def _select_action_by_event(event: events.NewMessage.Event) -> Callable:
     mapping = [
-        (reward_states.is_daily_reward_found, reward_actions.get_reward),
+        (reward_states.is_reward_catch_message, actions.ping),
+        (reward_states.is_reward_already_used_message, actions.ping),
+        (reward_states.is_daily_reward_found, reward_actions.catch_reward),
         (reward_states.is_daily_reward_not_found, actions.ping),
         (reward_states.is_reward_recipient_selector, reward_actions.select_reward_recipient),
     ]
