@@ -7,7 +7,7 @@ from typing import Callable
 from telethon import events, types
 
 from epsilion_wars_mmorpg_automation import stats
-from epsilion_wars_mmorpg_automation.game import actions
+from epsilion_wars_mmorpg_automation.game.action import common as common_actions
 from epsilion_wars_mmorpg_automation.game.action import rewards as reward_actions
 from epsilion_wars_mmorpg_automation.game.state import rewards as reward_states
 from epsilion_wars_mmorpg_automation.settings import app_settings
@@ -74,10 +74,10 @@ async def _message_handler(event: events.NewMessage.Event) -> None:
 
 def _select_action_by_event(event: events.NewMessage.Event) -> Callable:
     mapping = [
-        (reward_states.is_reward_catch_message, actions.ping),
-        (reward_states.is_reward_already_used_message, actions.ping),
+        (reward_states.is_reward_catch_message, common_actions.ping),
+        (reward_states.is_reward_already_used_message, common_actions.ping),
         (reward_states.is_daily_reward_found, reward_actions.catch_reward),
-        (reward_states.is_daily_reward_not_found, actions.ping),
+        (reward_states.is_daily_reward_not_found, common_actions.ping),
         (reward_states.is_reward_recipient_selector, reward_actions.select_reward_recipient),
     ]
 

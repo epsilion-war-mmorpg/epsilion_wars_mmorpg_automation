@@ -1,6 +1,6 @@
 from unittest.mock import Mock
 
-from epsilion_wars_mmorpg_automation.game.actions import ping
+from epsilion_wars_mmorpg_automation.game.action.common import ping
 
 
 async def test_ping_happy_path(mocked_client_message_send):

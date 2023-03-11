@@ -5,7 +5,8 @@ from typing import Callable
 from telethon import events, types
 
 from epsilion_wars_mmorpg_automation import stats
-from epsilion_wars_mmorpg_automation.game import actions
+from epsilion_wars_mmorpg_automation.game.action import common as common_actions
+from epsilion_wars_mmorpg_automation.game.action import hunting as hunting_actions
 from epsilion_wars_mmorpg_automation.game.state import common as common_states
 from epsilion_wars_mmorpg_automation.game.state import hunting as hunting_states
 from epsilion_wars_mmorpg_automation.settings import app_settings
@@ -40,7 +41,7 @@ async def main(execution_limit_minutes: int | None = None) -> None:
         ),
     )
 
-    await actions.ping(game_user.user_id)
+    await common_actions.ping(game_user.user_id)
 
     await loop.run_wait_loop(execution_limit_minutes)
     logging.info('end grinding')
@@ -62,12 +63,12 @@ def _select_action_by_event(event: events.NewMessage.Event) -> Callable:
         (common_states.is_captcha_message, handlers.captcha_fire_handler),
         (common_states.is_equip_broken_message, handlers.equip_broken_handler),
         (hunting_states.is_battle_start_message, handlers.battle_start_handler),
-        (hunting_states.is_selector_combo, actions.select_combo),
-        (hunting_states.is_selector_attack_direction, actions.select_attack_direction),
-        (hunting_states.is_selector_defence_direction, actions.select_defence_direction),
+        (hunting_states.is_selector_combo, hunting_actions.select_combo),
+        (hunting_states.is_selector_attack_direction, hunting_actions.select_attack_direction),
+        (hunting_states.is_selector_defence_direction, hunting_actions.select_defence_direction),
         (hunting_states.is_win_state, handlers.battle_end_handler),
         (hunting_states.is_died_state, handlers.battle_end_handler),
-        (common_states.is_hp_updated_message, actions.ping),
+        (common_states.is_hp_updated_message, common_actions.ping),
         (hunting_states.is_hunting_ready_state, handlers.hunting_handler),
     ]
 
