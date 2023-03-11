@@ -2,7 +2,7 @@ from unittest.mock import Mock
 
 import pytest
 
-from epsilion_wars_mmorpg_automation.game.messages import is_hp_updated_message
+from epsilion_wars_mmorpg_automation.game.state.common import is_hp_updated_message
 
 
 @pytest.mark.parametrize('payload,expected', [

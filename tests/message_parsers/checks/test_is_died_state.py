@@ -2,7 +2,7 @@ from unittest.mock import Mock
 
 import pytest
 
-from epsilion_wars_mmorpg_automation.game.states import is_died_state
+from epsilion_wars_mmorpg_automation.game.state.hunting import is_died_state
 
 
 @pytest.mark.parametrize('button_text,expected', [
