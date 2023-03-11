@@ -10,13 +10,13 @@ With Epsilion Trainer you can quickly become the strongest player on the server.
 [![linters](https://github.com/esemi/epsilion_wars_mmorpg_automation/actions/workflows/linters.yml/badge.svg?branch=master)](https://github.com/esemi/epsilion_wars_mmorpg_automation/actions/workflows/linters.yml)
 
 
-### Requirements
+## Requirements
 1. [Python 3.11 or later](https://www.python.org/downloads/) and [pip](https://pip.pypa.io/en/stable/installation/) 
 2. Telegram [API ID and token](https://docs.telethon.dev/en/stable/basic/signing-in.html#signing-in)
 3. [Registration](https://t.me/epsilionwarbot?start=ref-537453818) on the game.
 
 
-### Installation
+## Installation
 Use the following commands to download and install the latest version of Epsilion Trainer
 ```shell
 git clone https://github.com/esemi/epsilion_wars_mmorpg_automation.git
@@ -35,7 +35,7 @@ EOF
 The first time you use it, you'll need to log in to your Telegram account, but after that you'll be automatically logged in.
 
 
-### Grinding:
+## Grinding
 Grinding will save you from having to fight annoying monsters in the hunting grounds. 
 The Epsilion Trainer checks your health before searching for an enemy, choosing a random direction to attack and block, using combat tricks and collecting the reward. 
 Sometimes you just need to take your character to repair equipment and open chests.
@@ -44,7 +44,6 @@ Just get your character to the right location, equip PVE and run the Epsilion Tr
 
 If you prefer to hunt for a limited time, you can use `grind -t 30`: it will only hunt for 30 minutes, after which it will automatically shut down.
 
-TODO GIF
 
 #### Settings
 You can change the settings in the .env file as follows
@@ -66,7 +65,14 @@ You can change the settings in the .env file as follows
 `captcha_solver_enabled`: Try to solve simple captcha automatically. Enabled by default.
 
 
-### What about the captcha?
+## Daily reward catcher
+If you find it inconvenient to keep track of your daily reward, you can use The Epsilon Trainer to handle it for you. 
+The program automatically checks every hour to see if a reward has been made available, and it will attempt to collect it on your behalf. 
+
+All you need to do is run The Epsilon Trainer and enter the `reward-catcher` command.
+
+
+## What about the captcha?
 The Epsilion Trainer successfully solves simple text captcha. 
 But it won't be able to solve numbers in a picture. 
 
@@ -90,14 +96,13 @@ In this mode, the tool will only help you solve the captcha automatically and no
 `anti_captcha_com_apikey`: your account key (ex: 172ea50b3d12345678de199546c66b20)
 
 
-### What about the rules?
+## What about the rules?
 TL;DR Screw [the rules](https://teletype.in/@epsilionwar/HkPsNEfZL)
 
 
-#### Feature-requests
+## Feature-requests
 - readme for customers
 - publish as package
-- daily-rewards tool
 - fishing tool
 - mover tool
 - repair tool

@@ -1,4 +1,4 @@
-"""Check event states."""
+"""Hunting and combo states."""
 
 
 from telethon import events
@@ -112,3 +112,8 @@ def _is_battle_escape_try(event: events.NewMessage.Event) -> bool:
         return True
 
     return 'успел от тебя сбежать' in message
+
+
+def is_battle_start_message(event: events.NewMessage.Event) -> bool:
+    """Battle started."""
+    return 'ты и встретил своего врага' in strip_message(event.message.message)

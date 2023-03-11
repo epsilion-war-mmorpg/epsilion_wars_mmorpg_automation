@@ -5,7 +5,9 @@ from telethon import events
 
 from epsilion_wars_mmorpg_automation import notifications, stats
 from epsilion_wars_mmorpg_automation.captcha import resolvers
-from epsilion_wars_mmorpg_automation.game import actions, parsers
+from epsilion_wars_mmorpg_automation.game import parsers
+from epsilion_wars_mmorpg_automation.game.action import common as common_actions
+from epsilion_wars_mmorpg_automation.game.action import hunting as hunting_actions
 from epsilion_wars_mmorpg_automation.settings import app_settings
 from epsilion_wars_mmorpg_automation.trainer.loop import exit_request
 
@@ -18,22 +20,22 @@ async def hunting_handler(event: events.NewMessage.Event) -> None:
     logging.info('current HP level is %d%%', hp_level_percent)
 
     if hp_level_percent >= app_settings.minimum_hp_level_for_grinding:
-        await actions.search_enemy(event)
+        await hunting_actions.search_enemy(event)
 
     elif app_settings.auto_healing_enabled:
-        await actions.healing(event)
+        await hunting_actions.healing(event)
 
 
 async def battle_start_handler(event: events.NewMessage.Event) -> None:
     """Notify about battle started."""
     # force recall battle start message
-    await actions.ping(event)
+    await common_actions.ping(event)
 
 
 async def battle_end_handler(event: events.NewMessage.Event) -> None:
     """Complete win/fail battle."""
     if event.message.button_count:
-        await actions.complete_battle(event)
+        await hunting_actions.complete_battle(event)
 
     stats.collector.inc_value('battles')
     experience_inc = parsers.get_experience_gain(event.message.message)
@@ -67,7 +69,7 @@ async def captcha_fire_handler(event: events.NewMessage.Event) -> None:
 
         if captcha_answer.answer:
             await notifications.send_desktop_notify(f'captcha answer found:\n"{captcha_answer.answer}"')
-            await actions.captcha_answer(event, captcha_answer.answer)
+            await common_actions.captcha_answer(event, captcha_answer.answer)
         else:
             await notifications.send_desktop_notify('captcha not solved!', is_urgent=True)
 

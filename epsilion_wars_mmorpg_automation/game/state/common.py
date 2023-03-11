@@ -29,8 +29,3 @@ def is_hp_updated_message(event: events.NewMessage.Event) -> bool:
 def is_captcha_message(event: events.NewMessage.Event) -> bool:
     """Captcha shot."""
     return 'ты встретил капчу' in strip_message(event.message.message)
-
-
-def is_battle_start_message(event: events.NewMessage.Event) -> bool:
-    """Battle started."""
-    return 'ты и встретил своего врага' in strip_message(event.message.message)
