@@ -6,8 +6,8 @@ from telethon import events, types
 
 from epsilion_wars_mmorpg_automation import stats
 from epsilion_wars_mmorpg_automation.game import actions
-from epsilion_wars_mmorpg_automation.game.state import hunting as hunting_states
 from epsilion_wars_mmorpg_automation.game.state import common as common_states
+from epsilion_wars_mmorpg_automation.game.state import hunting as hunting_states
 from epsilion_wars_mmorpg_automation.settings import app_settings
 from epsilion_wars_mmorpg_automation.telegram_client import client
 from epsilion_wars_mmorpg_automation.trainer import event_logging, handlers, loop
