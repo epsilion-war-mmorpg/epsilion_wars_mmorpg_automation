@@ -40,12 +40,15 @@ class AppSettings(BaseSettings):
     message_log_limit: int = 100
     hp_level_for_low_heal_pot: int = Field(default=75, ge=1, le=100)
     hp_level_for_mid_heal_pot: int = Field(default=50, ge=1, le=100)
+    rod_minimal_hp_level_for_fishing: int = Field(default=3, ge=1)
     character_top_level_threshold: int = 30
     character_high_level_threshold: int = 20
     character_middle_level_threshold: int = 10
     wait_loop_iteration_seconds: int = 3
     show_stats_every_seconds: int = 30 * 60
     check_rewards_every_seconds: int = 60 * 60
+    check_fishing_every_seconds_min: int = int(0.51 * 60 * 60)
+    check_fishing_every_seconds_max: int = int(1.2 * 60 * 60)
     desktop_notification_timeout: int = 10
 
 

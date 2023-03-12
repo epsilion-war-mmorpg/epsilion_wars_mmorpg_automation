@@ -7,7 +7,9 @@ from epsilion_wars_mmorpg_automation import notifications, stats
 from epsilion_wars_mmorpg_automation.captcha import resolvers
 from epsilion_wars_mmorpg_automation.game import parsers
 from epsilion_wars_mmorpg_automation.game.action import common as common_actions
+from epsilion_wars_mmorpg_automation.game.action import fishing as fishing_actions
 from epsilion_wars_mmorpg_automation.game.action import hunting as hunting_actions
+from epsilion_wars_mmorpg_automation.game.state import fishing as fishing_states
 from epsilion_wars_mmorpg_automation.settings import app_settings
 from epsilion_wars_mmorpg_automation.trainer.loop import exit_request
 
@@ -89,3 +91,13 @@ async def equip_broken_handler(event: events.NewMessage.Event) -> None:
 
     if app_settings.stop_if_equip_broken:
         exit_request()
+
+
+async def fishing_start(event: events.NewMessage.Event) -> None:
+    """Start fishing."""
+    logging.info('start fishing event')
+    response = await fishing_actions.select_fishing_type(event)
+    if response:
+        logging.info(f'{response.message=}')
+        if fishing_states.is_rod_equip_needed(response.message):
+            await common_actions.show_equip(event)

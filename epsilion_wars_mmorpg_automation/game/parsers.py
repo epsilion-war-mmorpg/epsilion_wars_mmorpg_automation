@@ -10,6 +10,7 @@ from epsilion_wars_mmorpg_automation.exceptions import InvalidMessageError
 from epsilion_wars_mmorpg_automation.telegram_client import client
 
 _hp_level_pattern = re.compile(r'❤️\((\d+)/(\d+)\)')
+_equip_hp_level_pattern = re.compile(r'\((\d+)/\d+\)')
 _character_level_pattern = re.compile(r'(\d+)[\s]{0,}❤️\(\d+/\d+\)')
 _experience_gain_pattern = re.compile(r'✨\sопыта:\s(\d+)')
 
@@ -22,6 +23,14 @@ def get_hp_level(message_content: str) -> int:
 
     current_level, max_level = found.group(1, 2)
     return ceil(int(current_level) / int(max_level) * 100)
+
+
+def get_equip_hp_level(message_content: str) -> int:
+    """Get equip HP in absolute value."""
+    found = _equip_hp_level_pattern.search(message_content)
+    if not found:
+        return 0
+    return int(found.group(1))
 
 
 def get_character_level(message_content: str) -> int:

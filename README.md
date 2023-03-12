@@ -72,6 +72,12 @@ The program automatically checks every hour to see if a reward has been made ava
 All you need to do is run The Epsilon Trainer and enter the `reward-catcher` command.
 
 
+## Fishing
+todo
+снаряжайте персонажа только теми удочками, которые он может надеть!
+сломанные удочки тренер тоже переоденет сам
+
+
 ## What about the captcha?
 The Epsilion Trainer successfully solves simple text captcha. 
 But it won't be able to solve numbers in a picture. 
@@ -101,9 +107,9 @@ TL;DR Screw [the rules](https://teletype.in/@epsilionwar/HkPsNEfZL)
 
 
 ## Feature-requests
+- fishing tool - docs
 - readme for customers
 - move release to separate branch
 - publish as package
-- fishing tool
 - mover tool
 - repair tool
