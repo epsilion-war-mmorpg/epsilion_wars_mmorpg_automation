@@ -45,6 +45,7 @@ jobs:
             echo 'minimum_hp_level_for_grinding=95' >> .env
             echo 'stop_if_equip_broken=false' >> .env
             echo 'notifications_enabled=false' >> .env
+            echo 'select_random_combo=false' >> .env
             echo 'message_log_limit=400' >> .env
 
             supervisorctl restart epsa:*
