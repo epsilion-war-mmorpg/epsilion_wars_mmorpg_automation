@@ -12,7 +12,7 @@ class AppSettings(BaseSettings):
     telegram_api_hash: str = 'u_api_hash_here'
 
     # optional customer settings
-    minimum_hp_level_for_grinding: int = Field(default=93, ge=1, le=100)
+    minimum_hp_level_for_grinding: int = Field(default=95, ge=1, le=100)
     notifications_enabled: bool = True
     auto_healing_enabled: bool = True
     stop_if_equip_broken: bool = True
@@ -28,7 +28,7 @@ class AppSettings(BaseSettings):
     anti_captcha_com_create_task_throttling: int = 15
     anti_captcha_com_get_task_tries: int = 20
     anti_captcha_com_get_task_throttling: int = 5
-    skip_combo_chance: int = Field(default=30, description='Chance to skip combo bite if enabled')
+    skip_combo_chance: int = Field(default=30, description='Chance to skip combo bite if `skip_combo` enabled')
 
     # developer section
     ping_commands: str = ',.-+=/056789'
@@ -36,7 +36,7 @@ class AppSettings(BaseSettings):
     tlg_client_retries: int = 30
     tlg_client_retry_delay: int = 15
     trainer_name: str = 'Epsilion Trainer'
-    debug: bool = Field(default=False, description='Logging level')
+    debug: bool = Field(default=False)
     message_log_limit: int = 100
     hp_level_for_low_heal_pot: int = Field(default=75, ge=1, le=100)
     hp_level_for_mid_heal_pot: int = Field(default=50, ge=1, le=100)
@@ -47,8 +47,8 @@ class AppSettings(BaseSettings):
     wait_loop_iteration_seconds: int = 3
     show_stats_every_seconds: int = 30 * 60
     check_rewards_every_seconds: int = 60 * 60
-    check_fishing_every_seconds_min: int = int(0.51 * 60 * 60)
-    check_fishing_every_seconds_max: int = int(1.2 * 60 * 60)
+    check_fishing_every_seconds_min: int = int(0.8 * 60 * 60)
+    check_fishing_every_seconds_max: int = int(2.8 * 60 * 60)
     desktop_notification_timeout: int = 10
 
 
