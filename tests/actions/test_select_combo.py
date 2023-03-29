@@ -2,8 +2,8 @@ from unittest.mock import Mock
 
 import pytest
 
-from epsilion_wars_mmorpg_automation.game.action.hunting import select_combo
 from epsilion_wars_mmorpg_automation.exceptions import InvalidMessageError
+from epsilion_wars_mmorpg_automation.game.action.hunting import select_combo
 
 
 async def test_select_combo_happy_path(mocked_client_message_send):
