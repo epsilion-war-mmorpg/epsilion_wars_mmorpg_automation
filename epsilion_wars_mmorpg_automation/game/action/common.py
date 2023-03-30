@@ -4,6 +4,7 @@ import random
 
 from telethon import events
 
+from epsilion_wars_mmorpg_automation.settings import app_settings
 from epsilion_wars_mmorpg_automation.telegram_client import client
 from epsilion_wars_mmorpg_automation.wait_utils import wait_for
 
@@ -18,7 +19,7 @@ async def ping(entity: int | events.NewMessage.Event) -> None:
         game_bot_id = entity
 
     message = random.choice(
-        seq=',.-',
+        seq=app_settings.ping_commands,
     )
     logging.info(f'call ping command debug {game_bot_id=} {message=}')
     await client.send_message(
