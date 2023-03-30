@@ -1,0 +1,56 @@
+name: release-twink#6
+
+on:
+  push:
+    branches:
+      - release
+
+jobs:
+  on-success:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: deploy
+        uses: cross-the-world/ssh-scp-ssh-pipelines@v1.1.4
+        env:
+          TARGET_DIR: /home/twink6
+          VENV_BIN: venv/bin
+        with:
+          host: ${{ secrets.EPSA_SSH_HOST }}
+          user: twink6
+          pass: ${{ secrets.SSH_PASSWORD_TWINK6 }}
+          port: 22
+          connect_timeout: 10s
+          first_ssh: |-
+            mkdir -p logs
+            test -d venv || python3.11 -m venv venv
+
+          scp: |-
+            './epsilion_wars_mmorpg_automation/*' => $TARGET_DIR/epsilion_wars_mmorpg_automation/
+            ./poetry.lock => $TARGET_DIR
+            ./pyproject.toml => $TARGET_DIR
+            ./README.md => $TARGET_DIR
+
+          last_ssh: |-
+            $VENV_BIN/pip install --no-cache-dir poetry pip setuptools --upgrade
+            $VENV_BIN/poetry config virtualenvs.create false --local
+            $VENV_BIN/poetry install --only main
+            $VENV_BIN/pip cache purge
+
+            echo 'telegram_api_id=${{ secrets.TELEGRAM_API_ID_TWINK6 }}' > .env
+            echo 'telegram_api_hash=${{ secrets.TELEGRAM_API_HASH_TWINK6 }}' >> .env
+            echo 'anti_captcha_com_apikey=${{ secrets.ANTI_CAPTCHA_APIKEY }}' >> .env
+            echo 'minimum_hp_level_for_grinding=90' >> .env
+            echo 'stop_if_equip_broken=false' >> .env
+            echo 'notifications_enabled=false' >> .env
+            echo 'slow_mode=false' >> .env            
+            echo 'message_log_limit=300' >> .env
+            echo 'repair_locations_path=""' >> .env
+            echo 'skip_random_vendor_stop_words=""' >> .env
+
+            supervisorctl stop twink6:twink6-grinder
+            supervisorctl stop twink6:twink6-fisher
+            supervisorctl stop twink6:twink6-farmer
+            supervisorctl restart twink6:twink6-hunter
