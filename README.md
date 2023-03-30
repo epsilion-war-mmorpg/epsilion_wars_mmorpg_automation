@@ -1,5 +1,5 @@
 Epsilion Trainer
----
+=================
 [![tests](https://github.com/esemi/epsilion_wars_mmorpg_automation/actions/workflows/tests.yml/badge.svg?branch=master)](https://github.com/esemi/epsilion_wars_mmorpg_automation/actions/workflows/tests.yml)
 [![linters](https://github.com/esemi/epsilion_wars_mmorpg_automation/actions/workflows/linters.yml/badge.svg?branch=master)](https://github.com/esemi/epsilion_wars_mmorpg_automation/actions/workflows/linters.yml)
 
@@ -12,17 +12,15 @@ With Epsilion Trainer you can quickly become the strongest player on the server.
 Table of Contents
 =================
 
-   * [What about the rules?](#what-about-the-rules)
-   * [Requirements](#requirements)
-   * [Installation](#installation)
-   * [Usage](#usage)
-      * [Grinding](#grinding)
-            * [Settings](#settings)
-      * [Daily reward catcher](#daily-reward-catcher)
-      * [Fishing](#fishing)
-      * [What about the captcha?](#what-about-the-captcha)
-            * [Settings](#settings-1)
-   * [Roadmap](#roadmap)
+* [What about the rules?](#what-about-the-rules)
+* [Requirements](#requirements)
+* [Installation](#installation)
+* [Usage](#usage)
+  * [Grinding](#grinding)
+  * [Daily reward catcher](#daily-reward-catcher)
+  * [Fishing](#fishing)
+  * [What about the captcha?](#what-about-the-captcha)
+* [Roadmap](#roadmap)
 
 
 ## What about the rules?
@@ -92,10 +90,13 @@ All you need to do is run The Epsilon Trainer and enter the `reward-catcher` com
 
 
 ### Fishing
-todo
-снаряжайте персонажа только теми удочками, которые он может надеть!
-сломанные удочки тренер тоже переоденет сам
+The Epsilion Trainer has a feature that allows your character to go fishing on their own. 
+Give your character more rods, take him to the water and give him a `fishing` command.
 
+The Epsilion Trainer will periodically check your character's energy level and start a fishing session when there's enough energy to do.
+If any of your fishing rods break while fishing, the program will automatically replace them from your character's inventory.
+
+Please keep in mind that it's important to only equip your character with fishing rods they can use effectively.
 
 ### What about the captcha?
 The Epsilion Trainer successfully solves simple text captcha. 

@@ -46,9 +46,9 @@ class AppSettings(BaseSettings):
     character_middle_level_threshold: int = 10
     wait_loop_iteration_seconds: int = 3
     show_stats_every_seconds: int = 30 * 60
-    check_rewards_every_seconds: int = 60 * 60
-    check_fishing_every_seconds_min: int = int(0.8 * 60 * 60)
-    check_fishing_every_seconds_max: int = int(2.8 * 60 * 60)
+    check_rewards_every_seconds: int = 4 * 60 * 60
+    check_fishing_every_seconds_min: int = int(2 * 60 * 60)
+    check_fishing_every_seconds_max: int = int(3.5 * 60 * 60)
     desktop_notification_timeout: int = 10
 
 
