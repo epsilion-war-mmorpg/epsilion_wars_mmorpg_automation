@@ -19,10 +19,6 @@ async def main() -> None:
     """Reward-catcher runner."""
     logging.info('start reward-catcher')
 
-    if not app_settings.captcha_solver_enabled:
-        logging.warning('Enable captcha_solver_enabled setting first')
-        return
-
     game_user: types.InputPeerUser = await client.get_input_entity(app_settings.game_username)
     logging.info('game user is %s', game_user)
 
