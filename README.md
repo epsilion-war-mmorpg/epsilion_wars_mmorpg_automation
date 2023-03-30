@@ -102,6 +102,7 @@ TL;DR Screw [the rules](https://teletype.in/@epsilionwar/HkPsNEfZL)
 
 ## Feature-requests
 - readme for customers
+- move release to separate branch
 - publish as package
 - fishing tool
 - mover tool
