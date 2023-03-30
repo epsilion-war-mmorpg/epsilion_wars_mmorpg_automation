@@ -123,7 +123,6 @@ In this mode, the tool will only help you solve the captcha automatically and no
 
 
 ## Roadmap
-- move deploy to separate branches
 - readme for customers (GIFs too)
 - farming experimental tool
 - publish as package
