@@ -21,6 +21,8 @@ Table of Contents
   * [Fishing](#fishing)
   * [What about the captcha?](#what-about-the-captcha)
 * [Roadmap](#roadmap)
+* [Developers](#developers)
+  * [TData converter](#tdata-converter)
 
 
 ## What about the rules?
@@ -123,8 +125,16 @@ In this mode, the tool will only help you solve the captcha automatically and no
 
 
 ## Roadmap
+- slow-mode for bot
 - setup for tmp accounts
-- farming experimental tool
 - run farming-fishing for few tmp accounts
 - readme for customers (GIFs too)
 - publish as package
+- farming experimental tool
+
+
+## Developers
+### TData converter
+```shell
+python etc/tdata_converter.py -f ~/.local/share/TelegramDesktop/tdata
+```

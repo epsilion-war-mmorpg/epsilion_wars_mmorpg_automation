@@ -24,8 +24,8 @@ jobs:
 
     - name: Run MyPy
       run: |
-        poetry run mypy epsilion_wars_mmorpg_automation/
+        poetry run mypy epsilion_wars_mmorpg_automation/ etc/
 
     - name: Run flake8
       run: |
-        poetry run flake8 epsilion_wars_mmorpg_automation/
+        poetry run flake8 epsilion_wars_mmorpg_automation/ etc/

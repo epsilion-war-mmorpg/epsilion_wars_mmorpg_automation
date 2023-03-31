@@ -21,6 +21,7 @@ mypy = "^0.991"
 wemake-python-styleguide = "^0.17.0"
 pytest-cov = "^4.0.0"
 pytest-mock = "^3.10.0"
+opentele = "^1.15.1"
 
 [build-system]
 requires = ["poetry-core"]
