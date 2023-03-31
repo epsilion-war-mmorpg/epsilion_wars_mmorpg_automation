@@ -123,7 +123,8 @@ In this mode, the tool will only help you solve the captcha automatically and no
 
 
 ## Roadmap
-- readme for customers (GIFs too)
-- farming experimental tool
-- publish as package
 - setup for tmp accounts
+- farming experimental tool
+- run farming-fishing for few tmp accounts
+- readme for customers (GIFs too)
+- publish as package
