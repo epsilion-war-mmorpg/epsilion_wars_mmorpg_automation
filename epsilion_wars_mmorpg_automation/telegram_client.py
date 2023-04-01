@@ -11,4 +11,5 @@ client = TelegramClient(
     auto_reconnect=True,
     connection_retries=app_settings.tlg_client_retries,
     retry_delay=app_settings.tlg_client_retry_delay,
+    device_model='Desktop Epsa Client',
 )
