@@ -9,13 +9,13 @@ from epsilion_wars_mmorpg_automation.game import parsers
 from epsilion_wars_mmorpg_automation.game.buttons import SEARCH_ENEMY, get_buttons_flat
 from epsilion_wars_mmorpg_automation.settings import app_settings
 from epsilion_wars_mmorpg_automation.telegram_client import client
-from epsilion_wars_mmorpg_automation.wait_utils import wait_for
+from epsilion_wars_mmorpg_automation.wait_utils import WaitActions, wait_for
 
 
 async def search_enemy(event: events.NewMessage.Event) -> None:
     """Start searching enemy."""
     logging.info('call search enemy command')
-    await wait_for(3, 8)
+    await wait_for(WaitActions.HUNTING_START)
     await client.send_message(
         entity=event.chat_id,
         message=SEARCH_ENEMY,
@@ -27,7 +27,7 @@ async def complete_battle(event: events.NewMessage.Event) -> None:
     option = get_buttons_flat(event)[-1]
     logging.info('call complete battle command (%s)', option.text)
 
-    await wait_for(1, 3)
+    await wait_for()
     await client.send_message(
         entity=event.chat_id,
         message=option.text,
@@ -43,7 +43,7 @@ async def select_defence_direction(event: events.NewMessage.Event) -> None:
         raise InvalidMessageError('Defence selector buttons not found.')
 
     select = random.choice(options)
-    await wait_for(1, 3)
+    await wait_for()
     await client.send_message(
         entity=event.chat_id,
         message=select.text,
@@ -59,7 +59,7 @@ async def select_attack_direction(event: events.NewMessage.Event) -> None:
         raise InvalidMessageError('Attack selector buttons not found.')
 
     select = random.choice(options)
-    await wait_for(1, 3)
+    await wait_for()
     await client.send_message(
         entity=event.chat_id,
         message=select.text,
@@ -83,7 +83,7 @@ async def select_combo(event: events.NewMessage.Event) -> None:
         if random.randint(0, 100) <= app_settings.skip_combo_chance:
             selected_option = get_buttons_flat(event)[-2]
 
-    await wait_for(1, 3)
+    await wait_for()
     await client.send_message(
         entity=event.chat_id,
         message=selected_option.text,
@@ -115,7 +115,7 @@ async def healing(event: events.NewMessage.Event) -> None:
     elif character_level >= app_settings.character_middle_level_threshold:
         command = f'{command}II'
 
-    await wait_for(1, 2)
+    await wait_for()
     await client.send_message(
         entity=event.chat_id,
         message=command,

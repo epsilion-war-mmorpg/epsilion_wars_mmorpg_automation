@@ -13,7 +13,7 @@ async def show_rewards(game_bot_id: int) -> None:
     """Call show rewards."""
     logging.info('call rewards command')
 
-    await wait_for(1, 2)
+    await wait_for()
     await client.send_message(
         entity=game_bot_id,
         message=REWARDS,
@@ -27,7 +27,7 @@ async def catch_reward(event: events.NewMessage.Event) -> None:
     if not buttons:
         raise InvalidMessageError('Get reward buttons not found.')
 
-    await wait_for(1, 2)
+    await wait_for()
     await client.send_message(
         entity=event.chat_id,
         message=buttons[0].text,
@@ -42,5 +42,5 @@ async def select_reward_recipient(event: events.NewMessage.Event) -> None:
     if not inline_buttons:
         raise InvalidMessageError('Select character buttons not found.')
 
-    await wait_for(1, 2)
+    await wait_for()
     await event.message.click(0)

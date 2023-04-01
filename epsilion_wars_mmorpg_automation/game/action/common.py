@@ -8,7 +8,7 @@ from epsilion_wars_mmorpg_automation.exceptions import InvalidMessageError
 from epsilion_wars_mmorpg_automation.game.buttons import EQUIP, get_buttons_flat
 from epsilion_wars_mmorpg_automation.settings import app_settings
 from epsilion_wars_mmorpg_automation.telegram_client import client
-from epsilion_wars_mmorpg_automation.wait_utils import wait_for
+from epsilion_wars_mmorpg_automation.wait_utils import WaitActions, wait_for
 
 
 async def ping(entity: int | events.NewMessage.Event) -> None:
@@ -34,7 +34,7 @@ async def captcha_answer(event: events.NewMessage.Event, answer: str) -> None:
     """Send captcha answer."""
     logging.info('call captcha answer command')
 
-    await wait_for(4, 9)
+    await wait_for(WaitActions.CAPTCHA)
     await client.send_message(
         entity=event.chat_id,
         message=answer,
@@ -44,7 +44,7 @@ async def captcha_answer(event: events.NewMessage.Event, answer: str) -> None:
 async def show_equip(event: events.NewMessage.Event) -> None:
     """Call show equip."""
     logging.info('call show equip button')
-    await wait_for(1, 2)
+    await wait_for()
     await client.send_message(
         entity=event.chat_id,
         message=EQUIP,
@@ -58,7 +58,7 @@ async def show_equip_guns(event: events.NewMessage.Event) -> None:
     if len(inline_buttons) < 8:
         raise InvalidMessageError('Invalid equip buttons.')
 
-    await wait_for(1, 2)
+    await wait_for()
     await event.message.click(0)
 
 
@@ -69,5 +69,5 @@ async def equip_use(event: events.NewMessage.Event) -> None:
     if not inline_buttons:
         raise InvalidMessageError('Invalid equip buttons.')
 
-    await wait_for(1, 2)
+    await wait_for()
     await event.message.click(0)

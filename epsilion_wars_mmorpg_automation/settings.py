@@ -31,6 +31,7 @@ class AppSettings(BaseSettings):
     skip_combo_chance: int = Field(default=30, description='Chance to skip combo bite if `skip_combo` enabled')
 
     # developer section
+    slow_mode: bool = Field(default=False, description='Used for fresh telegram accounts.')
     ping_commands: str = ',.-+=/056789'
     game_username: str = 'EpsilionWarBot'
     tlg_client_retries: int = 30

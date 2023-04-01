@@ -1,4 +1,4 @@
-from unittest.mock import Mock, AsyncMock
+from unittest.mock import AsyncMock, Mock
 
 from epsilion_wars_mmorpg_automation.game.state.fishing import is_fishing_type_selector
 

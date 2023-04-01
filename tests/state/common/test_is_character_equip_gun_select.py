@@ -1,4 +1,4 @@
-from unittest.mock import Mock, AsyncMock
+from unittest.mock import AsyncMock, Mock
 
 from epsilion_wars_mmorpg_automation.game.state.common import is_character_equip_gun_select
 

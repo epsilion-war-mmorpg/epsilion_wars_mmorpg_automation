@@ -15,7 +15,7 @@ from epsilion_wars_mmorpg_automation.wait_utils import wait_for
 async def start_fishing(game_bot_id: int) -> None:
     """Call start fishing."""
     logging.info('call start fishing button')
-    await wait_for(1, 2)
+    await wait_for()
     await client.send_message(
         entity=game_bot_id,
         message=FISHING,
@@ -29,7 +29,7 @@ async def select_fishing_type(event: events.NewMessage.Event) -> BotCallbackAnsw
     if len(inline_buttons) != 2:
         raise InvalidMessageError('Invalid fishing-type buttons.')
 
-    await wait_for(1, 2)
+    await wait_for()
     return await event.message.click(1)
 
 
@@ -57,7 +57,7 @@ async def equip_rod(event: events.NewMessage.Event) -> None:
         logging.info('already equipped')
         return
 
-    await wait_for(1, 2)
+    await wait_for()
     await event.message.click(selected_rod[0])
 
 
@@ -69,7 +69,7 @@ async def complete_fishing(event: events.NewMessage.Event) -> None:
     if not options:
         raise InvalidMessageError('Invalid fishing complete buttons.')
 
-    await wait_for(1, 3)
+    await wait_for()
     await client.send_message(
         entity=event.chat_id,
         message=options[0].text,
