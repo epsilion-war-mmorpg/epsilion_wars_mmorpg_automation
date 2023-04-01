@@ -24,6 +24,7 @@ async def ping(entity: int | events.NewMessage.Event) -> None:
         seq=app_settings.ping_commands,
     )
     logging.info(f'call ping command debug {game_bot_id=} {message=}')
+    await wait_for()
     await client.send_message(
         entity=game_bot_id,
         message=message,

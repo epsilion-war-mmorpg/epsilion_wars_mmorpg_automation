@@ -27,7 +27,7 @@ async def complete_battle(event: events.NewMessage.Event) -> None:
     option = get_buttons_flat(event)[-1]
     logging.info('call complete battle command (%s)', option.text)
 
-    await wait_for()
+    await wait_for(WaitActions.HUNTING_END)
     await client.send_message(
         entity=event.chat_id,
         message=option.text,

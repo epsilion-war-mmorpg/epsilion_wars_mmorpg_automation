@@ -23,6 +23,7 @@ async def main(execution_limit_minutes: int | None = None) -> None:
         'stop_if_equip_broken': app_settings.stop_if_equip_broken,
         'stop_if_captcha_fire': app_settings.stop_if_captcha_fire,
         'notifications_enabled': app_settings.notifications_enabled,
+        'slow_mode': app_settings.slow_mode,
     }
     logging.info(f'start grinding ({local_settings=})')
     logging.info('move u character to hunting location first')

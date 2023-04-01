@@ -17,7 +17,8 @@ class WaitActions(enum.Enum):
 
     COMMON = (1, 3, 9, 19)
     CAPTCHA = (4, 9, 5, 10)
-    HUNTING_START = (3, 8, 5, 10)
+    HUNTING_START = (2, 4, 2, 4)
+    HUNTING_END = (2, 4, 2, 4)
 
 
 async def wait_for(timing: WaitActions = WaitActions.COMMON) -> None:
