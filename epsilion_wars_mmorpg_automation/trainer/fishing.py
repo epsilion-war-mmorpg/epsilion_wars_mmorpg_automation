@@ -48,6 +48,7 @@ async def _try_fishing_periodically(game_user: types.InputPeerUser) -> None:
         app_settings.check_fishing_every_seconds_min,
         app_settings.check_fishing_every_seconds_max,
     )
+    logging.info(f'next try timer {next_try_timer}')
 
     # check immediately after run
     await action.fishing_actions.start_fishing(game_user.user_id)
@@ -65,7 +66,7 @@ async def _try_fishing_periodically(game_user: types.InputPeerUser) -> None:
                 app_settings.check_fishing_every_seconds_max,
             )
             await action.fishing_actions.start_fishing(game_user.user_id)
-            logging.info(f'next try timer {next_try_timer}')
+            logging.info(f'next try timer {next_try_timer} {timer}')
 
         else:
             logging.debug('next wait iteration')
