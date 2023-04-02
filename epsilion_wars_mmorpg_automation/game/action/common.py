@@ -56,7 +56,7 @@ async def show_equip_guns(event: events.NewMessage.Event) -> None:
     """Call select gun button."""
     logging.info('call select gun button')
     inline_buttons = get_buttons_flat(event)
-    if len(inline_buttons) < 8:
+    if not inline_buttons:
         raise InvalidMessageError('Invalid equip buttons.')
 
     await wait_for()

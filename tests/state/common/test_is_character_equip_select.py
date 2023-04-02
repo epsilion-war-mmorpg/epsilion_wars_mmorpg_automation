@@ -27,7 +27,7 @@ def test_is_character_equip_select_buttons_not_found():
     button.text = 'second'
     event_mock = Mock()
     event_mock.message.message = success_equip_message
-    event_mock.message.buttons = [button]
+    event_mock.message.buttons = [[button]]
 
     result = is_character_equip_select(event_mock)
 
@@ -35,16 +35,12 @@ def test_is_character_equip_select_buttons_not_found():
 
 
 def test_is_character_equip_select_happy_path():
+    button = AsyncMock()
+    button.text = '🗡 Оружие (9)'
     event_mock = Mock()
     event_mock.message.message = success_equip_message
+    event_mock.message.buttons = [[button]]
 
-    buttons = []
-    for _ in range(8):
-        button = AsyncMock()
-        button.text = '🗡 Оружие (9)'
-        buttons.append(button)
-
-    event_mock.message.buttons = [buttons]
     result = is_character_equip_select(event_mock)
 
     assert result is True

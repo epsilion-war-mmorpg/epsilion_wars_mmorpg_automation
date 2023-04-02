@@ -36,7 +36,7 @@ def is_character_equip_select(event: events.NewMessage.Event) -> bool:
     """Character equip state."""
     message = strip_message(event.message.message)
     found_buttons = get_buttons_flat(event)
-    if len(found_buttons) not in {8, 9}:
+    if not found_buttons:
         return False
 
     return 'надетая экипировка:' in message and 'Оружие' in found_buttons[0].text
