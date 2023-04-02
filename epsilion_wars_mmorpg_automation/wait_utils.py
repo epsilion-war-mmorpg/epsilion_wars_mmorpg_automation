@@ -15,7 +15,7 @@ class WaitActions(enum.Enum):
     Format: NAME = (min, max, min_slow_mode, max_slow_mode)
     """
 
-    COMMON = (1, 3, 9, 19)
+    COMMON = (2, 4, 9, 19)
     CAPTCHA = (4, 9, 5, 10)
     HUNTING_START = (2, 4, 2, 4)
     HUNTING_END = (2, 4, 2, 4)
