@@ -101,3 +101,10 @@ async def fishing_start(event: events.NewMessage.Event) -> None:
         logging.info(f'{response.message=}')
         if fishing_states.is_rod_equip_needed(response.message):
             await common_actions.show_equip(event)
+
+
+async def fishing_end(event: events.NewMessage.Event) -> None:
+    """Restart fishing after end."""
+    logging.info('end fishing event')
+    await fishing_actions.complete_fishing(event)
+    await fishing_actions.start_fishing(event.chat_id)
