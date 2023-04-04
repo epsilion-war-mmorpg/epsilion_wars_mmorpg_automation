@@ -135,3 +135,6 @@ In this mode, the tool will only help you solve the captcha automatically and no
 ```shell
 python etc/tdata_converter.py -f ~/.local/share/TelegramDesktop/tdata
 ```
+
+### Need buy more sms-numbers?
+[use it](https://sms-activate.org/?ref=6431353)
