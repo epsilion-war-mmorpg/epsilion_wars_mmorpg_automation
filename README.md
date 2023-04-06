@@ -22,9 +22,9 @@ Table of Contents
   * [What about the captcha?](#what-about-the-captcha)
 * [Roadmap](#roadmap)
 * [Developers](#developers)
-  * TODO
+  * [Run on server](#run-on-server)
   * [TData converter](#tdata-converter)
-  * TODO
+  * [Need more characters](#need-more-characters)
 
 
 ## What about the rules?
@@ -128,28 +128,41 @@ In this mode, the tool will only help you solve the captcha automatically and no
 
 ## Roadmap
 - select backup-gamebot name example
-- save tdata of all tmp-accounts to separate repo
-- farming (grind+autorepair+rewardcatcher) experimental tool
 - readme for customers (GIFs too)
+- farming (grind+autorepair+rewardcatcher) experimental tool
 - publish as package
 
 
 ## Developers
 ### Run on server
-TODO description
+To run The Epsilion Trainer on the server, you will need python and any supervisor (for automatic restart after failures, highly recommended).
+For example:
+```shell
+adduser epsa
+usermod -a -G supervisor epsa
+cp ./etc/supervisor-example.conf /etc/supervisor/conf.d/epsa.conf
+vi /etc/supervisor/conf.d/epsa.conf
+service supervisor restart
+```
 
 ### TData converter
-TODO description
+If you plan to buy Telegram accounts, you will need a utility to convert credentials from tdata to .session (for Telethon library).
 ```shell
 python etc/tdata_converter.py -f ~/.local/share/TelegramDesktop/tdata
 ```
 
-### Need more characters?
-TODO description
-TODO about slow mode for fresh telegram accounts
-- заводим временный номер, например тут [use it](https://sms-activate.org/?ref=6431353)
-- добавляем аккаунт по этому номеру в мобильное приложение телеграма (или telegramX если слоты закончились)
-- регистрируемся, устанавливаем 2fa пароль, почту, никнейм
-- заводим персонажа в боте по реферальной ссылке
-- получаем авторизацию для тренера ([API ID and token](https://docs.telethon.dev/en/stable/basic/signing-in.html#signing-in))
-- запускаем прокачку
+### Need more characters
+The game allows you to have three characters per telegram account. 
+If you need more, you will need new telegram accounts. 
+
+You can buy them or create them yourself.
+The algorithm for self-registration is as follows
+- get a temporary phone number, for [example here](https://sms-activate.org/?ref=6431353)
+- create an account with this number from telegram mobile app (or TelegramX if you are out of slots)
+- set 2fa password, email, nickname
+- get your character into game using [a referral link](https://t.me/epsilionwarbot?start=ref-537453818)
+- get authorisation for the Epsilion Trainer \([see step #2](#requirements)\)
+- start grinding.
+
+For a new account, I strongly recommend enabling the `slow_mode` flag in the settings. 
+Otherwise the Telegram may block the account for too many requests.
