@@ -22,7 +22,9 @@ Table of Contents
   * [What about the captcha?](#what-about-the-captcha)
 * [Roadmap](#roadmap)
 * [Developers](#developers)
+  * TODO
   * [TData converter](#tdata-converter)
+  * TODO
 
 
 ## What about the rules?
@@ -125,16 +127,29 @@ In this mode, the tool will only help you solve the captcha automatically and no
 
 
 ## Roadmap
-- farming (grind+autorepair) experimental tool
+- select backup-gamebot name example
+- save tdata of all tmp-accounts to separate repo
+- farming (grind+autorepair+rewardcatcher) experimental tool
 - readme for customers (GIFs too)
 - publish as package
 
 
 ## Developers
+### Run on server
+TODO description
+
 ### TData converter
+TODO description
 ```shell
 python etc/tdata_converter.py -f ~/.local/share/TelegramDesktop/tdata
 ```
 
-### Need buy more sms-numbers?
-[use it](https://sms-activate.org/?ref=6431353)
+### Need more characters?
+TODO description
+TODO about slow mode for fresh telegram accounts
+- заводим временный номер, например тут [use it](https://sms-activate.org/?ref=6431353)
+- добавляем аккаунт по этому номеру в мобильное приложение телеграма (или telegramX если слоты закончились)
+- регистрируемся, устанавливаем 2fa пароль, почту, никнейм
+- заводим персонажа в боте по реферальной ссылке
+- получаем авторизацию для тренера ([API ID and token](https://docs.telethon.dev/en/stable/basic/signing-in.html#signing-in))
+- запускаем прокачку
