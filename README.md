@@ -73,7 +73,7 @@ You can change the settings in the .env file as follows
 
 `notifications_enabled`: Send alerts about important events. On by default.
 
-`auto_healing_enabled`: Using HP potions is enabled by default.
+`auto_healing_enabled`: Using HP potions. On by default.
 
 `stop_if_equip_broken`: Stop when something breaks. On by default.
 
@@ -83,7 +83,9 @@ You can change the settings in the .env file as follows
 
 `skip_combo`: Skip the combo shots sometimes. On by default.
 
-`captcha_solver_enabled`: Try to solve simple captcha automatically. Enabled by default.
+`captcha_solver_enabled`: Try to solve simple captcha automatically. On by default.
+
+`use_backup_game_bot`: If the main game bot is down, you can try switching to the backup bot. Default is off.
 
 
 ### Daily reward catcher
@@ -127,7 +129,7 @@ In this mode, the tool will only help you solve the captcha automatically and no
 
 
 ## Roadmap
-- select backup-gamebot name example
+- limiting for heal-pots usage
 - readme for customers (GIFs too)
 - farming (grind+autorepair+rewardcatcher) experimental tool
 - publish as package

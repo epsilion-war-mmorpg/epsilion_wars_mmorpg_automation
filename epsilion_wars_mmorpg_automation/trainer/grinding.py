@@ -9,7 +9,7 @@ from epsilion_wars_mmorpg_automation.game.action import common as common_actions
 from epsilion_wars_mmorpg_automation.game.action import hunting as hunting_actions
 from epsilion_wars_mmorpg_automation.game.state import common as common_states
 from epsilion_wars_mmorpg_automation.game.state import hunting as hunting_states
-from epsilion_wars_mmorpg_automation.settings import app_settings
+from epsilion_wars_mmorpg_automation.settings import app_settings, game_bot_name
 from epsilion_wars_mmorpg_automation.telegram_client import client
 from epsilion_wars_mmorpg_automation.trainer import event_logging, handlers, loop
 
@@ -31,7 +31,7 @@ async def main(execution_limit_minutes: int | None = None) -> None:
     me = await client.get_me()
     logging.info('auth as %s', me.username)
 
-    game_user: types.InputPeerUser = await client.get_input_entity(app_settings.game_username)
+    game_user: types.InputPeerUser = await client.get_input_entity(game_bot_name)
     logging.info('game user is %s', game_user)
 
     client.add_event_handler(

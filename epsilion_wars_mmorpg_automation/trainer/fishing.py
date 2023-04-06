@@ -9,7 +9,7 @@ from telethon import events, types
 
 from epsilion_wars_mmorpg_automation import stats
 from epsilion_wars_mmorpg_automation.game import action, state
-from epsilion_wars_mmorpg_automation.settings import app_settings
+from epsilion_wars_mmorpg_automation.settings import app_settings, game_bot_name
 from epsilion_wars_mmorpg_automation.telegram_client import client
 from epsilion_wars_mmorpg_automation.trainer import event_logging, handlers, loop
 
@@ -18,7 +18,7 @@ async def main() -> None:
     """Fishing runner."""
     logging.info('start fishing')
 
-    game_user: types.InputPeerUser = await client.get_input_entity(app_settings.game_username)
+    game_user: types.InputPeerUser = await client.get_input_entity(game_bot_name)
     logging.info('game user is %s', game_user)
 
     client.add_event_handler(

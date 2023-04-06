@@ -10,7 +10,7 @@ from epsilion_wars_mmorpg_automation import stats
 from epsilion_wars_mmorpg_automation.game.action import common as common_actions
 from epsilion_wars_mmorpg_automation.game.action import rewards as reward_actions
 from epsilion_wars_mmorpg_automation.game.state import rewards as reward_states
-from epsilion_wars_mmorpg_automation.settings import app_settings
+from epsilion_wars_mmorpg_automation.settings import app_settings, game_bot_name
 from epsilion_wars_mmorpg_automation.telegram_client import client
 from epsilion_wars_mmorpg_automation.trainer import event_logging, handlers, loop
 
@@ -19,7 +19,7 @@ async def main() -> None:
     """Reward-catcher runner."""
     logging.info('start reward-catcher')
 
-    game_user: types.InputPeerUser = await client.get_input_entity(app_settings.game_username)
+    game_user: types.InputPeerUser = await client.get_input_entity(game_bot_name)
     logging.info('game user is %s', game_user)
 
     client.add_event_handler(

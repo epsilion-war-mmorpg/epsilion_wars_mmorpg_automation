@@ -20,6 +20,7 @@ class AppSettings(BaseSettings):
     captcha_solver_enabled: bool = True
     select_random_combo: bool = True
     skip_combo: bool = True
+    use_backup_game_bot: bool = False
 
     # advanced customer settings
     anti_captcha_com_apikey: str = Field(default='', description='see https://anti-captcha.com for more information')
@@ -34,6 +35,7 @@ class AppSettings(BaseSettings):
     slow_mode: bool = Field(default=False, description='Used for fresh telegram accounts.')
     ping_commands: str = ',.-+=/056789'
     game_username: str = 'EpsilionWarBot'
+    game_username_backup: str = 'EpsilionRBRbot'
     tlg_client_retries: int = 30
     tlg_client_retry_delay: int = 15
     trainer_name: str = 'Epsilion Trainer'
@@ -56,3 +58,5 @@ class AppSettings(BaseSettings):
 app_settings = AppSettings(
     _env_file=os.path.join(os.path.dirname(__file__), '..', '.env'),
 )
+
+game_bot_name = app_settings.game_username_backup if app_settings.use_backup_game_bot else app_settings.game_username
