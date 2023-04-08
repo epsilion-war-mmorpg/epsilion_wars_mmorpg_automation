@@ -1,9 +1,6 @@
 from unittest.mock import AsyncMock, Mock
 
-import pytest
-
 from epsilion_wars_mmorpg_automation.game.state.common import is_character_equip_select
-from epsilion_wars_mmorpg_automation.game.state.grinding import is_battle_start_message
 
 success_equip_message = """
 ☄️ 🧝‍♂Дикость 🔸20 ❤️(1405/1330)

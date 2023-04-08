@@ -5,7 +5,7 @@ import random
 from telethon import events
 
 from epsilion_wars_mmorpg_automation.exceptions import InvalidMessageError
-from epsilion_wars_mmorpg_automation.game.buttons import EQUIP, get_buttons_flat
+from epsilion_wars_mmorpg_automation.game.buttons import CHARACTER, EQUIP, INVENTORY, get_buttons_flat
 from epsilion_wars_mmorpg_automation.settings import app_settings
 from epsilion_wars_mmorpg_automation.telegram_client import client
 from epsilion_wars_mmorpg_automation.wait_utils import WaitActions, wait_for
@@ -49,6 +49,36 @@ async def show_equip(event: events.NewMessage.Event) -> None:
     await client.send_message(
         entity=event.chat_id,
         message=EQUIP,
+    )
+
+
+async def show_inventory(entity: int | events.NewMessage.Event) -> None:
+    """Call show inventory."""
+    logging.info('call show inventory button')
+    if isinstance(entity, events.NewMessage.Event):
+        game_bot_id = entity.chat_id
+    else:
+        game_bot_id = entity
+
+    await wait_for()
+    await client.send_message(
+        entity=game_bot_id,
+        message=INVENTORY,
+    )
+
+
+async def show_character(entity: int | events.NewMessage.Event) -> None:
+    """Call show character."""
+    logging.info('call show character button')
+    if isinstance(entity, events.NewMessage.Event):
+        game_bot_id = entity.chat_id
+    else:
+        game_bot_id = entity
+
+    await wait_for()
+    await client.send_message(
+        entity=game_bot_id,
+        message=CHARACTER,
     )
 
 
