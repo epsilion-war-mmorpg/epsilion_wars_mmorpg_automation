@@ -129,7 +129,6 @@ In this mode, the tool will only help you solve the captcha automatically and no
 
 
 ## Roadmap
-- limiting for heal-pots usage
 - readme for customers (GIFs too)
 - farming (grind+autorepair+rewardcatcher) experimental tool
 - publish as package

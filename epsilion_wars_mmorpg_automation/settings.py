@@ -30,6 +30,10 @@ class AppSettings(BaseSettings):
     anti_captcha_com_get_task_tries: int = 20
     anti_captcha_com_get_task_throttling: int = 5
     skip_combo_chance: int = Field(default=30, description='Chance to skip combo bite if `skip_combo` enabled')
+    healing_timeout: int = Field(
+        default=20,
+        description='Минимальное количество секунд между двумя использованиями зелий восстановления здоровья.',
+    )
 
     # developer section
     slow_mode: bool = Field(default=False, description='Used for fresh telegram accounts.')
@@ -50,8 +54,8 @@ class AppSettings(BaseSettings):
     wait_loop_iteration_seconds: int = 3
     show_stats_every_seconds: int = 30 * 60
     check_rewards_every_seconds: int = 4 * 60 * 60
-    check_fishing_every_seconds_min: int = int(1.02 * 60 * 60)
-    check_fishing_every_seconds_max: int = int(3.01 * 60 * 60)
+    check_fishing_every_seconds_min: int = int(0.95 * 60 * 60)
+    check_fishing_every_seconds_max: int = int(2.01 * 60 * 60)
     desktop_notification_timeout: int = 10
 
 

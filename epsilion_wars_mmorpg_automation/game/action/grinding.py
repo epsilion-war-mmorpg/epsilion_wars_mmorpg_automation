@@ -4,6 +4,7 @@ import random
 
 from telethon import events
 
+from epsilion_wars_mmorpg_automation import locks
 from epsilion_wars_mmorpg_automation.exceptions import InvalidMessageError
 from epsilion_wars_mmorpg_automation.game import parsers
 from epsilion_wars_mmorpg_automation.game.buttons import SEARCH_ENEMY, get_buttons_flat
@@ -108,6 +109,10 @@ async def healing(event: events.NewMessage.Event) -> None:
         command = '/use_low_hp'
     else:
         logging.info('skip heal by HP level')
+        return
+
+    if not locks.healing_available():
+        logging.info('skip heal throttling')
         return
 
     if character_level >= app_settings.character_high_level_threshold:
