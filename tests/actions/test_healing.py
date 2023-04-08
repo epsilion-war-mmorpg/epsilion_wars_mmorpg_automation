@@ -1,6 +1,6 @@
 from unittest.mock import Mock
 
-from epsilion_wars_mmorpg_automation.game.action.hunting import healing
+from epsilion_wars_mmorpg_automation.game.action.grinding import healing
 
 
 async def test_healing_skip_high_level_guys(mocked_client_message_send):

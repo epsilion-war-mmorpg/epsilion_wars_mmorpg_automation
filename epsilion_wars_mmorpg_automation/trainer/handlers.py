@@ -8,7 +8,7 @@ from epsilion_wars_mmorpg_automation.captcha import resolvers
 from epsilion_wars_mmorpg_automation.game import parsers
 from epsilion_wars_mmorpg_automation.game.action import common as common_actions
 from epsilion_wars_mmorpg_automation.game.action import fishing as fishing_actions
-from epsilion_wars_mmorpg_automation.game.action import hunting as hunting_actions
+from epsilion_wars_mmorpg_automation.game.action import grinding as grinding_actions
 from epsilion_wars_mmorpg_automation.game.state import fishing as fishing_states
 from epsilion_wars_mmorpg_automation.settings import app_settings
 from epsilion_wars_mmorpg_automation.trainer.loop import exit_request
@@ -22,10 +22,10 @@ async def hunting_handler(event: events.NewMessage.Event) -> None:
     logging.info('current HP level is %d%%', hp_level_percent)
 
     if hp_level_percent >= app_settings.minimum_hp_level_for_grinding:
-        await hunting_actions.search_enemy(event)
+        await grinding_actions.search_enemy(event)
 
     elif app_settings.auto_healing_enabled:
-        await hunting_actions.healing(event)
+        await grinding_actions.healing(event)
 
 
 async def battle_start_handler(event: events.NewMessage.Event) -> None:
@@ -37,7 +37,7 @@ async def battle_start_handler(event: events.NewMessage.Event) -> None:
 async def battle_end_handler(event: events.NewMessage.Event) -> None:
     """Complete win/fail battle."""
     if event.message.button_count:
-        await hunting_actions.complete_battle(event)
+        await grinding_actions.complete_battle(event)
 
     stats.collector.inc_value('battles')
     experience_inc = parsers.get_experience_gain(event.message.message)

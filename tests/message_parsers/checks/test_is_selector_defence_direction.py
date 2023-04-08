@@ -2,7 +2,7 @@ from unittest.mock import Mock
 
 import pytest
 
-from epsilion_wars_mmorpg_automation.game.state.hunting import is_selector_defence_direction
+from epsilion_wars_mmorpg_automation.game.state.grinding import is_selector_defence_direction
 
 
 @pytest.mark.parametrize('payload,expected', [

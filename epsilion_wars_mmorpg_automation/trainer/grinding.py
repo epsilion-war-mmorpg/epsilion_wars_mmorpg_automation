@@ -6,9 +6,9 @@ from telethon import events, types
 
 from epsilion_wars_mmorpg_automation import stats
 from epsilion_wars_mmorpg_automation.game.action import common as common_actions
-from epsilion_wars_mmorpg_automation.game.action import hunting as hunting_actions
+from epsilion_wars_mmorpg_automation.game.action import grinding as grinding_actions
 from epsilion_wars_mmorpg_automation.game.state import common as common_states
-from epsilion_wars_mmorpg_automation.game.state import hunting as hunting_states
+from epsilion_wars_mmorpg_automation.game.state import grinding as grinding_states
 from epsilion_wars_mmorpg_automation.settings import app_settings, game_bot_name
 from epsilion_wars_mmorpg_automation.telegram_client import client
 from epsilion_wars_mmorpg_automation.trainer import event_logging, handlers, loop
@@ -63,14 +63,14 @@ def _select_action_by_event(event: events.NewMessage.Event) -> Callable:
     mapping = [
         (common_states.is_captcha_message, handlers.captcha_fire_handler),
         (common_states.is_equip_broken_message, handlers.equip_broken_handler),
-        (hunting_states.is_battle_start_message, handlers.battle_start_handler),
-        (hunting_states.is_selector_combo, hunting_actions.select_combo),
-        (hunting_states.is_selector_attack_direction, hunting_actions.select_attack_direction),
-        (hunting_states.is_selector_defence_direction, hunting_actions.select_defence_direction),
-        (hunting_states.is_win_state, handlers.battle_end_handler),
-        (hunting_states.is_died_state, handlers.battle_end_handler),
+        (grinding_states.is_battle_start_message, handlers.battle_start_handler),
+        (grinding_states.is_selector_combo, grinding_actions.select_combo),
+        (grinding_states.is_selector_attack_direction, grinding_actions.select_attack_direction),
+        (grinding_states.is_selector_defence_direction, grinding_actions.select_defence_direction),
+        (grinding_states.is_win_state, handlers.battle_end_handler),
+        (grinding_states.is_died_state, handlers.battle_end_handler),
         (common_states.is_hp_updated_message, common_actions.ping),
-        (hunting_states.is_hunting_ready_state, handlers.hunting_handler),
+        (grinding_states.is_hunting_ready_state, handlers.hunting_handler),
     ]
 
     for check_function, callback_function in mapping:
