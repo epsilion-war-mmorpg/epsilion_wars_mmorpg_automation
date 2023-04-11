@@ -19,6 +19,7 @@ Table of Contents
   * [Grinding](#grinding)
   * [Daily reward catcher](#daily-reward-catcher)
   * [Fishing](#fishing)
+  * [Inventory](#inventory)
   * [What about the captcha?](#what-about-the-captcha)
 * [Roadmap](#roadmap)
 * [Developers](#developers)
@@ -69,9 +70,11 @@ If you prefer to hunt for a limited time, you can use `grind -t 30`: it will onl
 ##### Settings
 You can change the settings in the .env file as follows
 
-`minimum_hp_level_for_grinding`: Minimum HP level to begin hunting. Default level is 75%.
+`minimum_hp_level_for_grinding`: Minimum HP level to begin grinding. Default level is 75%.
 
 `notifications_enabled`: Send alerts about important events. On by default.
+
+`favorites_enabled`: Send messages to telegram myself-favorites chat too. On by default.
 
 `auto_healing_enabled`: Using HP potions. On by default.
 
@@ -104,6 +107,14 @@ If any of your fishing rods break while fishing, the program will automatically 
 
 Please keep in mind that it's important to only equip your character with fishing rods they can use effectively.
 
+
+### Inventory
+The Epsilion Trainer knows how to inventory your character's resources.
+Run `inventory` and after a short time you will see a message in your favourite Telegram chat showing all the recipes for sale. 
+
+By default it takes a list of recipes, but you can get a list of other resources by using the `inventory -t` flag.
+
+
 ### What about the captcha?
 The Epsilion Trainer successfully solves simple text captcha. 
 But it won't be able to solve numbers in a picture. 
@@ -129,9 +140,10 @@ In this mode, the tool will only help you solve the captcha automatically and no
 
 
 ## Roadmap
-- readme for customers (GIFs too)
+- readme for customers (teletype page) and change link in settings/readme
+- readme for customers (GIFs)
 - farming (grind+autorepair+rewardcatcher) experimental tool
-- publish as package
+- publish as package + docs update
 
 
 ## Developers

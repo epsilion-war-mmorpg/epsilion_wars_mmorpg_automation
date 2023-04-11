@@ -6,7 +6,7 @@ from typing import Any, Callable
 
 from epsilion_wars_mmorpg_automation.settings import app_settings
 from epsilion_wars_mmorpg_automation.telegram_client import client
-from epsilion_wars_mmorpg_automation.trainer import captcha_solver, daily_reward_catcher, fishing, grinding, loop
+from epsilion_wars_mmorpg_automation.trainer import captcha_solver, daily_reward_catcher, fishing, grinding, inventory, loop
 
 
 def grind_start() -> None:
@@ -37,6 +37,21 @@ def daily_reward_catcher_start() -> None:
 def fishing_start() -> None:
     """Start fishing."""
     _run(fishing.main)
+
+
+def inventory_start() -> None:
+    """Start one time inventory."""
+    parser = argparse.ArgumentParser(description='Start inventory.')
+    parser.add_argument(
+        '-t',
+        '--type',
+        required=False,
+        default='receipt',
+        choices=['resource', 'receipt', 'scroll', 'potion', 'other'],
+        help='Select resources type',
+    )
+    args = parser.parse_args()
+    _run(inventory.main, selected_type=args.type)
 
 
 def _run(main_func: Callable, *args: Any, **kwargs: Any) -> None:

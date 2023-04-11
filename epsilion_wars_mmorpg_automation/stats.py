@@ -4,7 +4,6 @@ import time
 from collections import Counter
 
 from epsilion_wars_mmorpg_automation.notifications import send_desktop_notify
-from epsilion_wars_mmorpg_automation.settings import app_settings
 
 
 class StatsCollector:
@@ -47,8 +46,7 @@ async def show_stats() -> None:
     logging.info('Stats total: {0}'.format(collector.get_counters()))
     logging.info('Stats averages: {0}'.format(collector.get_averages_per_hour()))
 
-    if app_settings.notifications_enabled:
-        await _send_stats_notify()
+    await _send_stats_notify()
 
 
 async def _send_stats_notify() -> None:
@@ -61,9 +59,9 @@ async def _send_stats_notify() -> None:
         for name, counter_value in collector.get_averages_per_hour()
     ]
 
-    await send_desktop_notify(
-        message='Stats\n{0}\n{1}'.format(
-            '\n'.join(counters),
-            '\n'.join(averages),
-        ),
+    message = 'Stats\n{0}\n{1}'.format(
+        '\n'.join(counters),
+        '\n'.join(averages),
     )
+
+    await send_desktop_notify(message)

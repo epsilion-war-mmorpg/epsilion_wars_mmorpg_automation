@@ -1,0 +1,20 @@
+import pytest
+
+from epsilion_wars_mmorpg_automation.exceptions import InvalidMessageError
+from epsilion_wars_mmorpg_automation.game.parsers import get_character_name
+
+
+@pytest.mark.parametrize('payload,expected', [
+    ('🧟‍♂Dfd 🔸1 ❤️(463/506)\n🔸 Уровень монстров: 7-10', '🧟‍♂Dfd 🔸1'),
+    ('🧟‍♂Unikcname 🔸10 ❤️(509/509)\n🔸 Уровень монстров: 7-10', '🧟‍♂Unikcname 🔸10'),
+    ('🧟‍♂Ник ащет 🔸39 ❤️(1/509)\n🔸 Уровень монстров: 7-10', '🧟‍♂Ник ащет 🔸39'),
+])
+def test_get_character_name_happy_path(payload: str, expected: int):
+    result = get_character_name(payload)
+
+    assert result == expected
+
+
+def test_get_character_level_not_found():
+    with pytest.raises(InvalidMessageError):
+        get_character_name('')

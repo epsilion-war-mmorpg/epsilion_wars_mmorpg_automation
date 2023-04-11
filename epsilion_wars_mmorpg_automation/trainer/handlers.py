@@ -3,15 +3,11 @@ import logging
 
 from telethon import events
 
-from epsilion_wars_mmorpg_automation import notifications, stats
+from epsilion_wars_mmorpg_automation import notifications, shared_state, stats
 from epsilion_wars_mmorpg_automation.captcha import resolvers
-from epsilion_wars_mmorpg_automation.game import parsers
-from epsilion_wars_mmorpg_automation.game.action import common as common_actions
-from epsilion_wars_mmorpg_automation.game.action import fishing as fishing_actions
-from epsilion_wars_mmorpg_automation.game.action import grinding as grinding_actions
-from epsilion_wars_mmorpg_automation.game.state import fishing as fishing_states
+from epsilion_wars_mmorpg_automation.game import action, parsers, state
 from epsilion_wars_mmorpg_automation.settings import app_settings
-from epsilion_wars_mmorpg_automation.trainer.loop import exit_request
+from epsilion_wars_mmorpg_automation.trainer import loop
 
 
 async def hunting_handler(event: events.NewMessage.Event) -> None:
@@ -22,22 +18,22 @@ async def hunting_handler(event: events.NewMessage.Event) -> None:
     logging.info('current HP level is %d%%', hp_level_percent)
 
     if hp_level_percent >= app_settings.minimum_hp_level_for_grinding:
-        await grinding_actions.search_enemy(event)
+        await action.grinding_actions.search_enemy(event)
 
     elif app_settings.auto_healing_enabled:
-        await grinding_actions.healing(event)
+        await action.grinding_actions.healing(event)
 
 
 async def battle_start_handler(event: events.NewMessage.Event) -> None:
     """Notify about battle started."""
     # force recall battle start message
-    await common_actions.ping(event)
+    await action.common_actions.ping(event)
 
 
 async def battle_end_handler(event: events.NewMessage.Event) -> None:
     """Complete win/fail battle."""
     if event.message.button_count:
-        await grinding_actions.complete_battle(event)
+        await action.grinding_actions.complete_battle(event)
 
     stats.collector.inc_value('battles')
     experience_inc = parsers.get_experience_gain(event.message.message)
@@ -71,12 +67,12 @@ async def captcha_fire_handler(event: events.NewMessage.Event) -> None:
 
         if captcha_answer.answer:
             await notifications.send_desktop_notify(f'captcha answer found:\n"{captcha_answer.answer}"')
-            await common_actions.captcha_answer(event, captcha_answer.answer)
+            await action.common_actions.captcha_answer(event, captcha_answer.answer)
         else:
             await notifications.send_desktop_notify('captcha not solved!', is_urgent=True)
 
     elif app_settings.stop_if_captcha_fire:
-        exit_request()
+        loop.exit_request()
 
 
 async def equip_broken_handler(event: events.NewMessage.Event) -> None:
@@ -90,21 +86,36 @@ async def equip_broken_handler(event: events.NewMessage.Event) -> None:
     )
 
     if app_settings.stop_if_equip_broken:
-        exit_request()
+        loop.exit_request()
 
 
 async def fishing_start(event: events.NewMessage.Event) -> None:
     """Start fishing."""
     logging.info('start fishing event')
-    response = await fishing_actions.select_fishing_type(event)
+    response = await action.fishing_actions.select_fishing_type(event)
     if response:
         logging.info(f'{response.message=}')
-        if fishing_states.is_rod_equip_needed(response.message):
-            await common_actions.show_equip(event)
+        if state.fishing_states.is_rod_equip_needed(response.message):
+            await action.common_actions.show_equip(event)
 
 
 async def fishing_end(event: events.NewMessage.Event) -> None:
     """Restart fishing after end."""
     logging.info('end fishing event')
-    await fishing_actions.complete_fishing(event)
-    await fishing_actions.start_fishing(event.chat_id)
+    await action.fishing_actions.complete_fishing(event)
+    await action.fishing_actions.start_fishing(event.chat_id)
+
+
+async def collect_resource_counters(event: events.NewMessage.Event) -> None:
+    """Collect resource counters to shared state."""
+    logging.info('collect resource counters')
+
+    resource_counters = parsers.get_resource_counters(event.message.message)
+    logging.info('collect counters {0}'.format(resource_counters))
+    shared_state.RESOURCE_COUNTERS.update(resource_counters)
+
+    if state.inventory_states.has_show_next_page_button(event):
+        await action.inventory_actions.show_next_page(event)
+    else:
+        logging.info('next page not found - force exit')
+        loop.exit_request()
