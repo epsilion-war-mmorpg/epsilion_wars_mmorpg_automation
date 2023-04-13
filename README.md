@@ -3,11 +3,10 @@ Epsilion Trainer
 [![tests](https://github.com/esemi/epsilion_wars_mmorpg_automation/actions/workflows/tests.yml/badge.svg?branch=master)](https://github.com/esemi/epsilion_wars_mmorpg_automation/actions/workflows/tests.yml)
 [![linters](https://github.com/esemi/epsilion_wars_mmorpg_automation/actions/workflows/linters.yml/badge.svg?branch=master)](https://github.com/esemi/epsilion_wars_mmorpg_automation/actions/workflows/linters.yml)
 
-TODO GIF
-
 The Epsilion Trainer is an automated tool that allows users to quickly and easily level up their character in [the Epsilion War MMORPG](https://t.me/epsilionwarbot?start=ref-537453818).
 It automatically controls your character and instantly earns experience points, money and items.
-With Epsilion Trainer you can quickly become the strongest player on the server.
+
+[grinding.webm](https://user-images.githubusercontent.com/4115497/231814655-73779e23-9d76-4dd3-a96f-35b60f196a2a.webm)
 
 Table of Contents
 =================
@@ -70,13 +69,13 @@ If you prefer to hunt for a limited time, you can use `grind -t 30`: it will onl
 ##### Settings
 You can change the settings in the .env file as follows
 
-`minimum_hp_level_for_grinding`: Minimum HP level to begin grinding. Default level is 75%.
+`minimum_hp_level_for_grinding`: Minimum HP level to begin grinding. Default level is 95%.
 
 `notifications_enabled`: Send alerts about important events. On by default.
 
-`favorites_enabled`: Send messages to telegram myself-favorites chat too. On by default.
+`favorites_enabled`: Send messages to telegram myself-favorites chat. On by default.
 
-`auto_healing_enabled`: Using HP potions. On by default.
+`auto_healing_enabled`: Using HP potions (I, II and III grades only). On by default.
 
 `stop_if_equip_broken`: Stop when something breaks. On by default.
 
@@ -132,18 +131,13 @@ In this mode, the tool will only help you solve the captcha automatically and no
 
 ##### Settings
 
-`captcha_solver_enabled`: Try to solve simple captcha automatically. Enabled by default.
-
-`notifications_enabled`: Send alerts about important events. On by default.
-
 `anti_captcha_com_apikey`: your account key (ex: 172ea50b3d12345678de199546c66b20)
 
 
 ## Roadmap
 - readme for customers (teletype page) and change link in settings/readme
-- readme for customers (GIFs)
-- farming (grind+autorepair+rewardcatcher) experimental tool
 - publish as package + docs update
+- farming (grind+autorepair+rewardcatcher) experimental tool
 
 
 ## Developers
