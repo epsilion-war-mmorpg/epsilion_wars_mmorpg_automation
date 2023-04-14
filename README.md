@@ -6,7 +6,7 @@ Epsilion Trainer
 The Epsilion Trainer is an automated tool that allows users to quickly and easily level up their character in [the Epsilion War MMORPG](https://t.me/epsilionwarbot?start=ref-537453818).
 It automatically controls your character and instantly earns experience points, money and items.
 
-[grinding.webm](https://user-images.githubusercontent.com/4115497/231814655-73779e23-9d76-4dd3-a96f-35b60f196a2a.webm)
+[grinding.webm](https://user-images.githubusercontent.com/4115497/232020617-4ce562ed-a265-46e8-8679-c3fbb596b6e0.webm)
 
 Table of Contents
 =================
