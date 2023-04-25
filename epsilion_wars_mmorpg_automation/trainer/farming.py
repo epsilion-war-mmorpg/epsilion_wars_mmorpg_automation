@@ -8,8 +8,8 @@ from epsilion_wars_mmorpg_automation import stats
 from epsilion_wars_mmorpg_automation.game import action, state
 from epsilion_wars_mmorpg_automation.settings import app_settings, game_bot_name
 from epsilion_wars_mmorpg_automation.telegram_client import client
-from epsilion_wars_mmorpg_automation.trainer import event_logging, handlers, loop
-from epsilion_wars_mmorpg_automation.trainer.handlers_ import farming
+from epsilion_wars_mmorpg_automation.trainer import event_logging, loop
+from epsilion_wars_mmorpg_automation.trainer.handlers import common, farming, grinding
 
 
 async def main() -> None:
@@ -51,16 +51,20 @@ async def _message_handler(event: events.NewMessage.Event) -> None:
     await event.message.mark_read()
 
     select_callback = _select_action_by_event(event)
-    # todo repair equip handlers here
+    # update handlers for repairing here
+    # todo if repair selector - select item.
+    # todo if not found items for repair - set state.to_grinding_zone and call ping()
+    # todo if repair item approve  - approve it
+    # todo if repair item fail  - skip handler
 
     await select_callback(event)
 
 
 def _select_action_by_event(event: events.NewMessage.Event) -> Callable:
     mapping = [
-        (state.common_states.is_captcha_message, handlers.captcha_fire_handler),
+        (state.common_states.is_captcha_message, common.captcha_fire_handler),
         (state.common_states.is_equip_broken_message, farming.equip_broken_handler),
-        (state.grinding_states.is_battle_start_message, handlers.battle_start_handler),
+        (state.grinding_states.is_battle_start_message, grinding.battle_start_handler),
         (state.grinding_states.is_selector_combo, action.grinding_actions.select_combo),
         (state.grinding_states.is_selector_attack_direction, action.grinding_actions.select_attack_direction),
         (state.grinding_states.is_selector_defence_direction, action.grinding_actions.select_defence_direction),
@@ -68,12 +72,11 @@ def _select_action_by_event(event: events.NewMessage.Event) -> Callable:
         (state.grinding_states.is_died_state, farming.battle_end_handler),
         (state.common_states.is_hp_updated_message, farming.hp_updated_handler),
         (state.common_states.is_map_open_state, farming.go_to_town_for_repair_handler),
-        (state.grinding_states.is_hunting_ready_state, farming.farming_handler),
+        (state.grinding_states.is_grinding_ready_state, farming.farming_handler),
+        (state.farming_states.is_repairing_city_state, farming.repair_start_handler),
+        (state.common_states.is_npc_selector, farming.select_repair_npc_handler),
 
-        # todo if current location is city - check current state and optionally try to repair
-        # todo if state.to_grinding_zone: call "1" and go to grinding zone
-        # todo if state.need_repair: set state.to_grinding_zone
-        # todo if state.need_repair: call repair NPC
+        # todo if repair NPC selected: if state.need_repair - call repair button
     ]
 
     for check_function, callback_function in mapping:
@@ -81,4 +84,4 @@ def _select_action_by_event(event: events.NewMessage.Event) -> Callable:
             logging.debug('is %s event', check_function.__name__)
             return callback_function
 
-    return handlers.skip_turn_handler
+    return common.skip_turn_handler

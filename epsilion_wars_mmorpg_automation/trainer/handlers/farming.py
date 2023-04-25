@@ -1,10 +1,12 @@
+"""Farming handlers."""
+
 import logging
 
 from telethon import events
 
 from epsilion_wars_mmorpg_automation import notifications, shared_state
 from epsilion_wars_mmorpg_automation.game import action, parsers
-from epsilion_wars_mmorpg_automation.trainer import handlers
+from epsilion_wars_mmorpg_automation.trainer.handlers import grinding
 
 
 async def equip_broken_handler(event: events.NewMessage.Event) -> None:
@@ -23,7 +25,7 @@ async def battle_end_handler(event: events.NewMessage.Event) -> None:
     """Complete win/fail battle and ."""
     logging.info('Battle end event - farming mode {0}'.format(shared_state.FARMING_STATE))
     shared_state.FARMING_STATE = shared_state.FarmingState.to_grinding_zone
-    await handlers.battle_end_handler(event)
+    await grinding.battle_end_handler(event)
 
 
 async def hp_updated_handler(event: events.NewMessage.Event) -> None:
@@ -31,6 +33,14 @@ async def hp_updated_handler(event: events.NewMessage.Event) -> None:
     logging.info('HP updated event - farming mode {0}'.format(shared_state.FARMING_STATE))
     if shared_state.FARMING_STATE is None:
         await action.common_actions.ping(event)
+
+
+async def repair_start_handler(event: events.NewMessage.Event) -> None:
+    """Call repairing NPC or go to grinding location."""
+
+    # todo if state.need_repair: call repair NPC
+    # todo if state.to_grinding_zone: call "1" and go to grinding zone
+    pass
 
 
 async def farming_handler(event: events.NewMessage.Event) -> None:
@@ -46,7 +56,7 @@ async def farming_handler(event: events.NewMessage.Event) -> None:
         await action.common_actions.show_map(event)
 
     if shared_state.FARMING_STATE is None:
-        await handlers.grinding_handler(event)
+        await grinding.grinding_handler(event)
 
 
 async def go_to_town_for_repair_handler(event: events.NewMessage.Event) -> None:

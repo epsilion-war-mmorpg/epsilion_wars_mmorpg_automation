@@ -7,7 +7,8 @@ from epsilion_wars_mmorpg_automation import stats
 from epsilion_wars_mmorpg_automation.game.state import common as common_states
 from epsilion_wars_mmorpg_automation.settings import app_settings, game_bot_name
 from epsilion_wars_mmorpg_automation.telegram_client import client
-from epsilion_wars_mmorpg_automation.trainer import event_logging, handlers, loop
+from epsilion_wars_mmorpg_automation.trainer import event_logging, loop
+from epsilion_wars_mmorpg_automation.trainer.handlers import common
 
 
 async def main() -> None:
@@ -46,7 +47,7 @@ async def _message_handler(event: events.NewMessage.Event) -> None:
 
     if common_states.is_captcha_message(event):
         logging.debug('is captcha event')
-        await handlers.captcha_fire_handler(event)
+        await common.captcha_fire_handler(event)
         return
 
-    await handlers.skip_turn_handler(event)
+    await common.skip_turn_handler(event)

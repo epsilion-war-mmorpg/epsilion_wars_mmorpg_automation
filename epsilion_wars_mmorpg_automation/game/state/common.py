@@ -74,3 +74,10 @@ def is_map_open_state(event: events.NewMessage.Event) -> bool:
 
     first_button = found_buttons[0]
     return 'Легенда карты:' in message and '🏛' in first_button.text
+
+
+def is_npc_selector(event: events.NewMessage.Event) -> bool:
+    """NPC selector opened state."""
+    # todo test
+    # todo impl
+    return False
