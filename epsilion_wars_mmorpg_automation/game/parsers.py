@@ -13,6 +13,7 @@ _hp_level_pattern = re.compile(r'❤️\((\d+)/(\d+)\)')
 _equip_hp_level_pattern = re.compile(r'\((\d+)/\d+\)')
 _character_level_pattern = re.compile(r'(\d+)[\s]{0,}❤️\(\d+/\d+\)')
 _character_name_pattern = re.compile(r'(.*\s🔸\d+)[\s]{0,}❤️\(\d+/\d+\)', re.MULTILINE | re.UNICODE)
+_location_name_pattern = re.compile(r'(.{3,})\n\n.*', re.MULTILINE | re.UNICODE)
 _experience_gain_pattern = re.compile(r'✨\sопыта:\s(\d+)')
 _resource_counter_pattern = re.compile(r'(.*)\s-\s(\d+)шт', re.MULTILINE | re.UNICODE)
 
@@ -49,6 +50,15 @@ def get_character_name(message_content: str) -> str:
     found = _character_name_pattern.search(message_content)
     if not found:
         raise InvalidMessageError('Character name not found')
+
+    return found.group(1)
+
+
+def get_location_name(message_content: str) -> str:
+    """Get location name."""
+    found = _location_name_pattern.search(message_content)
+    if not found:
+        raise InvalidMessageError('Location name not found')
 
     return found.group(1)
 

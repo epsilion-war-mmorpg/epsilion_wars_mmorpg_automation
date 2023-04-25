@@ -5,7 +5,7 @@ import random
 from telethon import events
 
 from epsilion_wars_mmorpg_automation.exceptions import InvalidMessageError
-from epsilion_wars_mmorpg_automation.game.buttons import CHARACTER, EQUIP, INVENTORY, get_buttons_flat
+from epsilion_wars_mmorpg_automation.game.buttons import CHARACTER, EQUIP, INVENTORY, MAP, get_buttons_flat
 from epsilion_wars_mmorpg_automation.settings import app_settings
 from epsilion_wars_mmorpg_automation.telegram_client import client
 from epsilion_wars_mmorpg_automation.wait_utils import WaitActions, wait_for
@@ -49,6 +49,16 @@ async def show_equip(event: events.NewMessage.Event) -> None:
     await client.send_message(
         entity=event.chat_id,
         message=EQUIP,
+    )
+
+
+async def show_map(event: events.NewMessage.Event) -> None:
+    """Call show map."""
+    logging.info('call show map button')
+    await wait_for()
+    await client.send_message(
+        entity=event.chat_id,
+        message=MAP,
     )
 
 

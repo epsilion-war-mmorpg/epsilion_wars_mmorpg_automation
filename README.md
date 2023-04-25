@@ -90,6 +90,29 @@ You can change the settings in the .env file as follows
 `use_backup_game_bot`: If the main game bot is down, you can try switching to the backup bot. Default is off.
 
 
+### Farming [experimental]
+TODO
+Внимание! Экспериментальная функция, может работать не стабильно.
+
+По сути это тот же самый гриндинг (ссылка), только с автоматической починкой экипировки и возвращением персонажа
+в локацию для фарма NPC. 
+
+Для запуска вам понадобится команда `farming`. 
+Персонаж запоминает название локации для фарминга при запуске и будет сам ходить в город за починкой вещей.
+
+Работает только если в ближайшем городе есть подходящий кузнец и у вас есть деньги на починку. 
+В противном случае персонаж останется стоять в городе.
+
+Также возвращает персонажа в зону фарминга после смерти.
+
+Вещи с прочностью 0/1 не будут починены (в противном случае есть риск сломать экипировку). 
+Восстановление прочности с помощью ремкомплектов так же не реализовано - вам приджётся следить за этим самим.
+
+
+##### Settings
+`equip_binding_number`: Номер биндинга вашей экипировки для фарма. По умолчанию `1`.
+
+
 ### Daily reward catcher
 If you find it inconvenient to keep track of your daily reward, you can use The Epsilon Trainer to handle it for you. 
 The program automatically checks every hour to see if a reward has been made available, and it will attempt to collect it on your behalf. 
@@ -130,14 +153,12 @@ In this mode, the tool will only help you solve the captcha automatically and no
 
 
 ##### Settings
-
 `anti_captcha_com_apikey`: your account key (ex: 172ea50b3d12345678de199546c66b20)
 
 
 ## Roadmap
 - readme for customers (teletype page) and change link in settings/readme
 - publish as package + docs update
-- farming (grind+autorepair+rewardcatcher) experimental tool
 
 
 ## Developers
@@ -172,4 +193,4 @@ The algorithm for self-registration is as follows
 - start grinding.
 
 For a new account, I strongly recommend enabling the `slow_mode` flag in the settings. 
-Otherwise the Telegram may block the account for too many requests.
+Otherwise, the Telegram may temporarily block the account for too many requests per minute.

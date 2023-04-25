@@ -62,3 +62,15 @@ def is_character_info(event: events.NewMessage.Event) -> bool:
     """Character information state."""
     message = strip_message(event.message.message)
     return '💰 золото:' in message and '🔋 очков энергии:' in message and '🧬 очков параметров:' in message
+
+
+def is_map_open_state(event: events.NewMessage.Event) -> bool:
+    """Map open state."""
+    # todo test
+    message = strip_message(event.message.message)
+    found_buttons = get_buttons_flat(event)
+    if not found_buttons:
+        return False
+
+    first_button = found_buttons[0]
+    return 'Легенда карты:' in message and '🏛' in first_button.text

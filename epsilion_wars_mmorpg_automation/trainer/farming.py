@@ -5,28 +5,24 @@ from typing import Callable
 from telethon import events, types
 
 from epsilion_wars_mmorpg_automation import stats
-from epsilion_wars_mmorpg_automation.game.action import common as common_actions
-from epsilion_wars_mmorpg_automation.game.action import grinding as grinding_actions
-from epsilion_wars_mmorpg_automation.game.state import common as common_states
-from epsilion_wars_mmorpg_automation.game.state import grinding as grinding_states
+from epsilion_wars_mmorpg_automation.game import action, state
 from epsilion_wars_mmorpg_automation.settings import app_settings, game_bot_name
 from epsilion_wars_mmorpg_automation.telegram_client import client
 from epsilion_wars_mmorpg_automation.trainer import event_logging, handlers, loop
+from epsilion_wars_mmorpg_automation.trainer.handlers_ import farming
 
 
-async def main(execution_limit_minutes: int | None = None) -> None:
-    """Grinding runner."""
+async def main() -> None:
+    """Farming runner."""
     local_settings = {
-        'execution_limit_minutes': execution_limit_minutes or 'infinite',
         'minimum_hp_level_for_grinding': app_settings.minimum_hp_level_for_grinding,
         'auto_healing_enabled': app_settings.auto_healing_enabled,
-        'stop_if_equip_broken': app_settings.stop_if_equip_broken,
         'stop_if_captcha_fire': app_settings.stop_if_captcha_fire,
         'notifications_enabled': app_settings.notifications_enabled,
         'slow_mode': app_settings.slow_mode,
     }
-    logging.info(f'start grinding ({local_settings=})')
-    logging.info('move u character to hunting location first')
+    logging.info(f'start farming ({local_settings=})')
+    logging.info('move u character to farming location first')
 
     me = await client.get_me()
     logging.info('auth as %s', me.username)
@@ -42,10 +38,10 @@ async def main(execution_limit_minutes: int | None = None) -> None:
         ),
     )
 
-    await common_actions.ping(game_user.user_id)
+    await action.common_actions.ping(game_user.user_id)
 
-    await loop.run_wait_loop(execution_limit_minutes)
-    logging.info('end grinding')
+    await loop.run_wait_loop(None)
+    logging.info('end farming')
 
 
 async def _message_handler(event: events.NewMessage.Event) -> None:
@@ -55,22 +51,29 @@ async def _message_handler(event: events.NewMessage.Event) -> None:
     await event.message.mark_read()
 
     select_callback = _select_action_by_event(event)
+    # todo repair equip handlers here
 
     await select_callback(event)
 
 
 def _select_action_by_event(event: events.NewMessage.Event) -> Callable:
     mapping = [
-        (common_states.is_captcha_message, handlers.captcha_fire_handler),
-        (common_states.is_equip_broken_message, handlers.equip_broken_handler),
-        (grinding_states.is_battle_start_message, handlers.battle_start_handler),
-        (grinding_states.is_selector_combo, grinding_actions.select_combo),
-        (grinding_states.is_selector_attack_direction, grinding_actions.select_attack_direction),
-        (grinding_states.is_selector_defence_direction, grinding_actions.select_defence_direction),
-        (grinding_states.is_win_state, handlers.battle_end_handler),
-        (grinding_states.is_died_state, handlers.battle_end_handler),
-        (common_states.is_hp_updated_message, common_actions.ping),
-        (grinding_states.is_hunting_ready_state, handlers.grinding_handler),
+        (state.common_states.is_captcha_message, handlers.captcha_fire_handler),
+        (state.common_states.is_equip_broken_message, farming.equip_broken_handler),
+        (state.grinding_states.is_battle_start_message, handlers.battle_start_handler),
+        (state.grinding_states.is_selector_combo, action.grinding_actions.select_combo),
+        (state.grinding_states.is_selector_attack_direction, action.grinding_actions.select_attack_direction),
+        (state.grinding_states.is_selector_defence_direction, action.grinding_actions.select_defence_direction),
+        (state.grinding_states.is_win_state, farming.battle_end_handler),
+        (state.grinding_states.is_died_state, farming.battle_end_handler),
+        (state.common_states.is_hp_updated_message, farming.hp_updated_handler),
+        (state.common_states.is_map_open_state, farming.go_to_town_for_repair_handler),
+        (state.grinding_states.is_hunting_ready_state, farming.farming_handler),
+
+        # todo if current location is city - check current state and optionally try to repair
+        # todo if state.to_grinding_zone: call "1" and go to grinding zone
+        # todo if state.need_repair: set state.to_grinding_zone
+        # todo if state.need_repair: call repair NPC
     ]
 
     for check_function, callback_function in mapping:

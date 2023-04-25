@@ -10,8 +10,8 @@ from epsilion_wars_mmorpg_automation.settings import app_settings
 from epsilion_wars_mmorpg_automation.trainer import loop
 
 
-async def hunting_handler(event: events.NewMessage.Event) -> None:
-    """Start hunting or heal myself."""
+async def grinding_handler(event: events.NewMessage.Event) -> None:
+    """Start grinding or heal myself."""
     hp_level_percent = parsers.get_hp_level(
         message_content=event.message.message,
     )
