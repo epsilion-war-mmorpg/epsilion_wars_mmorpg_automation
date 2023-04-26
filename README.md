@@ -59,7 +59,7 @@ The first time you use it, you'll need to log in to your Telegram account, but a
 ### Grinding
 Grinding will save you from having to fight annoying monsters in the hunting grounds. 
 The Epsilion Trainer checks your health before searching for an enemy, choosing a random direction to attack and block, using combat tricks and collecting the reward. 
-Sometimes you just need to take your character to repair equipment and open chests.
+Sometimes you just need to take your character to repair_call equipment and open chests.
 
 Just get your character to the right location, equip PVE and run the Epsilion Trainer with `grind`. 
 

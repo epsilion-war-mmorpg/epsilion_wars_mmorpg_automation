@@ -3,24 +3,11 @@
 
 from telethon import events
 
-from epsilion_wars_mmorpg_automation.game import buttons
-from epsilion_wars_mmorpg_automation.game.parsers import strip_message
+from epsilion_wars_mmorpg_automation.game.buttons import REPAIR, get_buttons_flat
 
 
-def is_repairing_city_state(event: events.NewMessage.Event) -> bool:
-    """Ready for repair start state."""
-
-    # todo return current location is city
-    # todo impl
+def is_repair_button_available(event: events.NewMessage.Event) -> bool:
+    """Found "repair" button in dialog options."""
     # todo test
-    message = strip_message(event.message.message)
-    if 'тюрьма' in message:
-        return False
-    if 'монстров пока нет' in message:
-        return False
-
-    found_buttons = buttons.get_buttons_flat(event)
-    if len(found_buttons) < 2:
-        return False
-
-    return found_buttons[1].text == buttons.SEARCH_ENEMY
+    found_buttons = get_buttons_flat(event)
+    return any(REPAIR in button.text for button in found_buttons)

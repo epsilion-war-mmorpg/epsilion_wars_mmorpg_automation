@@ -59,6 +59,26 @@ class AppSettings(BaseSettings):
     check_fishing_every_seconds_min: int = int(0.95 * 60 * 60)
     check_fishing_every_seconds_max: int = int(2.01 * 60 * 60)
     desktop_notification_timeout: int = 10
+    repairman_locations: list[str] = [
+        'Кавелла',
+        'Дранг',
+        'Аквелия',
+        'Цирта',
+        'Руины',
+        'Северный порт',
+        'Лонгйир',
+        # fixme put T4 locations here
+    ]
+    repairman_names: set[str] = {
+        '⚒ Кузнец Эрик',
+        '⚒ Кузнец Грыл',
+        '⚒ Кузнец Гейл',
+        '⚒ Кузнец Хэнк',
+        '⚒ Кузнец Аакмаан',
+        '⚒ Кузнец Флэт',
+        '⚒ Мастер брони Эгерь',
+        # fixme put T4 repairman names here
+    }
 
 
 app_settings = AppSettings(

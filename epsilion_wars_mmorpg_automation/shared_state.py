@@ -4,7 +4,8 @@ import enum
 RESOURCE_TYPE: str = ''
 RESOURCE_COUNTERS: dict[str, int] = {}  # noqa: WPS407
 CHARACTER_NAME: str = ''
-GRINDING_LOCATION: str = ''
+GRINDING_LOCATION: str | None = None
+REPAIR_LOCATIONS: list[str] = []
 
 
 class FarmingState(enum.Enum):
@@ -14,4 +15,4 @@ class FarmingState(enum.Enum):
     to_grinding_zone = enum.auto()
 
 
-FARMING_STATE: FarmingState | None = None
+FARMING_STATE: FarmingState | None = FarmingState.need_repair  # todo None

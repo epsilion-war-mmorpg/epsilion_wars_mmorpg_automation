@@ -19,6 +19,7 @@ ATTACK_HEAD = 'В голову'
 TO_HUNTING_ZONE = 'В зону охоты'
 TO_TOWN = 'В город'
 NEXT_PAGE_BUTTON = '➡️'
+REPAIR = 'Ремонт'
 
 
 def get_resource_button(resource_type: str) -> str | None:

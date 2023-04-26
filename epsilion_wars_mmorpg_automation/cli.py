@@ -49,7 +49,9 @@ def fishing_start() -> None:
 
 def farming_start() -> None:
     """Start farming."""
-    _run(farming.main)
+    # todo parse locations args
+    # todo обновить доку
+    _run(farming.main, repair_locations_path=['грейт', 'цирта'])
 
 
 def inventory_start() -> None:

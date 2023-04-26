@@ -4,7 +4,7 @@ import re
 from io import BytesIO
 from math import ceil
 
-from telethon import events
+from telethon import events, types
 
 from epsilion_wars_mmorpg_automation.exceptions import InvalidMessageError
 from epsilion_wars_mmorpg_automation.telegram_client import client
@@ -98,3 +98,25 @@ def get_resource_counters(original_message: str) -> dict[str, int]:
         title: int(amount)
         for title, amount in _resource_counter_pattern.findall(message_with_fixes)
     }
+
+
+def get_city_buttons(
+    buttons: list[types.TypeKeyboardButton],
+    names_filter: list[str] | None = None,
+) -> list[types.TypeKeyboardButton]:
+    """Return city buttons."""
+    town_buttons = [
+        button
+        for button in buttons
+        if '🏛' in button.text
+    ]
+    if not names_filter:
+        return town_buttons
+
+    filtered_buttons = []
+    for button in town_buttons:
+        for name in names_filter:
+            if name.lower() in button.text.strip().lower():
+                filtered_buttons.append(button)
+                break
+    return filtered_buttons

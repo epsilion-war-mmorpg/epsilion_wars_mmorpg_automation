@@ -3,8 +3,8 @@
 
 from telethon import events
 
-from epsilion_wars_mmorpg_automation.game.buttons import get_buttons_flat
-from epsilion_wars_mmorpg_automation.game.parsers import strip_message
+from epsilion_wars_mmorpg_automation.game.buttons import MAP, get_buttons_flat
+from epsilion_wars_mmorpg_automation.game.parsers import get_city_buttons, strip_message
 
 
 def is_equip_broken_message(event: events.NewMessage.Event) -> bool:
@@ -68,16 +68,26 @@ def is_map_open_state(event: events.NewMessage.Event) -> bool:
     """Map open state."""
     # todo test
     message = strip_message(event.message.message)
+    return 'легенда карты:' in message and get_city_buttons(
+        get_buttons_flat(event),
+    )
+
+
+def is_town(event: events.NewMessage.Event) -> bool:
+    """Is town state."""
+    # todo test
+    message = strip_message(event.message.message)
     found_buttons = get_buttons_flat(event)
     if not found_buttons:
         return False
 
     first_button = found_buttons[0]
-    return 'Легенда карты:' in message and '🏛' in first_button.text
+    return 'героев в городе:' in message and '🏛' in message and MAP in first_button.text
 
 
 def is_npc_selector(event: events.NewMessage.Event) -> bool:
     """NPC selector opened state."""
     # todo test
-    # todo impl
-    return False
+    message = strip_message(event.message.message)
+    found_buttons = get_buttons_flat(event)
+    return 'к кому ты хочешь зайти в гости?' in message and found_buttons

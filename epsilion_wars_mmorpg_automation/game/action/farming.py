@@ -9,16 +9,16 @@ from epsilion_wars_mmorpg_automation.telegram_client import client
 from epsilion_wars_mmorpg_automation.wait_utils import wait_for
 
 
-async def go_to_town(event: events.NewMessage.Event) -> None:
-    """Go to town."""
-    town_options = get_buttons_flat(event)
-    logging.debug('town options %s', town_options)
+async def go_to(event: events.NewMessage.Event, direction: str) -> None:
+    """Go to action."""
+    go_to_options = get_buttons_flat(event)
+    logging.debug('go to call %s', go_to_options)
 
-    if not town_options:
-        raise InvalidMessageError('Town selector buttons not found.')
+    if not go_to_options:
+        raise InvalidMessageError('Go to selector buttons not found.')
 
     await wait_for()
     await client.send_message(
         entity=event.chat_id,
-        message=town_options[0].text,
+        message=direction,
     )

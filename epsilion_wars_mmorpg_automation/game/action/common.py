@@ -62,6 +62,26 @@ async def show_map(event: events.NewMessage.Event) -> None:
     )
 
 
+async def show_npc(event: events.NewMessage.Event) -> None:
+    """Call show NPC."""
+    logging.info('call show NPC button')
+    await wait_for()
+    await client.send_message(
+        entity=event.chat_id,
+        message='/npc',
+    )
+
+
+async def call_npc(event: events.NewMessage.Event, name: str) -> None:
+    """Call NPC."""
+    logging.info('call NPC')
+    await wait_for()
+    await client.send_message(
+        entity=event.chat_id,
+        message=name,
+    )
+
+
 async def show_inventory(entity: int | events.NewMessage.Event) -> None:
     """Call show inventory."""
     logging.info('call show inventory button')
