@@ -19,3 +19,19 @@ def test_is_fishing_end_happy_path():
     result = is_fishing_end(event_mock)
 
     assert result is True
+
+
+def test_is_fishing_end_without_buttons():
+    event_mock = Mock()
+    event_mock.message.message = """🎣 Ловля рыбы сегодня была особенно удачна, удалось наловить много улова:
+
+✨ Опыта: 552
+▫️ Опыта рыбалки: 150
+
+🐟 Карбарась
+🌿 Водоросли"""
+    event_mock.message.buttons = []
+
+    result = is_fishing_end(event_mock)
+
+    assert result is True

@@ -27,7 +27,7 @@ def is_fishing_end(event: events.NewMessage.Event) -> bool:
     message = strip_message(event.message.message)
     found_buttons = get_buttons_flat(event)
     if not found_buttons:
-        return False
+        return 'ловля рыбы сегодня была особенно удачна' in message
 
     return '🎣️ рыбалка завершена' in message and 'Вернуться в локацию' in found_buttons[0].text
 
