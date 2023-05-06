@@ -12,7 +12,7 @@ from epsilion_wars_mmorpg_automation.wait_utils import wait_for
 async def go_to(event: events.NewMessage.Event, direction: str) -> None:
     """Go to action."""
     go_to_options = get_buttons_flat(event)
-    logging.debug('go to call %s', go_to_options)
+    logging.info('go to call %s', go_to_options)
 
     if not go_to_options:
         raise InvalidMessageError('Go to selector buttons not found.')

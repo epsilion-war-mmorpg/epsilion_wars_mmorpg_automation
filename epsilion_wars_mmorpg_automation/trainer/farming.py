@@ -1,4 +1,4 @@
-"""Grinding tool."""
+"""Farming tool (grinding with auto-repair)."""
 import logging
 from typing import Callable
 
@@ -12,24 +12,26 @@ from epsilion_wars_mmorpg_automation.trainer import event_logging, loop
 from epsilion_wars_mmorpg_automation.trainer.handlers import common, farming, grinding
 
 
-async def main(repair_locations_path: list[str]) -> None:
+async def main(repair_locations_path: str = '') -> None:
     """Farming runner."""
     local_settings = {
+        # todo review
         'minimum_hp_level_for_grinding': app_settings.minimum_hp_level_for_grinding,
         'auto_healing_enabled': app_settings.auto_healing_enabled,
         'stop_if_captcha_fire': app_settings.stop_if_captcha_fire,
         'notifications_enabled': app_settings.notifications_enabled,
         'slow_mode': app_settings.slow_mode,
+        'repair_locations_path': app_settings.repair_locations_path,
     }
-    # todo merge repair_locations_path with app_settings
+    if not repair_locations_path:
+        repair_locations_path = app_settings.repair_locations_path
+
+    repair_locations_path = repair_locations_path.split(',')
     logging.info(f'start farming ({local_settings=}), {repair_locations_path}')
-    logging.info('move u character to farming location first')
 
-    # todo fail fast if repair_locations_path not in repairman_locations
-    shared_state.REPAIR_LOCATIONS = repair_locations_path
+    shared_state.REPAIR_LOCATIONS_PATH = repair_locations_path
 
-    me = await client.get_me()
-    logging.info('auth as %s', me.username)
+    logging.info('auth as %s', (await client.get_me()).username)
 
     game_user: types.InputPeerUser = await client.get_input_entity(game_bot_name)
     logging.info('game user is %s', game_user)
@@ -41,9 +43,15 @@ async def main(repair_locations_path: list[str]) -> None:
             from_users=(game_user.user_id,),
         ),
     )
+    client.add_event_handler(
+        callback=_message_handler,
+        event=events.MessageEdited(
+            incoming=True,
+            from_users=(game_user.user_id,),
+        ),
+    )
 
     await action.common_actions.ping(game_user.user_id)
-
     await loop.run_wait_loop(None)
     logging.info('end farming')
 
@@ -54,11 +62,11 @@ async def _message_handler(event: events.NewMessage.Event) -> None:
 
     await event.message.mark_read()
 
-    select_callback = _select_action_by_event(event)
-    # update handlers for repairing here
-    # todo if repair item selector - select item by 0 / N>1.
-    # todo if not found items for repair_call - call binding, set state.to_grinding_zone and call ping()
-    # todo if repair item approve  - approve it
+    if isinstance(event, events.MessageEdited.Event):
+        select_callback = _select_action_by_event_update(event)
+        # update handlers for repairing here
+    else:
+        select_callback = _select_action_by_event(event)
 
     await select_callback(event)
 
@@ -80,9 +88,23 @@ def _select_action_by_event(event: events.NewMessage.Event) -> Callable:
         (state.common_states.is_town, farming.repair_or_go_to_next),
 
         (state.common_states.is_npc_selector, farming.repairman_call),
-        (state.farming_states.is_repair_button_available, farming.repair_call),
+        (state.farming_states.is_repair_button_available, farming.repair_start),
         # todo skip random-seller message
         # todo approve go to town after seller
+    ]
+
+    for check_function, callback_function in mapping:
+        if check_function(event):
+            logging.debug('is %s event', check_function.__name__)
+            return callback_function
+
+    return common.skip_turn_handler
+
+
+def _select_action_by_event_update(event: events.NewMessage.Event) -> Callable:
+    mapping = [
+        (state.farming_states.is_repair_item_selector, farming.repair_item),
+        (state.farming_states.is_repair_item_approve_request, farming.repair_item_approve),
     ]
 
     for check_function, callback_function in mapping:

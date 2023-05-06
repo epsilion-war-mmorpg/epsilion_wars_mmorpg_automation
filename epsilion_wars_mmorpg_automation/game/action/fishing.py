@@ -74,3 +74,14 @@ async def complete_fishing(event: events.NewMessage.Event) -> None:
         entity=event.chat_id,
         message=options[0].text,
     )
+
+
+async def equip_use(event: events.NewMessage.Event) -> None:
+    """Call use selected equip."""
+    logging.info('call use selected equip')
+    inline_buttons = get_buttons_flat(event)
+    if not inline_buttons:
+        raise InvalidMessageError('Invalid equip buttons.')
+
+    await wait_for()
+    await event.message.click(0)

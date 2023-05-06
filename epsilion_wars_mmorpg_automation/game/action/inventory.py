@@ -20,6 +20,7 @@ async def show_resource_type(event: events.NewMessage.Event) -> None:
         if resource in inline_button.text:
             await wait_for()
             await event.message.click(index)
+            return
 
 
 async def show_next_page(event: events.NewMessage.Event) -> None:

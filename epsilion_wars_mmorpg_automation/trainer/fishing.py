@@ -106,7 +106,7 @@ def _select_action_by_event(event: events.NewMessage.Event) -> Callable:
 def _select_action_by_event_update(event: events.MessageEdited.Event) -> Callable:
     mapping = [
         (state.common_states.is_character_equip_gun_select, action.fishing_actions.equip_rod),
-        (state.fishing_states.is_equip_rod_state, action.common_actions.equip_use),
+        (state.fishing_states.is_equip_rod_state, action.fishing_actions.equip_use),
     ]
 
     for check_function, callback_function in mapping:

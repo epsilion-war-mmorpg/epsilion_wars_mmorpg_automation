@@ -59,7 +59,7 @@ The first time you use it, you'll need to log in to your Telegram account, but a
 ### Grinding
 Grinding will save you from having to fight annoying monsters in the hunting grounds. 
 The Epsilion Trainer checks your health before searching for an enemy, choosing a random direction to attack and block, using combat tricks and collecting the reward. 
-Sometimes you just need to take your character to repair_call equipment and open chests.
+Sometimes you just need to take your character to repair_start equipment and open chests.
 
 Just get your character to the right location, equip PVE and run the Epsilion Trainer with `grind`. 
 
@@ -72,8 +72,6 @@ You can change the settings in the .env file as follows
 `minimum_hp_level_for_grinding`: Minimum HP level to begin grinding. Default level is 95%.
 
 `notifications_enabled`: Send alerts about important events. On by default.
-
-`favorites_enabled`: Send messages to telegram myself-favorites chat. On by default.
 
 `auto_healing_enabled`: Using HP potions (I, II and III grades only). On by default.
 
@@ -100,17 +98,23 @@ TODO
 Для запуска вам понадобится команда `farming`. 
 Персонаж запоминает название локации для фарминга при запуске и будет сам ходить в город за починкой вещей.
 
-Работает только если в ближайшем городе есть подходящий кузнец и у вас есть деньги на починку. 
-В противном случае персонаж останется стоять в городе.
+Персонаж ходит за починкой максимум на две локации от зоны гриндинга. 
+Название локаций, через которые лежит путь к кузнецу, вам нужно задать в `.env` (смотри настройки ниже)
+или при запуске программы `farming --path "грейт,цирта"`. 
+Параметр запуска `--path` выше по приоритету.
 
 Также возвращает персонажа в зону фарминга после смерти.
 
 Вещи с прочностью 0/1 не будут починены (в противном случае есть риск сломать экипировку). 
-Восстановление прочности с помощью ремкомплектов так же не реализовано - вам приджётся следить за этим самим.
+Восстановление прочности с помощью ремкомплектов так же не реализовано - вам придётся следить за этим самим.
 
 
 ##### Settings
 `equip_binding_number`: Номер биндинга вашей экипировки для фарма. По умолчанию `1`.
+
+`repair_locations_path`: Название локаций, составляющих путь к кузнецу для починки. 
+Достаточно одного слова из названия, через запятую (ex: `грейт,цирта`). 
+По умолчанию не задан. 
 
 
 ### Daily reward catcher
@@ -137,6 +141,10 @@ Run `inventory` and after a short time you will see a message in your favourite 
 By default it takes a list of recipes, but you can get a list of other resources by using the `inventory -t` flag.
 
 
+##### Settings
+`favorites_enabled`: Send messages to telegram favorites chat. On by default.
+
+
 ### What about the captcha?
 The Epsilion Trainer successfully solves simple text captcha. 
 But it won't be able to solve numbers in a picture. 
@@ -157,6 +165,11 @@ In this mode, the tool will only help you solve the captcha automatically and no
 
 
 ## Roadmap
+- run farmer-twink6 on server
+- tune use combo-heals (use depends on my and enemy HP)
+- tune use combo-heals (lock by turn-count)
+- move all bots to separate server
+- hunting tool
 - readme for customers (teletype page) and change link in settings/readme
 - publish as package + docs update
 

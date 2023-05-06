@@ -12,7 +12,7 @@ from epsilion_wars_mmorpg_automation.trainer import loop
 
 async def skip_turn_handler(event: events.NewMessage.Event) -> None:
     """Just skip event."""
-    logging.debug('skip event')
+    logging.info('skip event')
 
 
 async def captcha_fire_handler(event: events.NewMessage.Event) -> None:

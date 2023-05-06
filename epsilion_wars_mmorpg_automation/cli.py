@@ -49,9 +49,17 @@ def fishing_start() -> None:
 
 def farming_start() -> None:
     """Start farming."""
-    # todo parse locations args
-    # todo обновить доку
-    _run(farming.main, repair_locations_path=['грейт', 'цирта'])
+    parser = argparse.ArgumentParser(description='Start farming.')
+    parser.add_argument(
+        '--path',
+        required=False,
+        type=str,
+        default='',
+        help='Path to the location with the blacksmith, separated by comma (ex. "грейт,цирта")',
+    )
+    args = parser.parse_args()
+
+    _run(farming.main, repair_locations_path=args.path)
 
 
 def inventory_start() -> None:

@@ -68,9 +68,10 @@ def is_map_open_state(event: events.NewMessage.Event) -> bool:
     """Map open state."""
     # todo test
     message = strip_message(event.message.message)
-    return 'легенда карты:' in message and get_city_buttons(
-        get_buttons_flat(event),
-    )
+    city_buttons = get_city_buttons(get_buttons_flat(event))
+    if not city_buttons:
+        return False
+    return 'легенда карты:' in message
 
 
 def is_town(event: events.NewMessage.Event) -> bool:
@@ -90,4 +91,6 @@ def is_npc_selector(event: events.NewMessage.Event) -> bool:
     # todo test
     message = strip_message(event.message.message)
     found_buttons = get_buttons_flat(event)
-    return 'к кому ты хочешь зайти в гости?' in message and found_buttons
+    if not found_buttons:
+        return False
+    return 'к кому ты хочешь зайти в гости?' in message

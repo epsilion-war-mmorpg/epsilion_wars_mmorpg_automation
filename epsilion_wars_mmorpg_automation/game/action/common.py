@@ -82,6 +82,16 @@ async def call_npc(event: events.NewMessage.Event, name: str) -> None:
     )
 
 
+async def call_binding(event: events.NewMessage.Event, binding_number: int) -> None:
+    """Call saved binding."""
+    logging.info('call binding {0}'.format(binding_number))
+    await wait_for()
+    await client.send_message(
+        entity=event.chat_id,
+        message=str(binding_number),
+    )
+
+
 async def show_inventory(entity: int | events.NewMessage.Event) -> None:
     """Call show inventory."""
     logging.info('call show inventory button')
@@ -115,17 +125,6 @@ async def show_character(entity: int | events.NewMessage.Event) -> None:
 async def show_equip_guns(event: events.NewMessage.Event) -> None:
     """Call select gun button."""
     logging.info('call select gun button')
-    inline_buttons = get_buttons_flat(event)
-    if not inline_buttons:
-        raise InvalidMessageError('Invalid equip buttons.')
-
-    await wait_for()
-    await event.message.click(0)
-
-
-async def equip_use(event: events.NewMessage.Event) -> None:
-    """Call use selected equip."""
-    logging.info('call use selected equip')
     inline_buttons = get_buttons_flat(event)
     if not inline_buttons:
         raise InvalidMessageError('Invalid equip buttons.')
