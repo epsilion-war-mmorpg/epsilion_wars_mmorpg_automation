@@ -66,7 +66,6 @@ def is_character_info(event: events.NewMessage.Event) -> bool:
 
 def is_map_open_state(event: events.NewMessage.Event) -> bool:
     """Map open state."""
-    # todo test
     message = strip_message(event.message.message)
     city_buttons = get_city_buttons(get_buttons_flat(event))
     if not city_buttons:
@@ -76,7 +75,6 @@ def is_map_open_state(event: events.NewMessage.Event) -> bool:
 
 def is_town(event: events.NewMessage.Event) -> bool:
     """Is town state."""
-    # todo test
     message = strip_message(event.message.message)
     found_buttons = get_buttons_flat(event)
     if not found_buttons:
@@ -88,7 +86,6 @@ def is_town(event: events.NewMessage.Event) -> bool:
 
 def is_npc_selector(event: events.NewMessage.Event) -> bool:
     """NPC selector opened state."""
-    # todo test
     message = strip_message(event.message.message)
     found_buttons = get_buttons_flat(event)
     if not found_buttons:

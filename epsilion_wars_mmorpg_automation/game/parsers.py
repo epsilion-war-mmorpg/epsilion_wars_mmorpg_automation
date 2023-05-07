@@ -38,7 +38,6 @@ def get_equip_hp_level(message_content: str) -> int:
 
 def get_equip_hp_max_level(message_content: str) -> int:
     """Get equip HP max in absolute value."""
-    # todo test
     found = _equip_hp_level_pattern.search(message_content)
     if not found:
         return 0
