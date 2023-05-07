@@ -21,7 +21,10 @@ class AppSettings(BaseSettings):
     captcha_solver_enabled: bool = True
     select_random_combo: bool = True
     skip_combo: bool = True
+    skip_random_vendor: bool = True
     use_backup_game_bot: bool = False
+    equip_binding_number: int = 1
+    repair_locations_path: str = ''
 
     # advanced customer settings
     anti_captcha_com_apikey: str = Field(default='', description='see https://anti-captcha.com for more information')
@@ -50,6 +53,7 @@ class AppSettings(BaseSettings):
     hp_level_for_low_heal_pot: int = Field(default=75, ge=1, le=100)
     hp_level_for_mid_heal_pot: int = Field(default=50, ge=1, le=100)
     rod_minimal_hp_level_for_fishing: int = Field(default=3, ge=1)
+    equip_minimal_hp_level_for_repairing: int = Field(default=1, ge=1)
     character_top_level_threshold: int = 30
     character_high_level_threshold: int = 20
     character_middle_level_threshold: int = 10
@@ -59,6 +63,28 @@ class AppSettings(BaseSettings):
     check_fishing_every_seconds_min: int = int(0.95 * 60 * 60)
     check_fishing_every_seconds_max: int = int(2.01 * 60 * 60)
     desktop_notification_timeout: int = 10
+    repairman_locations: list[str] = [
+        'Кавелла',
+        'Дранг',
+        'Аквелия',
+        'Цирта',
+        'Руины',
+        'Северный порт',
+        'Лонгйир',
+        'Карбарак',
+        # fixme put T4 locations here
+    ]
+    repairman_names: set[str] = {
+        '⚒ Кузнец Эрик',
+        '⚒ Кузнец Грыл',
+        '⚒ Кузнец Гейл',
+        '⚒ Кузнец Хэнк',
+        '⚒ Кузнец Аакмаан',
+        '⚒ Кузнец Флэт',
+        '⚒ Мастер брони Эгерь',
+        '⚒ Кузнец Карбо',
+        # fixme put T4 repairman names here
+    }
 
 
 app_settings = AppSettings(

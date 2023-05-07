@@ -5,14 +5,12 @@ from typing import Callable
 from telethon import events, types
 
 from epsilion_wars_mmorpg_automation import shared_state, stats
-from epsilion_wars_mmorpg_automation.game.action import common as common_actions
-from epsilion_wars_mmorpg_automation.game.action import inventory as inventory_actions
-from epsilion_wars_mmorpg_automation.game.state import common as common_states
-from epsilion_wars_mmorpg_automation.game.state import inventory as inventory_states
+from epsilion_wars_mmorpg_automation.game import action, state
 from epsilion_wars_mmorpg_automation.notifications import send_favorites_notify
 from epsilion_wars_mmorpg_automation.settings import app_settings, game_bot_name
 from epsilion_wars_mmorpg_automation.telegram_client import client
-from epsilion_wars_mmorpg_automation.trainer import event_logging, handlers, loop
+from epsilion_wars_mmorpg_automation.trainer import event_logging, loop
+from epsilion_wars_mmorpg_automation.trainer.handlers import common
 
 
 async def main(selected_type: str) -> None:
@@ -58,8 +56,8 @@ async def _message_handler(event: events.NewMessage.Event) -> None:
 
 def _select_action_by_event(event: events.NewMessage.Event) -> Callable:
     mapping = [
-        (inventory_states.is_resource_type_selector, inventory_actions.show_resource_type),
-        (common_states.is_character_info, inventory_actions.save_character_name),
+        (state.inventory_states.is_resource_type_selector, action.inventory_actions.show_resource_type),
+        (state.common_states.is_character_info, action.inventory_actions.save_character_name),
     ]
 
     for check_function, callback_function in mapping:
@@ -67,12 +65,12 @@ def _select_action_by_event(event: events.NewMessage.Event) -> Callable:
             logging.debug('is %s event', check_function.__name__)
             return callback_function
 
-    return handlers.skip_turn_handler
+    return common.skip_turn_handler
 
 
 def _select_action_by_event_update(event: events.MessageEdited.Event) -> Callable:
     mapping = [
-        (inventory_states.is_resource_pagination, handlers.collect_resource_counters),
+        (state.inventory_states.is_resource_pagination, common.collect_resource_counters),
     ]
 
     for check_function, callback_function in mapping:
@@ -80,7 +78,7 @@ def _select_action_by_event_update(event: events.MessageEdited.Event) -> Callabl
             logging.debug('is %s event', check_function.__name__)
             return callback_function
 
-    return handlers.skip_turn_handler
+    return common.skip_turn_handler
 
 
 async def _send_counters(counters: dict[str, int], character_name: str) -> None:
@@ -105,8 +103,8 @@ async def _send_counters(counters: dict[str, int], character_name: str) -> None:
 
 async def _start(game_user_id: int) -> None:
     # run show inventory
-    await common_actions.show_character(game_user_id)
-    await common_actions.show_inventory(game_user_id)
+    await action.common_actions.show_character(game_user_id)
+    await action.common_actions.show_inventory(game_user_id)
 
     await loop.run_wait_loop(5)
     await _send_counters(shared_state.RESOURCE_COUNTERS, shared_state.CHARACTER_NAME)

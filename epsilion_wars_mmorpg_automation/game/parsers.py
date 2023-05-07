@@ -4,15 +4,16 @@ import re
 from io import BytesIO
 from math import ceil
 
-from telethon import events
+from telethon import events, types
 
 from epsilion_wars_mmorpg_automation.exceptions import InvalidMessageError
 from epsilion_wars_mmorpg_automation.telegram_client import client
 
 _hp_level_pattern = re.compile(r'❤️\((\d+)/(\d+)\)')
-_equip_hp_level_pattern = re.compile(r'\((\d+)/\d+\)')
+_equip_hp_level_pattern = re.compile(r'\((\d+)/(\d+)\)')
 _character_level_pattern = re.compile(r'(\d+)[\s]{0,}❤️\(\d+/\d+\)')
 _character_name_pattern = re.compile(r'(.*\s🔸\d+)[\s]{0,}❤️\(\d+/\d+\)', re.MULTILINE | re.UNICODE)
+_location_name_pattern = re.compile(r'(.{3,})\n\n.*', re.MULTILINE | re.UNICODE)
 _experience_gain_pattern = re.compile(r'✨\sопыта:\s(\d+)')
 _resource_counter_pattern = re.compile(r'(.*)\s-\s(\d+)шт', re.MULTILINE | re.UNICODE)
 
@@ -35,6 +36,14 @@ def get_equip_hp_level(message_content: str) -> int:
     return int(found.group(1))
 
 
+def get_equip_hp_max_level(message_content: str) -> int:
+    """Get equip HP max in absolute value."""
+    found = _equip_hp_level_pattern.search(message_content)
+    if not found:
+        return 0
+    return int(found.group(2))
+
+
 def get_character_level(message_content: str) -> int:
     """Get character level."""
     found = _character_level_pattern.search(strip_message(message_content), re.MULTILINE)
@@ -49,6 +58,15 @@ def get_character_name(message_content: str) -> str:
     found = _character_name_pattern.search(message_content)
     if not found:
         raise InvalidMessageError('Character name not found')
+
+    return found.group(1)
+
+
+def get_location_name(message_content: str) -> str:
+    """Get location name."""
+    found = _location_name_pattern.search(message_content)
+    if not found:
+        raise InvalidMessageError('Location name not found')
 
     return found.group(1)
 
@@ -88,3 +106,25 @@ def get_resource_counters(original_message: str) -> dict[str, int]:
         title: int(amount)
         for title, amount in _resource_counter_pattern.findall(message_with_fixes)
     }
+
+
+def get_city_buttons(
+    buttons: list[types.TypeKeyboardButton],
+    names_filter: list[str] | None = None,
+) -> list[types.TypeKeyboardButton]:
+    """Return city buttons."""
+    town_buttons = [
+        button
+        for button in buttons
+        if '🏛' in button.text
+    ]
+    if not names_filter:
+        return town_buttons
+
+    filtered_buttons = []
+    for button in town_buttons:
+        for name in names_filter:
+            if name.lower() in button.text.strip().lower():
+                filtered_buttons.append(button)
+                break
+    return filtered_buttons

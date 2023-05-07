@@ -6,7 +6,15 @@ from typing import Any, Callable
 
 from epsilion_wars_mmorpg_automation.settings import app_settings
 from epsilion_wars_mmorpg_automation.telegram_client import client
-from epsilion_wars_mmorpg_automation.trainer import captcha_solver, daily_reward_catcher, fishing, grinding, inventory, loop
+from epsilion_wars_mmorpg_automation.trainer import (
+    captcha_solver,
+    daily_reward_catcher,
+    farming,
+    fishing,
+    grinding,
+    inventory,
+    loop,
+)
 
 
 def grind_start() -> None:
@@ -37,6 +45,21 @@ def daily_reward_catcher_start() -> None:
 def fishing_start() -> None:
     """Start fishing."""
     _run(fishing.main)
+
+
+def farming_start() -> None:
+    """Start farming."""
+    parser = argparse.ArgumentParser(description='Start farming.')
+    parser.add_argument(
+        '--path',
+        required=False,
+        type=str,
+        default='',
+        help='Path to the location with the blacksmith, separated by comma (ex. "грейт,цирта")',
+    )
+    args = parser.parse_args()
+
+    _run(farming.main, repair_locations_path=args.path)
 
 
 def inventory_start() -> None:

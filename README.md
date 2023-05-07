@@ -6,6 +6,8 @@ Epsilion Trainer
 The Epsilion Trainer is an automated tool that allows users to quickly and easily level up their character in [the Epsilion War MMORPG](https://t.me/epsilionwarbot?start=ref-537453818).
 It automatically controls your character and instantly earns experience points, money and items.
 
+Adopted for grades prior to T4.
+
 [grinding.webm](https://user-images.githubusercontent.com/4115497/232020617-4ce562ed-a265-46e8-8679-c3fbb596b6e0.webm)
 
 Table of Contents
@@ -16,6 +18,7 @@ Table of Contents
 * [Installation](#installation)
 * [Usage](#usage)
   * [Grinding](#grinding)
+  * [Farming](#farming-experimental)
   * [Daily reward catcher](#daily-reward-catcher)
   * [Fishing](#fishing)
   * [Inventory](#inventory)
@@ -58,12 +61,14 @@ The first time you use it, you'll need to log in to your Telegram account, but a
 ## Usage
 ### Grinding
 Grinding will save you from having to fight annoying monsters in the hunting grounds. 
-The Epsilion Trainer checks your health before searching for an enemy, choosing a random direction to attack and block, using combat tricks and collecting the reward. 
-Sometimes you just need to take your character to repair equipment and open chests.
+The Epsilion Trainer checks your health before searching for an enemy, choosing a random direction to attack and block, 
+using combat tricks and collecting the reward. 
+Sometimes you just need to take your character to repair_start equipment and open chests.
 
 Just get your character to the right location, equip PVE and run the Epsilion Trainer with `grind`. 
 
-If you prefer to hunt for a limited time, you can use `grind -t 30`: it will only hunt for 30 minutes, after which it will automatically shut down.
+If you prefer to hunt for a limited time, you can use `grind -t 30`: 
+it will only hunt for 30 minutes, after which it will automatically shut down.
 
 
 ##### Settings
@@ -72,8 +77,6 @@ You can change the settings in the .env file as follows
 `minimum_hp_level_for_grinding`: Minimum HP level to begin grinding. Default level is 95%.
 
 `notifications_enabled`: Send alerts about important events. On by default.
-
-`favorites_enabled`: Send messages to telegram myself-favorites chat. On by default.
 
 `auto_healing_enabled`: Using HP potions (I, II and III grades only). On by default.
 
@@ -88,6 +91,35 @@ You can change the settings in the .env file as follows
 `captcha_solver_enabled`: Try to solve simple captcha automatically. On by default.
 
 `use_backup_game_bot`: If the main game bot is down, you can try switching to the backup bot. Default is off.
+
+
+### Farming [experimental]
+**Warning: Experimental feature, may not be fully stable.**
+
+Same as [Grinding](#grinding), but with automatic repair of equipment and return of the character to the location. 
+
+You need the `farming` command to run it. 
+The character remembers the name of the grinding location and will go to the town itself to repair things.
+
+The character will go to a maximum of two locations away from the farming area to get things repaired. 
+The names of the locations through which the path to the blacksmith passes must be set in `.env` (see settings below)
+or when running the `farming --path "грейт,цирта"` command. 
+The `--path` startup parameter has priority over the settings file.
+
+Also returns the character to the farming area after death.
+
+Items with a durability of 0/1 will not be repaired. 
+Restoring the maximum durability of items is also up to you.
+
+
+##### Settings
+`skip_random_vendor`: Skipping the random vendor you meet. On by default.
+
+`equip_binding_number`: Binding number of your farming equipment set. By default `1`.
+
+`repair_locations_path`: The names of the places that make up the route to the blacksmith for repair. 
+One word of the title, separated by commas, is sufficient (e.g. `грейт,цирта'). 
+Not set by default.
 
 
 ### Daily reward catcher
@@ -114,6 +146,10 @@ Run `inventory` and after a short time you will see a message in your favourite 
 By default it takes a list of recipes, but you can get a list of other resources by using the `inventory -t` flag.
 
 
+##### Settings
+`favorites_enabled`: Send messages to telegram favorites chat. On by default.
+
+
 ### What about the captcha?
 The Epsilion Trainer successfully solves simple text captcha. 
 But it won't be able to solve numbers in a picture. 
@@ -130,14 +166,20 @@ In this mode, the tool will only help you solve the captcha automatically and no
 
 
 ##### Settings
-
 `anti_captcha_com_apikey`: your account key (ex: 172ea50b3d12345678de199546c66b20)
 
 
 ## Roadmap
+- run farmer-twink6 on server
+- inventory -t books
+- register and setup farmer-twink7 on server
+- move all bots to separate server
+- post inventory output to selected channel
+- tune use combos (use heal-combo depends on HP (my and enemy))
+- tune use combos (lock by turn number)
+- hunting tool
 - readme for customers (teletype page) and change link in settings/readme
-- publish as package + docs update
-- farming (grind+autorepair+rewardcatcher) experimental tool
+- publish as package
 
 
 ## Developers
@@ -172,4 +214,4 @@ The algorithm for self-registration is as follows
 - start grinding.
 
 For a new account, I strongly recommend enabling the `slow_mode` flag in the settings. 
-Otherwise the Telegram may block the account for too many requests.
+Otherwise, the Telegram may temporarily block the account for too many requests per minute.

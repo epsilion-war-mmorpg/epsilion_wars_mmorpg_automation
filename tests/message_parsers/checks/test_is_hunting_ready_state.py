@@ -2,7 +2,7 @@ from unittest.mock import Mock
 
 import pytest
 
-from epsilion_wars_mmorpg_automation.game.state.grinding import is_hunting_ready_state
+from epsilion_wars_mmorpg_automation.game.state.grinding import is_grinding_ready_state
 
 
 @pytest.mark.parametrize('payload,expected', [
@@ -17,6 +17,6 @@ def test_is_hunting_ready_state(payload: str, expected: bool):
     event_mock.message.button_count = 2
     event_mock.message.buttons = [[Mock(), button]]
 
-    result = is_hunting_ready_state(event_mock)
+    result = is_grinding_ready_state(event_mock)
 
     assert result is expected

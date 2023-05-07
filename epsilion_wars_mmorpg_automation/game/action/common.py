@@ -5,7 +5,7 @@ import random
 from telethon import events
 
 from epsilion_wars_mmorpg_automation.exceptions import InvalidMessageError
-from epsilion_wars_mmorpg_automation.game.buttons import CHARACTER, EQUIP, INVENTORY, get_buttons_flat
+from epsilion_wars_mmorpg_automation.game.buttons import CHARACTER, EQUIP, INVENTORY, MAP, get_buttons_flat
 from epsilion_wars_mmorpg_automation.settings import app_settings
 from epsilion_wars_mmorpg_automation.telegram_client import client
 from epsilion_wars_mmorpg_automation.wait_utils import WaitActions, wait_for
@@ -52,6 +52,46 @@ async def show_equip(event: events.NewMessage.Event) -> None:
     )
 
 
+async def show_map(event: events.NewMessage.Event) -> None:
+    """Call show map."""
+    logging.info('call show map button')
+    await wait_for()
+    await client.send_message(
+        entity=event.chat_id,
+        message=MAP,
+    )
+
+
+async def show_npc(event: events.NewMessage.Event) -> None:
+    """Call show NPC."""
+    logging.info('call show NPC button')
+    await wait_for()
+    await client.send_message(
+        entity=event.chat_id,
+        message='/npc',
+    )
+
+
+async def call_npc(event: events.NewMessage.Event, name: str) -> None:
+    """Call NPC."""
+    logging.info('call NPC')
+    await wait_for()
+    await client.send_message(
+        entity=event.chat_id,
+        message=name,
+    )
+
+
+async def call_binding(event: events.NewMessage.Event, binding_number: int) -> None:
+    """Call saved binding."""
+    logging.info('call binding {0}'.format(binding_number))
+    await wait_for()
+    await client.send_message(
+        entity=event.chat_id,
+        message=str(binding_number),
+    )
+
+
 async def show_inventory(entity: int | events.NewMessage.Event) -> None:
     """Call show inventory."""
     logging.info('call show inventory button')
@@ -93,12 +133,12 @@ async def show_equip_guns(event: events.NewMessage.Event) -> None:
     await event.message.click(0)
 
 
-async def equip_use(event: events.NewMessage.Event) -> None:
-    """Call use selected equip."""
-    logging.info('call use selected equip')
+async def exit_after_vendor(event: events.NewMessage.Event) -> None:
+    """Exit after vendor meet."""
+    logging.info('call exit after vendor dialog')
     inline_buttons = get_buttons_flat(event)
     if not inline_buttons:
-        raise InvalidMessageError('Invalid equip buttons.')
+        raise InvalidMessageError('Invalid vendor buttons.')
 
     await wait_for()
     await event.message.click(0)

@@ -84,7 +84,7 @@ def is_win_state(event: events.NewMessage.Event) -> bool:
     return found_buttons[0].text == buttons.COMPLETE_BATTLE
 
 
-def is_hunting_ready_state(event: events.NewMessage.Event) -> bool:
+def is_grinding_ready_state(event: events.NewMessage.Event) -> bool:
     """Ready for hunt state."""
     message = strip_message(event.message.message)
     if 'тюрьма' in message:

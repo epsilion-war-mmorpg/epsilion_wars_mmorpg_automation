@@ -11,7 +11,8 @@ from epsilion_wars_mmorpg_automation import stats
 from epsilion_wars_mmorpg_automation.game import action, state
 from epsilion_wars_mmorpg_automation.settings import app_settings, game_bot_name
 from epsilion_wars_mmorpg_automation.telegram_client import client
-from epsilion_wars_mmorpg_automation.trainer import event_logging, handlers, loop
+from epsilion_wars_mmorpg_automation.trainer import event_logging, loop
+from epsilion_wars_mmorpg_automation.trainer.handlers import common, fishing
 
 
 async def main() -> None:
@@ -89,9 +90,9 @@ async def _message_handler(event: events.NewMessage.Event) -> None:
 
 def _select_action_by_event(event: events.NewMessage.Event) -> Callable:
     mapping = [
-        (state.fishing_states.is_fishing_type_selector, handlers.fishing_start),
+        (state.fishing_states.is_fishing_type_selector, fishing.fishing_start),
         (state.common_states.is_character_equip_select, action.common_actions.show_equip_guns),
-        (state.fishing_states.is_fishing_end, handlers.fishing_end),
+        (state.fishing_states.is_fishing_end, fishing.fishing_end),
     ]
 
     for check_function, callback_function in mapping:
@@ -99,13 +100,13 @@ def _select_action_by_event(event: events.NewMessage.Event) -> Callable:
             logging.info('is %s event', check_function.__name__)
             return callback_function
 
-    return handlers.skip_turn_handler
+    return common.skip_turn_handler
 
 
 def _select_action_by_event_update(event: events.MessageEdited.Event) -> Callable:
     mapping = [
         (state.common_states.is_character_equip_gun_select, action.fishing_actions.equip_rod),
-        (state.fishing_states.is_equip_rod_state, action.common_actions.equip_use),
+        (state.fishing_states.is_equip_rod_state, action.fishing_actions.equip_use),
     ]
 
     for check_function, callback_function in mapping:
@@ -113,4 +114,4 @@ def _select_action_by_event_update(event: events.MessageEdited.Event) -> Callabl
             logging.info('is %s event', check_function.__name__)
             return callback_function
 
-    return handlers.skip_turn_handler
+    return common.skip_turn_handler
