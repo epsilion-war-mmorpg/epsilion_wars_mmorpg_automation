@@ -18,6 +18,7 @@ Table of Contents
 * [Installation](#installation)
 * [Usage](#usage)
   * [Grinding](#grinding)
+  * [Farming](#farming-experimental)
   * [Daily reward catcher](#daily-reward-catcher)
   * [Fishing](#fishing)
   * [Inventory](#inventory)
@@ -60,12 +61,14 @@ The first time you use it, you'll need to log in to your Telegram account, but a
 ## Usage
 ### Grinding
 Grinding will save you from having to fight annoying monsters in the hunting grounds. 
-The Epsilion Trainer checks your health before searching for an enemy, choosing a random direction to attack and block, using combat tricks and collecting the reward. 
+The Epsilion Trainer checks your health before searching for an enemy, choosing a random direction to attack and block, 
+using combat tricks and collecting the reward. 
 Sometimes you just need to take your character to repair_start equipment and open chests.
 
 Just get your character to the right location, equip PVE and run the Epsilion Trainer with `grind`. 
 
-If you prefer to hunt for a limited time, you can use `grind -t 30`: it will only hunt for 30 minutes, after which it will automatically shut down.
+If you prefer to hunt for a limited time, you can use `grind -t 30`: 
+it will only hunt for 30 minutes, after which it will automatically shut down.
 
 
 ##### Settings
@@ -91,34 +94,32 @@ You can change the settings in the .env file as follows
 
 
 ### Farming [experimental]
-TODO
-Внимание! Экспериментальная функция, может работать не стабильно.
+**Warning: Experimental feature, may not be fully stable.**
 
-По сути это тот же самый гриндинг (ссылка), только с автоматической починкой экипировки и возвращением персонажа
-в локацию для фарма NPC. 
+Same as [Grinding](#grinding), but with automatic repair of equipment and return of the character to the location. 
 
-Для запуска вам понадобится команда `farming`. 
-Персонаж запоминает название локации для фарминга при запуске и будет сам ходить в город за починкой вещей.
+You need the `farming` command to run it. 
+The character remembers the name of the grinding location and will go to the town itself to repair things.
 
-Персонаж ходит за починкой максимум на две локации от зоны гриндинга. 
-Название локаций, через которые лежит путь к кузнецу, вам нужно задать в `.env` (смотри настройки ниже)
-или при запуске программы `farming --path "грейт,цирта"`. 
-Параметр запуска `--path` выше по приоритету.
+The character will go to a maximum of two locations away from the farming area to get things repaired. 
+The names of the locations through which the path to the blacksmith passes must be set in `.env` (see settings below)
+or when running the `farming --path "грейт,цирта"` command. 
+The `--path` startup parameter has priority over the settings file.
 
-Также возвращает персонажа в зону фарминга после смерти.
+Also returns the character to the farming area after death.
 
-Вещи с прочностью 0/1 не будут починены (в противном случае есть риск сломать экипировку). 
-Восстановление прочности с помощью ремкомплектов так же не реализовано - вам придётся следить за этим самим.
+Items with a durability of 0/1 will not be repaired. 
+Restoring the maximum durability of items is also up to you.
 
 
 ##### Settings
 `skip_random_vendor`: Skipping the random vendor you meet. On by default.
 
-`equip_binding_number`: Номер биндинга вашей экипировки для фарма. По умолчанию `1`.
+`equip_binding_number`: Binding number of your farming equipment set. By default `1`.
 
-`repair_locations_path`: Название локаций, составляющих путь к кузнецу для починки. 
-Достаточно одного слова из названия, через запятую (ex: `грейт,цирта`). 
-По умолчанию не задан. 
+`repair_locations_path`: The names of the places that make up the route to the blacksmith for repair. 
+One word of the title, separated by commas, is sufficient (e.g. `грейт,цирта'). 
+Not set by default.
 
 
 ### Daily reward catcher
@@ -170,12 +171,15 @@ In this mode, the tool will only help you solve the captcha automatically and no
 
 ## Roadmap
 - run farmer-twink6 on server
-- tune use combo-heals (use depends on my and enemy HP)
-- tune use combo-heals (lock by turn-count)
+- inventory -t books
+- register and setup farmer-twink7 on server
 - move all bots to separate server
+- post inventory output to selected channel
+- tune use combos (use heal-combo depends on HP (my and enemy))
+- tune use combos (lock by turn number)
 - hunting tool
 - readme for customers (teletype page) and change link in settings/readme
-- publish as package + docs update
+- publish as package
 
 
 ## Developers
