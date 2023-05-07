@@ -21,6 +21,7 @@ class AppSettings(BaseSettings):
     captcha_solver_enabled: bool = True
     select_random_combo: bool = True
     skip_combo: bool = True
+    skip_random_vendor: bool = True
     use_backup_game_bot: bool = False
     equip_binding_number: int = 1
     repair_locations_path: str = ''

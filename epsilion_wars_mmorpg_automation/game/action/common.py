@@ -131,3 +131,14 @@ async def show_equip_guns(event: events.NewMessage.Event) -> None:
 
     await wait_for()
     await event.message.click(0)
+
+
+async def exit_after_vendor(event: events.NewMessage.Event) -> None:
+    """Exit after vendor meet."""
+    logging.info('call exit after vendor dialog')
+    inline_buttons = get_buttons_flat(event)
+    if not inline_buttons:
+        raise InvalidMessageError('Invalid vendor buttons.')
+
+    await wait_for()
+    await event.message.click(0)

@@ -5,6 +5,7 @@ import logging
 from telethon import events, types
 
 from epsilion_wars_mmorpg_automation import notifications, shared_state
+from epsilion_wars_mmorpg_automation.exceptions import InvalidMessageError
 from epsilion_wars_mmorpg_automation.game import action, parsers
 from epsilion_wars_mmorpg_automation.game.buttons import get_buttons_flat
 from epsilion_wars_mmorpg_automation.settings import app_settings
@@ -179,3 +180,17 @@ async def repair_item_approve(event: events.NewMessage.Event) -> None:
         await wait_for()
         response = await event.message.click(0)
         logging.info('repair result "{0}"'.format(response))
+
+
+async def skip_vendor(event: events.NewMessage.Event) -> None:
+    """Skip vendor."""
+    logging.info('call skip vendor dialog {0}'.format(
+        app_settings.skip_random_vendor,
+    ))
+    inline_buttons = get_buttons_flat(event)
+    if not inline_buttons:
+        raise InvalidMessageError('Invalid vendor buttons.')
+
+    if app_settings.skip_random_vendor:
+        await wait_for()
+        await event.message.click(len(inline_buttons) - 1)

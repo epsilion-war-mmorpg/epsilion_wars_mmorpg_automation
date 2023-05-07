@@ -15,7 +15,6 @@ from epsilion_wars_mmorpg_automation.trainer.handlers import common, farming, gr
 async def main(repair_locations_path: str = '') -> None:
     """Farming runner."""
     local_settings = {
-        # todo review
         'minimum_hp_level_for_grinding': app_settings.minimum_hp_level_for_grinding,
         'auto_healing_enabled': app_settings.auto_healing_enabled,
         'stop_if_captcha_fire': app_settings.stop_if_captcha_fire,
@@ -23,13 +22,10 @@ async def main(repair_locations_path: str = '') -> None:
         'slow_mode': app_settings.slow_mode,
         'repair_locations_path': app_settings.repair_locations_path,
     }
-    if not repair_locations_path:
-        repair_locations_path = app_settings.repair_locations_path
-
-    repair_locations_path = repair_locations_path.split(',')
+    repair_locations_path = repair_locations_path or app_settings.repair_locations_path
     logging.info(f'start farming ({local_settings=}), {repair_locations_path}')
 
-    shared_state.REPAIR_LOCATIONS_PATH = repair_locations_path
+    shared_state.REPAIR_LOCATIONS_PATH = repair_locations_path.split(',')
 
     logging.info('auth as %s', (await client.get_me()).username)
 
@@ -89,8 +85,8 @@ def _select_action_by_event(event: events.NewMessage.Event) -> Callable:
 
         (state.common_states.is_npc_selector, farming.repairman_call),
         (state.farming_states.is_repair_button_available, farming.repair_start),
-        # todo skip random-seller message
-        # todo approve go to town after seller
+        (state.vendor_states.is_random_vendor_meet, farming.skip_vendor),
+        (state.vendor_states.is_random_vendor_meet_exit, action.common_actions.exit_after_vendor),
     ]
 
     for check_function, callback_function in mapping:

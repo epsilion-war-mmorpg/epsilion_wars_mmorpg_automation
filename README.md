@@ -6,6 +6,8 @@ Epsilion Trainer
 The Epsilion Trainer is an automated tool that allows users to quickly and easily level up their character in [the Epsilion War MMORPG](https://t.me/epsilionwarbot?start=ref-537453818).
 It automatically controls your character and instantly earns experience points, money and items.
 
+Adopted for grades prior to T4.
+
 [grinding.webm](https://user-images.githubusercontent.com/4115497/232020617-4ce562ed-a265-46e8-8679-c3fbb596b6e0.webm)
 
 Table of Contents
@@ -110,6 +112,8 @@ TODO
 
 
 ##### Settings
+`skip_random_vendor`: Skipping the random vendor you meet. On by default.
+
 `equip_binding_number`: Номер биндинга вашей экипировки для фарма. По умолчанию `1`.
 
 `repair_locations_path`: Название локаций, составляющих путь к кузнецу для починки. 
