@@ -6,7 +6,7 @@ from telethon import events, types
 
 from epsilion_wars_mmorpg_automation import shared_state, stats
 from epsilion_wars_mmorpg_automation.game import action, state
-from epsilion_wars_mmorpg_automation.notifications import send_favorites_notify
+from epsilion_wars_mmorpg_automation.notifications import send_custom_channel_notify, send_favorites_notify
 from epsilion_wars_mmorpg_automation.settings import app_settings, game_bot_name
 from epsilion_wars_mmorpg_automation.telegram_client import client
 from epsilion_wars_mmorpg_automation.trainer import event_logging, loop
@@ -98,7 +98,9 @@ async def _send_counters(counters: dict[str, int], character_name: str) -> None:
             app_settings.trainer_public_link,
         )
         logging.info(message)
+
         await send_favorites_notify(message)
+        await send_custom_channel_notify(message)
 
 
 async def _start(game_user_id: int) -> None:

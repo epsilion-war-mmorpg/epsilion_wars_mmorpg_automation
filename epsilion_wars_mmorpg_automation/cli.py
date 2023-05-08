@@ -70,7 +70,7 @@ def inventory_start() -> None:
         '--type',
         required=False,
         default='receipt',
-        choices=['resource', 'receipt', 'scroll', 'potion', 'other'],
+        choices=['resource', 'receipt', 'books', 'scroll', 'potion', 'other'],
         help='Select resources type',
     )
     args = parser.parse_args()

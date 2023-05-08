@@ -149,6 +149,10 @@ By default it takes a list of recipes, but you can get a list of other resources
 ##### Settings
 `favorites_enabled`: Send messages to telegram favorites chat. On by default.
 
+`custom_channel_for_inventory`: Send inventory results to custom telegram chat 
+(ex. `https://t.me/EpsilionWarBot` or `EpsilionWarBot`). 
+Not set by default.
+
 
 ### What about the captcha?
 The Epsilion Trainer successfully solves simple text captcha. 
@@ -171,10 +175,9 @@ In this mode, the tool will only help you solve the captcha automatically and no
 
 ## Roadmap
 - run farmer-twink6 on server
-- inventory -t books
 - register and setup farmer-twink7 on server
 - move all bots to separate server
-- post inventory output to selected channel
+- make GIFs for readme
 - tune use combos (use heal-combo depends on HP (my and enemy))
 - tune use combos (lock by turn number)
 - hunting tool

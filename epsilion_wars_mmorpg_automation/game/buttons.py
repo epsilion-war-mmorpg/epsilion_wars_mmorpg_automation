@@ -27,6 +27,7 @@ def get_resource_button(resource_type: str) -> str | None:
     return {
         'resource': 'Крафтовые',
         'receipt': 'Рецепты',
+        'books': 'Книги навыков',
         'scroll': 'Свитки',
         'potion': 'Зелья',
         'other': 'Прочее',

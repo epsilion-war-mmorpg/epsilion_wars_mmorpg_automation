@@ -31,3 +31,18 @@ async def send_favorites_notify(message: str) -> None:
             message=message,
             parse_mode='markdown',
         )
+
+
+async def send_custom_channel_notify(message: str) -> None:
+    """Send message to favorites chat in telegram."""
+    if app_settings.custom_channel_for_inventory:
+        destination = await client.get_entity(app_settings.custom_channel_for_inventory)
+        if not destination:
+            raise RuntimeError('Custom notify dialog "{0}" not found'.format(
+                app_settings.custom_channel_for_inventory,
+            ))
+        await client.send_message(
+            destination,
+            message=message,
+            parse_mode='markdown',
+        )

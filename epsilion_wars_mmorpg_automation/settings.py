@@ -25,6 +25,7 @@ class AppSettings(BaseSettings):
     use_backup_game_bot: bool = False
     equip_binding_number: int = 1
     repair_locations_path: str = ''
+    custom_channel_for_inventory: str = ''
 
     # advanced customer settings
     anti_captcha_com_apikey: str = Field(default='', description='see https://anti-captcha.com for more information')
