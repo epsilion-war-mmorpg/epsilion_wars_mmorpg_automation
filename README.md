@@ -174,9 +174,7 @@ In this mode, the tool will only help you solve the captcha automatically and no
 
 
 ## Roadmap
-- run farmer-twink6 on server
 - register and setup farmer-twink7 on server
-- move all bots to separate server
 - make GIFs for readme
 - tune use combos (use heal-combo depends on HP (my and enemy))
 - tune use combos (lock by turn number)
