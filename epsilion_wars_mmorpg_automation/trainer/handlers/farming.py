@@ -100,9 +100,10 @@ async def repair_or_go_to_next(event: events.NewMessage.Event) -> None:
 
     location_name: str = parsers.get_location_name(event.message.message)
     is_repairman_location = any(
-        repair_location in location_name
+        repair_location.lower() in location_name.lower()
         for repair_location in app_settings.repairman_locations
     )
+    logging.info(f'debug {location_name} {is_repairman_location} ')
 
     if shared_state.FARMING_STATE is shared_state.FarmingState.need_repair:
         if is_repairman_location:
