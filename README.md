@@ -175,9 +175,9 @@ In this mode, the tool will only help you solve the captcha automatically and no
 
 ## Roadmap
 - register and setup farmer-twink7 on server
-- make GIFs for readme
 - tune use combos (use heal-combo depends on HP (my and enemy))
 - tune use combos (lock by turn number)
+- make GIFs for readme
 - hunting tool
 - readme for customers (teletype page) and change link in settings/readme
 - publish as package
@@ -201,7 +201,7 @@ If you plan to buy Telegram accounts, you will need a utility to convert credent
 python etc/tdata_converter.py -f ~/.local/share/TelegramDesktop/tdata
 ```
 
-### Need more characters
+### Need more characters?
 The game allows you to have three characters per telegram account. 
 If you need more, you will need new telegram accounts. 
 
@@ -209,7 +209,7 @@ You can buy them or create them yourself.
 The algorithm for self-registration is as follows
 - get a temporary phone number, for [example here](https://sms-activate.org/?ref=6431353)
 - create an account with this number from telegram mobile app (or TelegramX if you are out of slots)
-- set 2fa password, email, nickname
+- set 2fa password, email, nickname and avatar 
 - get your character into game using [a referral link](https://t.me/epsilionwarbot?start=ref-537453818)
 - get authorisation for the Epsilion Trainer \([see step #2](#requirements)\)
 - start grinding.
