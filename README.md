@@ -115,6 +115,9 @@ Restoring the maximum durability of items is also up to you.
 ##### Settings
 `skip_random_vendor`: Skipping the random vendor you meet. On by default.
 
+`skip_random_vendor_stop_words`: Prevents the random vendor from skipping for rare items. 
+By default it does not skip `Свиток Кселеса` and `Безопасный свиток заточки [IV]`. 
+
 `equip_binding_number`: Binding number of your farming equipment set. By default `1`.
 
 `repair_locations_path`: The names of the places that make up the route to the blacksmith for repair. 
@@ -174,9 +177,9 @@ In this mode, the tool will only help you solve the captcha automatically and no
 
 
 ## Roadmap
-- register and setup farmer-twink7 on server
 - tune use combos (use heal-combo depends on HP (my and enemy))
 - tune use combos (lock by turn number)
+- перекинуть доки в телетайп
 - make GIFs for readme
 - hunting tool
 - readme for customers (teletype page) and change link in settings/readme

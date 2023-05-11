@@ -185,12 +185,18 @@ async def repair_item_approve(event: events.NewMessage.Event) -> None:
 
 async def skip_vendor(event: events.NewMessage.Event) -> None:
     """Skip vendor."""
-    logging.info('call skip vendor dialog {0}'.format(
+    logging.info('call skip vendor dialog {0}, {1}'.format(
         app_settings.skip_random_vendor,
+        app_settings.skip_random_vendor_stop_words,
     ))
+    message = parsers.strip_message(event.message.message)
     inline_buttons = get_buttons_flat(event)
     if not inline_buttons:
         raise InvalidMessageError('Invalid vendor buttons.')
+
+    for stop_word in app_settings.skip_random_vendor_stop_words.split(','):
+        if stop_word.strip().lower() in message:
+            return
 
     if app_settings.skip_random_vendor:
         await wait_for()
