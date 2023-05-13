@@ -1,5 +1,6 @@
 """Application settings."""
 import os
+from typing import Literal
 
 from pydantic import BaseSettings, Field
 
@@ -19,8 +20,10 @@ class AppSettings(BaseSettings):
     stop_if_equip_broken: bool = True
     stop_if_captcha_fire: bool = False
     captcha_solver_enabled: bool = True
-    select_random_combo: bool = True
-    skip_combo: bool = True
+
+    select_combo_strategy: Literal['simple', 'random', 'random-or-skip', 'disabled', 'tuned'] = 'simple'
+    skip_combo_chance: int = Field(default=30, description='Chance to skip combo bite if `random-or-skip` strategy selected')
+
     skip_random_vendor: bool = True
     skip_random_vendor_stop_words: str = 'Свиток Кселеса,Безопасный свиток заточки [IV]'
     use_backup_game_bot: bool = False
@@ -35,7 +38,6 @@ class AppSettings(BaseSettings):
     anti_captcha_com_create_task_throttling: int = 15
     anti_captcha_com_get_task_tries: int = 20
     anti_captcha_com_get_task_throttling: int = 5
-    skip_combo_chance: int = Field(default=30, description='Chance to skip combo bite if `skip_combo` enabled')
     healing_timeout: int = Field(
         default=20,
         description='Минимальное количество секунд между двумя использованиями зелий восстановления здоровья.',

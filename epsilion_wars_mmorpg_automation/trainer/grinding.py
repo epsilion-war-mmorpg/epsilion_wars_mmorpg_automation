@@ -21,6 +21,7 @@ async def main(execution_limit_minutes: int | None = None) -> None:
         'execution_limit_minutes': execution_limit_minutes or 'infinite',
         'minimum_hp_level_for_grinding': app_settings.minimum_hp_level_for_grinding,
         'auto_healing_enabled': app_settings.auto_healing_enabled,
+        'select_combo_strategy': app_settings.select_combo_strategy,
         'stop_if_equip_broken': app_settings.stop_if_equip_broken,
         'stop_if_captcha_fire': app_settings.stop_if_captcha_fire,
         'notifications_enabled': app_settings.notifications_enabled,

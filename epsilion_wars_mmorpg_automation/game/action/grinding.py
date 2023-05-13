@@ -1,4 +1,4 @@
-"""Hunting actions."""
+"""Grinding actions."""
 import logging
 import random
 
@@ -7,6 +7,7 @@ from telethon import events
 from epsilion_wars_mmorpg_automation import locks
 from epsilion_wars_mmorpg_automation.exceptions import InvalidMessageError
 from epsilion_wars_mmorpg_automation.game import parsers
+from epsilion_wars_mmorpg_automation.game.action import combo_selectors
 from epsilion_wars_mmorpg_automation.game.buttons import SEARCH_ENEMY, get_buttons_flat
 from epsilion_wars_mmorpg_automation.settings import app_settings
 from epsilion_wars_mmorpg_automation.telegram_client import client
@@ -71,18 +72,18 @@ async def select_combo(event: events.NewMessage.Event) -> None:
     """Select combo block."""
     logging.info('call select combo command')
     combo_options = get_buttons_flat(event)[:-2]
-    logging.debug('combo options %s', combo_options)
-
     if not combo_options:
         raise InvalidMessageError('Combo selector buttons not found.')
 
-    selected_option = combo_options[0]
-    if app_settings.select_random_combo and len(combo_options) > 1:
-        selected_option = random.choice(combo_options)
+    combo_selector = {
+        'simple': combo_selectors.simple_strategy,
+        'random': combo_selectors.random_strategy,
+        'random-or-skip': combo_selectors.random_or_skip_strategy,
+        'disabled': combo_selectors.disabled_strategy,
+        'tuned': combo_selectors.tuned_strategy,
+    }[app_settings.select_combo_strategy]
 
-    if app_settings.skip_combo and len(combo_options) == 1:
-        if random.randint(0, 100) <= app_settings.skip_combo_chance:
-            selected_option = get_buttons_flat(event)[-2]
+    selected_option = combo_selector(event)
 
     await wait_for()
     await client.send_message(

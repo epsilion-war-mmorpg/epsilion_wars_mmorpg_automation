@@ -17,6 +17,7 @@ async def main(repair_locations_path: str = '') -> None:
     local_settings = {
         'minimum_hp_level_for_grinding': app_settings.minimum_hp_level_for_grinding,
         'auto_healing_enabled': app_settings.auto_healing_enabled,
+        'select_combo_strategy': app_settings.select_combo_strategy,
         'stop_if_captcha_fire': app_settings.stop_if_captcha_fire,
         'notifications_enabled': app_settings.notifications_enabled,
         'slow_mode': app_settings.slow_mode,
