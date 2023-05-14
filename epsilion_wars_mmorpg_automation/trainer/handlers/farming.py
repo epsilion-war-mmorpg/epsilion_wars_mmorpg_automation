@@ -194,9 +194,10 @@ async def skip_vendor(event: events.NewMessage.Event) -> None:
     if not inline_buttons:
         raise InvalidMessageError('Invalid vendor buttons.')
 
-    for stop_word in app_settings.skip_random_vendor_stop_words.split(','):
-        if stop_word.strip().lower() in message:
-            return
+    if app_settings.skip_random_vendor_stop_words:
+        for stop_word in app_settings.skip_random_vendor_stop_words.split(','):
+            if stop_word.strip().lower() in message:
+                return
 
     if app_settings.skip_random_vendor:
         await wait_for()
