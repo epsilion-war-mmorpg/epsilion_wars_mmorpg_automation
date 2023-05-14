@@ -82,14 +82,14 @@ You can change the settings in the .env file as follows
 
 `stop_if_equip_broken`: Stop when something breaks. On by default.
 
-`stop_if_captcha_fire`: Stop when captcha detected. Default is off.
-
 `select_combo_strategy`: A strategy for choosing a combo punch.
 `simple` (always the first punch, default value), 
 `random` (choose a random one available), 
 `random-or-skip` (choose a random one available or skip turn), 
 `disabled` (do not use combo punches), 
 `tuned` [experimental] (choose combo based on its previous use). 
+
+`stop_if_captcha_fire`: Stop when captcha detected. Default is off.
 
 `captcha_solver_enabled`: Try to solve simple captcha automatically. On by default.
 
@@ -180,8 +180,8 @@ In this mode, the tool will only help you solve the captcha automatically and no
 
 
 ## Roadmap
-- tune use combos (lock by turn number)
-- перекинуть доки в телетайп
+- запустить умные комбо стратегии
+- перекинуть доки в teletype
 - hunting tool
 - make GIFs for readme
 - tune use combos (use heal-combo depends on HP (my and enemy))

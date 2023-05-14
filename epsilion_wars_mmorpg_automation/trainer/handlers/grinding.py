@@ -3,7 +3,7 @@ import logging
 
 from telethon import events
 
-from epsilion_wars_mmorpg_automation import notifications, stats
+from epsilion_wars_mmorpg_automation import notifications, shared_state, stats
 from epsilion_wars_mmorpg_automation.game import action, parsers
 from epsilion_wars_mmorpg_automation.settings import app_settings
 from epsilion_wars_mmorpg_automation.trainer import loop
@@ -26,6 +26,7 @@ async def grinding_handler(event: events.NewMessage.Event) -> None:
 async def battle_start_handler(event: events.NewMessage.Event) -> None:
     """Notify about battle started."""
     # force recall battle start message
+    shared_state.COMBO_TURN_LOCKS = {}
     await action.common_actions.ping(event)
 
 

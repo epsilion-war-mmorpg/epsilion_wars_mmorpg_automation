@@ -89,6 +89,10 @@ class AppSettings(BaseSettings):
         '⚒ Кузнец Карбо',
         # fixme put T4 repairman names here
     }
+    combo_lock_config: dict[str, int] = {
+        'Атакующая волна I(🗡1🥊1)': 3,
+        'Обряд оков I(🥊1🌬1)': 2,
+    }
 
 
 app_settings = AppSettings(
