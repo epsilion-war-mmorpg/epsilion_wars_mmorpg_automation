@@ -6,6 +6,7 @@ RESOURCE_COUNTERS: dict[str, int] = {}
 CHARACTER_NAME: str = ''
 GRINDING_LOCATION: str | None = None
 REPAIR_LOCATIONS_PATH: list[str] = []
+COMBO_TURN_LOCKS: dict[str, int] = {}
 
 
 class FarmingState(enum.Enum):

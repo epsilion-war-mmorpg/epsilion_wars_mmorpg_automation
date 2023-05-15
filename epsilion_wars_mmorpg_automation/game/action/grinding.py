@@ -1,4 +1,4 @@
-"""Hunting actions."""
+"""Grinding actions."""
 import logging
 import random
 
@@ -7,6 +7,7 @@ from telethon import events
 from epsilion_wars_mmorpg_automation import locks
 from epsilion_wars_mmorpg_automation.exceptions import InvalidMessageError
 from epsilion_wars_mmorpg_automation.game import parsers
+from epsilion_wars_mmorpg_automation.game.action import combo_selectors
 from epsilion_wars_mmorpg_automation.game.buttons import SEARCH_ENEMY, get_buttons_flat
 from epsilion_wars_mmorpg_automation.settings import app_settings
 from epsilion_wars_mmorpg_automation.telegram_client import client
@@ -71,18 +72,18 @@ async def select_combo(event: events.NewMessage.Event) -> None:
     """Select combo block."""
     logging.info('call select combo command')
     combo_options = get_buttons_flat(event)[:-2]
-    logging.debug('combo options %s', combo_options)
-
     if not combo_options:
         raise InvalidMessageError('Combo selector buttons not found.')
 
-    selected_option = combo_options[0]
-    if app_settings.select_random_combo and len(combo_options) > 1:
-        selected_option = random.choice(combo_options)
+    combo_selector = {
+        'simple': combo_selectors.simple_strategy,
+        'random': combo_selectors.random_strategy,
+        'random-or-skip': combo_selectors.random_or_skip_strategy,
+        'disabled': combo_selectors.disabled_strategy,
+        'tuned': combo_selectors.tuned_strategy,
+    }[app_settings.select_combo_strategy]
 
-    if app_settings.skip_combo and len(combo_options) == 1:
-        if random.randint(0, 100) <= app_settings.skip_combo_chance:
-            selected_option = get_buttons_flat(event)[-2]
+    selected_option = combo_selector(event)
 
     await wait_for()
     await client.send_message(
@@ -99,10 +100,6 @@ async def healing(event: events.NewMessage.Event) -> None:
     character_level = parsers.get_character_level(event.message.message)
     logging.info('HP and character level is [%d%%; %d]', hp_level_percent, character_level)
 
-    if character_level >= app_settings.character_top_level_threshold:
-        logging.warning('skip heal for T4 characters')
-        return
-
     if hp_level_percent <= app_settings.hp_level_for_mid_heal_pot:
         command = '/use_middle_hp'
     elif hp_level_percent < app_settings.hp_level_for_low_heal_pot:
@@ -115,7 +112,9 @@ async def healing(event: events.NewMessage.Event) -> None:
         logging.info('skip heal throttling')
         return
 
-    if character_level >= app_settings.character_high_level_threshold:
+    if character_level >= app_settings.character_top_level_threshold:
+        command = f'{command}IV'
+    elif character_level >= app_settings.character_high_level_threshold:
         command = f'{command}III'
     elif character_level >= app_settings.character_middle_level_threshold:
         command = f'{command}II'
