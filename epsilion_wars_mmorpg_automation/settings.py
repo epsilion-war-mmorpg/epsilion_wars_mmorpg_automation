@@ -58,9 +58,9 @@ class AppSettings(BaseSettings):
     hp_level_for_mid_heal_pot: int = Field(default=50, ge=1, le=100)
     rod_minimal_hp_level_for_fishing: int = Field(default=3, ge=1)
     equip_minimal_hp_level_for_repairing: int = Field(default=1, ge=1)
-    character_top_level_threshold: int = 30
-    character_high_level_threshold: int = 20
     character_middle_level_threshold: int = 10
+    character_high_level_threshold: int = 20
+    character_top_level_threshold: int = 30
     wait_loop_iteration_seconds: int = 3
     show_stats_every_seconds: int = 30 * 60
     check_rewards_every_seconds: int = 4 * 60 * 60

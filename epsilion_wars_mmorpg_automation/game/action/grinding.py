@@ -100,10 +100,6 @@ async def healing(event: events.NewMessage.Event) -> None:
     character_level = parsers.get_character_level(event.message.message)
     logging.info('HP and character level is [%d%%; %d]', hp_level_percent, character_level)
 
-    if character_level >= app_settings.character_top_level_threshold:
-        logging.warning('skip heal for T4 characters')
-        return
-
     if hp_level_percent <= app_settings.hp_level_for_mid_heal_pot:
         command = '/use_middle_hp'
     elif hp_level_percent < app_settings.hp_level_for_low_heal_pot:
@@ -116,7 +112,9 @@ async def healing(event: events.NewMessage.Event) -> None:
         logging.info('skip heal throttling')
         return
 
-    if character_level >= app_settings.character_high_level_threshold:
+    if character_level >= app_settings.character_top_level_threshold:
+        command = f'{command}IV'
+    elif character_level >= app_settings.character_high_level_threshold:
         command = f'{command}III'
     elif character_level >= app_settings.character_middle_level_threshold:
         command = f'{command}II'
