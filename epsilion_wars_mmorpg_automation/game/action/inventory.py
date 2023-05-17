@@ -34,5 +34,5 @@ async def show_next_page(event: events.NewMessage.Event) -> None:
 
 async def save_character_name(event: events.NewMessage.Event) -> None:
     """Get and save character name to shared state."""
-    logging.info('save character nickname')
     shared_state.CHARACTER_NAME = get_character_name(event.message.message)
+    logging.info('save character nickname "{0}"'.format(shared_state.CHARACTER_NAME))

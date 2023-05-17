@@ -61,7 +61,7 @@ def is_character_equip_gun_select(event: events.NewMessage.Event) -> bool:
 def is_character_info(event: events.NewMessage.Event) -> bool:
     """Character information state."""
     message = strip_message(event.message.message)
-    return '💰 золото:' in message and '🔋 очков энергии:' in message and '🧬 очков параметров:' in message
+    return '💰 золото:' in message and '🧬 очков параметров:' in message
 
 
 def is_map_open_state(event: events.NewMessage.Event) -> bool:

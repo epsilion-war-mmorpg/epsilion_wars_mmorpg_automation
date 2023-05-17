@@ -68,7 +68,7 @@ def get_character_name(message_content: str) -> str:
     if not found:
         raise InvalidMessageError('Character name not found')
 
-    return found.group(1)
+    return found.group(1).strip()
 
 
 def get_location_name(message_content: str) -> str:
