@@ -8,7 +8,6 @@ It automatically controls your character and instantly earns experience points, 
 
 Adopted for grades prior to T4.
 
-[grinding.webm](https://user-images.githubusercontent.com/4115497/232020617-4ce562ed-a265-46e8-8679-c3fbb596b6e0.webm)
 
 Table of Contents
 =================
@@ -70,6 +69,8 @@ Just get your character to the right location, equip PVE and run the Epsilion Tr
 If you prefer to hunt for a limited time, you can use `grind -t 30`: 
 it will only hunt for 30 minutes, after which it will automatically shut down.
 
+See also [grinding guide here](https://teletype.in/@esemiko/epsa-gringing) [RU lang].
+
 
 ##### Settings
 You can change the settings in the .env file as follows
@@ -114,6 +115,8 @@ Also returns the character to the farming area after death.
 Items with a durability of 0/1 will not be repaired. 
 Restoring the maximum durability of items is also up to you.
 
+See also [farming math guide here](https://teletype.in/@esemiko/epsa-farming-economics) [RU lang].
+
 
 ##### Settings
 `skip_random_vendor`: Skipping the random vendor you meet. On by default.
@@ -144,6 +147,7 @@ If any of your fishing rods break while fishing, the program will automatically 
 
 Please keep in mind that it's important to only equip your character with fishing rods they can use effectively.
 
+See also [fishing math guide here](https://teletype.in/@esemiko/epsa-fishing) [RU lang].
 
 ### Inventory
 The Epsilion Trainer knows how to inventory your character's resources.
@@ -180,7 +184,6 @@ In this mode, the tool will only help you solve the captcha automatically and no
 
 
 ## Roadmap
-- перекинуть доки в teletype
 - hunting tool
 - make GIFs for readme
 - tune use combos (use heal-combo depends on HP (my and enemy))
