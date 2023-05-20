@@ -149,6 +149,19 @@ Please keep in mind that it's important to only equip your character with fishin
 
 See also [fishing math guide here](https://teletype.in/@esemiko/epsa-fishing) [RU lang].
 
+
+### Hunting
+The Epsilion Trainer has a feature that allows your character to go hunting on their own. 
+Give your character more bows, take him to the hunting area and give a `hunting` command.
+
+The Epsilion Trainer will periodically check your character's energy level and start the hunt  when you have enough energy.
+If any of your bows break, the software will automatically replace them.
+
+Please remember that it is important that you only equip bows that you can use effectively.
+
+See also [hunting math guide here](https://teletype.in/@esemiko/epsa-hunting) [RU lang].
+
+
 ### Inventory
 The Epsilion Trainer knows how to inventory your character's resources.
 Run `inventory` and after a short time you will see a message in your favourite Telegram chat showing all the recipes for sale. 
