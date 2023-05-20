@@ -12,6 +12,7 @@ from epsilion_wars_mmorpg_automation.trainer import (
     farming,
     fishing,
     grinding,
+    hunting,
     inventory,
     loop,
 )
@@ -45,6 +46,11 @@ def daily_reward_catcher_start() -> None:
 def fishing_start() -> None:
     """Start fishing."""
     _run(fishing.main)
+
+
+def hunting_start() -> None:
+    """Start hunting."""
+    _run(hunting.main)
 
 
 def farming_start() -> None:

@@ -7,6 +7,7 @@ from telethon import events, types
 SEARCH_ENEMY = '⚔️ Найти врагов'
 REWARDS = '🎁 Награды'
 FISHING = '🎣 Рыбалка'
+HUNTING = '🏹 Охота'
 EQUIP = '🎒 Экипировка'
 MAP = '🗺 Карта'
 CHARACTER = '🚩 Герой'
