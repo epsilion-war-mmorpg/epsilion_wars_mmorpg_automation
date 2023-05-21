@@ -29,7 +29,7 @@ def is_hunting_end(event: events.NewMessage.Event) -> bool:
     if not found_buttons:
         return 'охота сегодня была особенно удачна' in message
 
-    return '🏹 Охота завершена' in message and 'Вернуться в локацию' in found_buttons[0].text
+    return 'охота завершена, ты добыл' in message and 'Вернуться в локацию' in found_buttons[0].text
 
 
 def is_bow_equip_needed(message: str) -> bool:

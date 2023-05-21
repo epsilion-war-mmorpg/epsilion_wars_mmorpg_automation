@@ -197,13 +197,13 @@ In this mode, the tool will only help you solve the captcha automatically and no
 
 
 ## Roadmap
+- tune use combos (use heal-combo depends on HP (my and enemy))
+- reward-catch for farming tool
+- setup twink 7 - hunter
 - setup twink 8 - hunter
 - setup twink 9 - hunter
 - setup twink 10 - grinder
-- hunting tool
-- run hunters
 - make GIFs for readme
-- tune use combos (use heal-combo depends on HP (my and enemy))
 - readme on teletype page and change link in settings/readme.md
 - contacts for support to readme.md
 
