@@ -124,7 +124,9 @@ See also [farming math guide here](https://teletype.in/@esemiko/epsa-farming-eco
 `skip_random_vendor_stop_words`: Prevents the random vendor from skipping for rare items. 
 By default it does not skip `Свиток Кселеса` and `Безопасный свиток заточки [IV]`. 
 
-`equip_binding_number`: Binding number of your farming equipment set. By default `1`.
+`equip_farming_number`: Binding number of your farming equipment set. By default `1`.
+
+`equip_travel_number`: Binding number of your travel gear. By default `2`.
 
 `repair_locations_path`: The names of the places that make up the route to the blacksmith for repair. 
 One word of the title, separated by commas, is sufficient (e.g. `грейт,цирта'). 
@@ -202,7 +204,10 @@ In this mode, the tool will only help you solve the captcha automatically and no
 - setup twink 7 - hunter
 - setup twink 8 - hunter
 - setup twink 9 - hunter
-- setup twink 10 - grinder
+- lazy-farmer tool - farm only for daily rewards
+- setup twink 10 - lazy farmer
+- setup twink 11 - lazy farmer
+- setup twink 12 - lazy farmer
 - make GIFs for readme
 - readme on teletype page and change link in settings/readme.md
 - contacts for support to readme.md

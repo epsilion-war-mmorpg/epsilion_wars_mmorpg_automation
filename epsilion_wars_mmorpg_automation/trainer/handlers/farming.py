@@ -17,6 +17,7 @@ async def equip_broken_handler(event: events.NewMessage.Event) -> None:
     """Set state as repair_start needed."""
     logging.info('equip broken event - farming mode')
     shared_state.FARMING_STATE = shared_state.FarmingState.need_repair
+    await action.common_actions.call_binding(event, app_settings.equip_travel_number)
 
     notify_message = parsers.strip_message(event.message.message)
     await notifications.send_desktop_notify(
@@ -54,6 +55,7 @@ async def farming_handler(event: events.NewMessage.Event) -> None:
 
     if shared_state.FARMING_STATE is shared_state.FarmingState.to_grinding_zone:
         shared_state.FARMING_STATE = None
+        await action.common_actions.call_binding(event, app_settings.equip_farming_number)
 
     if shared_state.FARMING_STATE is None:
         await grinding.grinding_handler(event)
@@ -168,7 +170,7 @@ async def repair_item(event: events.NewMessage.Event) -> None:
             return await event.message.click(index)
 
     shared_state.FARMING_STATE = shared_state.FarmingState.to_grinding_zone
-    await action.common_actions.call_binding(event, app_settings.equip_binding_number)
+    await action.common_actions.call_binding(event, app_settings.equip_farming_number)
     await action.common_actions.ping(event)
 
 
