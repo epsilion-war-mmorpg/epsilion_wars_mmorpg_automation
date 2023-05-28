@@ -29,12 +29,18 @@ def get_turn_number(message_content: str) -> int:
 
 def get_hp_level(message_content: str) -> int:
     """Get current HP in percent."""
+    current_level, max_level = get_character_hp(message_content)
+    return ceil(int(current_level) / int(max_level) * 100)
+
+
+def get_character_hp(message_content: str) -> tuple[int, int]:
+    """Get character HP level."""
     found = _hp_level_pattern.search(strip_message(message_content), re.MULTILINE)
     if not found:
         raise InvalidMessageError('HP not found')
 
     current_level, max_level = found.group(1, 2)
-    return ceil(int(current_level) / int(max_level) * 100)
+    return int(current_level), int(max_level)
 
 
 def get_equip_hp_level(message_content: str) -> int:

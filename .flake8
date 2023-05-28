@@ -11,6 +11,7 @@ ignore =
     WPS305,  # F-strings is OK
     WPS306,  # Found class without a base class - dataclass used
     WPS323,  # Found `%` string formatting - simple logging format
+    WPS332,  # Walrus operator is OK
 
     S311,    # Standard pseudo-random generators are not suitable for security/cryptographic purposes is OK for the project
 

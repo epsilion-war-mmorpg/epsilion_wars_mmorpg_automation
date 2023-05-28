@@ -21,10 +21,10 @@ def is_died_state(event: events.NewMessage.Event) -> bool:
         'отправляешься в ближайший город на восстановление',
         'был отправлен восстанавливаться в город',
     ]
-    return any([
+    return any(
         pattern in message_content
         for pattern in patterns
-    ])
+    )
 
 
 def is_selector_defence_direction(event: events.NewMessage.Event) -> bool:
@@ -47,9 +47,10 @@ def is_selector_attack_direction(event: events.NewMessage.Event) -> bool:
         'Ход',
         'Куда бить?',
     ]
-    is_message_valid = any([
-        pattern in message_content for pattern in patterns
-    ])
+    is_message_valid = any(
+        pattern in message_content
+        for pattern in patterns
+    )
     if not is_message_valid:
         return False
 

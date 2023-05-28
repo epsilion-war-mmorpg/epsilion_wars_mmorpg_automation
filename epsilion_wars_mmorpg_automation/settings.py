@@ -97,6 +97,9 @@ class AppSettings(BaseSettings):
         'Атакующая волна I(🗡1🥊1)': 3,
         'Обряд оков I(🥊1🌬1)': 2,
     }
+    combo_heal_hp: dict[str, int] = {
+        'Жизненная сила I(🗡1🥊1)': 450,
+    }
 
 
 app_settings = AppSettings(

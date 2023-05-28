@@ -16,6 +16,7 @@ async def test_select_combo_happy_path(mocked_client_message_send):
     event_mock = Mock()
     event_mock.chat_id = 123456
     event_mock.message.buttons = [[button_first, button_second, button_last]]
+    event_mock.message.message = ''
 
     await select_combo(event_mock)
 

@@ -4,7 +4,7 @@ import random
 
 from telethon import events, types
 
-from epsilion_wars_mmorpg_automation import shared_state
+from epsilion_wars_mmorpg_automation import exceptions, shared_state
 from epsilion_wars_mmorpg_automation.game import parsers
 from epsilion_wars_mmorpg_automation.game.buttons import get_buttons_flat
 from epsilion_wars_mmorpg_automation.settings import app_settings
@@ -50,6 +50,53 @@ def tuned_strategy(event: events.NewMessage.Event) -> types.TypeKeyboardButton:
         # skip
         return all_options[-2]
 
+    if heal_option := _try_heal_first(all_options, current_turn_number, event.message.message):
+        return heal_option
+
+    if bite_option := _try_use_bite_combo(all_options, current_turn_number):
+        return bite_option
+
+    # skip
+    return all_options[-2]
+
+
+def _get_combo_turn_lock(combo_name: str) -> int:
+    return app_settings.combo_lock_config.get(combo_name, 0)
+
+
+def _get_combo_heal_hp_level(combo_name: str) -> int:
+    return app_settings.combo_heal_hp.get(combo_name, 0)
+
+
+def _try_heal_first(
+    all_options: list[types.TypeKeyboardButton],
+    current_turn_number: int,
+    message: str,
+) -> types.TypeKeyboardButton | None:
+    try:
+        character_hp_current, character_hp_max = parsers.get_character_hp(message)
+    except exceptions.InvalidMessageError:
+        return None
+
+    character_hp_diff = character_hp_max - character_hp_current
+    logging.info('character HP {0}/{1}'.format(
+        character_hp_current,
+        character_hp_max,
+    ))
+
+    for option in all_options[:-2]:
+        combo_heal_power = _get_combo_heal_hp_level(option.text)
+        if combo_heal_power and combo_heal_power <= character_hp_diff:
+            shared_state.COMBO_TURN_LOCKS[option.text] = current_turn_number
+            return option
+
+    return None
+
+
+def _try_use_bite_combo(
+    all_options: list[types.TypeKeyboardButton],
+    current_turn_number: int,
+) -> types.TypeKeyboardButton | None:
     for option in all_options[:-2]:
         locked_turns_count = _get_combo_turn_lock(option.text)
         previous_call_turn = shared_state.COMBO_TURN_LOCKS.get(option.text)
@@ -67,10 +114,4 @@ def tuned_strategy(event: events.NewMessage.Event) -> types.TypeKeyboardButton:
             # unlocked option
             shared_state.COMBO_TURN_LOCKS[option.text] = current_turn_number
             return option
-
-    # skip
-    return all_options[-2]
-
-
-def _get_combo_turn_lock(combo_name: str) -> int:
-    return app_settings.combo_lock_config.get(combo_name, 0)
+    return None
