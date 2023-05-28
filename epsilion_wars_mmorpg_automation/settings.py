@@ -80,6 +80,7 @@ class AppSettings(BaseSettings):
         'Северный порт',
         'Лонгйир',
         'Карбарак',
+        'Оазис',
         # fixme put T4 locations here
     ]
     repairman_names: set[str] = {
@@ -91,6 +92,7 @@ class AppSettings(BaseSettings):
         '⚒ Кузнец Флэт',
         '⚒ Мастер брони Эгерь',
         '⚒ Кузнец Карбо',
+        '⚒ Кузнец Оазис',
         # fixme put T4 repairman names here
     }
     combo_lock_config: dict[str, int] = {
