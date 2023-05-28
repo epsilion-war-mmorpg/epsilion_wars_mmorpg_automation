@@ -30,6 +30,7 @@ async def battle_end_handler(event: events.NewMessage.Event) -> None:
     logging.info('Battle end event - farming mode {0}'.format(shared_state.FARMING_STATE))
     if shared_state.FARMING_STATE is not shared_state.FarmingState.need_repair:
         shared_state.FARMING_STATE = shared_state.FarmingState.to_grinding_zone
+        await action.common_actions.call_binding(event, app_settings.equip_travel_number)
     await grinding.battle_end_handler(event)
 
 
