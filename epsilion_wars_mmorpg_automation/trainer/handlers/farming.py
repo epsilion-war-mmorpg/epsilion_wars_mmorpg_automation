@@ -137,16 +137,10 @@ async def repairman_call(event: events.NewMessage.Event) -> None:
     logging.info('Call repairman if needed {0}'.format(
         shared_state.FARMING_STATE,
     ))
-
-    npc_names = get_buttons_flat(event)[:-1]
-    repair_mans: list[str] = [
-        npc.text
-        for npc in npc_names
-        if npc.text.strip() in app_settings.repairman_names
-    ]
-    logging.info('repair_start man names {0}'.format(repair_mans))
-    if shared_state.FARMING_STATE is shared_state.FarmingState.need_repair and repair_mans:
-        await action.common_actions.call_npc(event, repair_mans[0])
+    repair_man = _get_repairman(event)
+    logging.info('repair_start man name {0}'.format(repair_man))
+    if shared_state.FARMING_STATE is shared_state.FarmingState.need_repair and repair_man:
+        await action.common_actions.call_npc(event, repair_man)
 
 
 async def repair_item(event: events.NewMessage.Event) -> None:
@@ -204,3 +198,13 @@ async def skip_vendor(event: events.NewMessage.Event) -> None:
     if app_settings.skip_random_vendor:
         await wait_for()
         await event.message.click(len(inline_buttons) - 1)
+
+
+def _get_repairman(event: events.NewMessage.Event) -> str | None:
+    npc_names = get_buttons_flat(event)[:-1]
+
+    for test_name in app_settings.repairman_names:
+        for npc in npc_names:
+            if test_name in npc.text.strip():
+                return npc.text
+    return None
