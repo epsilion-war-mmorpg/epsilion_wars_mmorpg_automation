@@ -8,12 +8,14 @@ from epsilion_wars_mmorpg_automation.game.action.rewards import select_reward_re
 
 async def test_select_reward_recipient_happy_path():
     button_first = AsyncMock()
-    button_first.text = 'first'
+    button_first.text = '🧝\u200d♂️️ Дичина 🔸5'
     button_second = AsyncMock()
-    button_second.text = 'second'
+    button_second.text = '🤴️ Бесогончик 🔸32 🔘'
+    button_last = AsyncMock()
+    button_last.text = '🧟\u200d♂️ Ololo 🔸31'
     event_mock = AsyncMock()
     event_mock.chat_id = 123456
-    event_mock.message.buttons = [[button_first, button_second]]
+    event_mock.message.buttons = [[button_first, button_second], [button_last]]
 
     await select_reward_recipient(event_mock)
 

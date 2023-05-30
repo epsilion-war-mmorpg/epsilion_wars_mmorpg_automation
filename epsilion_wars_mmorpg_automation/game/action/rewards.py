@@ -42,5 +42,11 @@ async def select_reward_recipient(event: events.NewMessage.Event) -> None:
     if not inline_buttons:
         raise InvalidMessageError('Select character buttons not found.')
 
+    selected_index = 0
+    for index, button in enumerate(inline_buttons):
+        if '🔘' in button.text:
+            selected_index = index
+            break
+
     await wait_for()
-    await event.message.click(0)
+    await event.message.click(selected_index)
