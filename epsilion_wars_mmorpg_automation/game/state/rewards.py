@@ -1,7 +1,7 @@
 """Rewards states."""
 from telethon import events
 
-from epsilion_wars_mmorpg_automation.game.buttons import get_buttons_flat
+from epsilion_wars_mmorpg_automation.game.buttons import MENU_BUTTON, get_buttons_flat
 from epsilion_wars_mmorpg_automation.game.parsers import strip_message
 
 
@@ -21,6 +21,14 @@ def is_daily_reward_found(event: events.NewMessage.Event) -> bool:
         return False
 
     return 'Ежедневная награда' in found_buttons[0].text and '❗️' in found_buttons[0].text
+
+
+def have_unread_message(event: events.NewMessage.Event) -> bool:
+    """Menu button show unread message."""
+    for button in get_buttons_flat(event):
+        if MENU_BUTTON in button.text and '❗️' in button.text:
+            return True
+    return False
 
 
 def is_reward_recipient_selector(event: events.NewMessage.Event) -> bool:

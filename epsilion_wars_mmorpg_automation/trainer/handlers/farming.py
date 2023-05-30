@@ -6,7 +6,7 @@ from telethon import events, types
 
 from epsilion_wars_mmorpg_automation import notifications, shared_state
 from epsilion_wars_mmorpg_automation.exceptions import InvalidMessageError
-from epsilion_wars_mmorpg_automation.game import action, parsers
+from epsilion_wars_mmorpg_automation.game import action, parsers, state
 from epsilion_wars_mmorpg_automation.game.buttons import get_buttons_flat
 from epsilion_wars_mmorpg_automation.settings import app_settings
 from epsilion_wars_mmorpg_automation.trainer.handlers import grinding
@@ -57,6 +57,10 @@ async def farming_handler(event: events.NewMessage.Event) -> None:
     if shared_state.FARMING_STATE is shared_state.FarmingState.to_grinding_zone:
         shared_state.FARMING_STATE = None
         await action.common_actions.call_binding(event, app_settings.equip_farming_number)
+
+    if state.reward_states.have_unread_message(event):
+        await action.reward_actions.show_rewards(event.chat_id)
+        return
 
     if shared_state.FARMING_STATE is None:
         await grinding.grinding_handler(event)

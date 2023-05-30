@@ -80,6 +80,12 @@ def _select_action_by_event(event: events.NewMessage.Event) -> Callable:
         (state.grinding_states.is_win_state, grinding.battle_end_handler),
         (state.grinding_states.is_died_state, farming.battle_end_handler),
 
+        (state.reward_states.is_reward_catch_message, action.common_actions.ping),
+        (state.reward_states.is_reward_already_used_message, action.common_actions.ping),
+        (state.reward_states.is_daily_reward_found, action.reward_actions.catch_reward),
+        (state.reward_states.is_daily_reward_not_found, action.common_actions.ping),
+        (state.reward_states.is_reward_recipient_selector, action.reward_actions.select_reward_recipient),
+
         (state.grinding_states.is_grinding_ready_state, farming.farming_handler),
         (state.common_states.is_map_open_state, farming.go_to_handler),
         (state.common_states.is_town, farming.repair_or_go_to_next),

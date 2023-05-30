@@ -199,13 +199,11 @@ In this mode, the tool will only help you solve the captcha automatically and no
 
 
 ## Roadmap
-- reward-catch for farming tool
 - setup twink 7 - hunter
+- setup twink 8 - leveling
 - setup twink 8 - hunter
+- setup twink 9 - leveling
 - setup twink 9 - hunter
-- lazy-farmer tool - farm only for daily rewards
-- setup twink 10 - lazy farmer
-- setup twink 11 - lazy farmer
 - make GIFs for readme
 - readme on teletype page and change link in settings/readme.md
 - contacts for support to readme.md
