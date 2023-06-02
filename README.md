@@ -129,7 +129,7 @@ By default it does not skip `Свиток Кселеса` and `Безопасн�
 `equip_travel_number`: Binding number of your travel gear. By default `2`.
 
 `repair_locations_path`: The names of the places that make up the route to the blacksmith for repair. 
-One word of the title, separated by commas, is sufficient (e.g. `грейт,цирта'). 
+One word of the title, separated by commas, is sufficient (e.g. `грейт,цирта`). 
 Not set by default.
 
 
