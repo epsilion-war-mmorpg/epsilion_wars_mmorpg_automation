@@ -66,10 +66,10 @@ class AppSettings(BaseSettings):
     wait_loop_iteration_seconds: int = 3
     show_stats_every_seconds: int = 30 * 60
     check_rewards_every_seconds: int = 4 * 60 * 60
-    check_fishing_every_seconds_min: int = int(0.95 * 60 * 60)
-    check_fishing_every_seconds_max: int = int(2.01 * 60 * 60)
-    check_hunting_every_seconds_min: int = int(2.95 * 60 * 60)
-    check_hunting_every_seconds_max: int = int(4.01 * 60 * 60)
+    check_fishing_every_seconds_min: int = int(2.95 * 60 * 60)
+    check_fishing_every_seconds_max: int = int(5.01 * 60 * 60)
+    check_hunting_every_seconds_min: int = int(5.95 * 60 * 60)
+    check_hunting_every_seconds_max: int = int(9.01 * 60 * 60)
     desktop_notification_timeout: int = 10
     repairman_locations: list[str] = [
         'Кавелла',
