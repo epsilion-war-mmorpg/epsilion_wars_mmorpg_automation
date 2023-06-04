@@ -99,8 +99,10 @@ async def _send_counters(counters: dict[str, int], character_name: str) -> None:
         )
         logging.info(message)
 
-        await send_favorites_notify(message)
-        await send_custom_channel_notify(message)
+        if app_settings.custom_channel_for_inventory:
+            await send_custom_channel_notify(message)
+        else:
+            await send_favorites_notify(message)
 
 
 async def _start(game_user_id: int) -> None:
