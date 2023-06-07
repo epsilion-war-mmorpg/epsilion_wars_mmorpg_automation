@@ -81,7 +81,7 @@ class AppSettings(BaseSettings):
         'Лонгйир',
         'Карбарак',
         'Оазис',
-        # fixme put T4 locations here
+        'Поселение Троглодитов',
     ]
     repairman_names: set[str] = {
         '⚒ Кузнец Эрик',
@@ -93,7 +93,7 @@ class AppSettings(BaseSettings):
         '⚒ Мастер брони Эгерь',
         '⚒ Кузнец Карбо',
         '⚒ Кузнец Оазис',
-        # fixme put T4 repairman names here
+        'Кузнец Горд',
     }
     combo_lock_config: dict[str, int] = {
         'Атакующая волна I(🗡1🥊1)': 3,
