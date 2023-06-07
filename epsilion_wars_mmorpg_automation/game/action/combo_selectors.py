@@ -47,16 +47,17 @@ def tuned_strategy(event: events.NewMessage.Event) -> types.TypeKeyboardButton:
 
     if not current_turn_number:
         logging.warning('skip because turn number not found')
-        # skip
         return all_options[-2]
 
     if heal_option := _try_heal_first(all_options, current_turn_number, event.message.message):
+        logging.info('heal first {0}'.format(heal_option.text))
         return heal_option
 
     if bite_option := _try_use_bite_combo(all_options, current_turn_number):
+        logging.info('selected bite {0}'.format(bite_option.text))
         return bite_option
 
-    # skip
+    logging.info('skip combo')
     return all_options[-2]
 
 
@@ -87,6 +88,11 @@ def _try_heal_first(
     for option in all_options[:-2]:
         combo_heal_power = _get_combo_heal_hp_level(option.text)
         if combo_heal_power and combo_heal_power <= character_hp_diff:
+            logging.info('select heal combo option "{2}"; HP {0} <= {1}'.format(
+                combo_heal_power,
+                character_hp_diff,
+                option.text,
+            ))
             shared_state.COMBO_TURN_LOCKS[option.text] = current_turn_number
             return option
 
@@ -98,6 +104,10 @@ def _try_use_bite_combo(
     current_turn_number: int,
 ) -> types.TypeKeyboardButton | None:
     for option in all_options[:-2]:
+        if _get_combo_heal_hp_level(option.text):
+            # ignore heal combos
+            continue
+
         locked_turns_count = _get_combo_turn_lock(option.text)
         previous_call_turn = shared_state.COMBO_TURN_LOCKS.get(option.text)
         if not locked_turns_count:
