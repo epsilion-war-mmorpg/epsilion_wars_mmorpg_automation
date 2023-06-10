@@ -46,7 +46,7 @@ jobs:
             echo 'stop_if_equip_broken=false' >> .env
             echo 'notifications_enabled=false' >> .env
             echo 'select_combo_strategy=tuned' >> .env
-            echo 'repair_locations_path="северный порт"' >> .env
+            echo 'repair_locations_path="озеро,руины"' >> .env
 
             supervisorctl stop twink1:twink1-grinder
             supervisorctl stop twink1:twink1-fisher

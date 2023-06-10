@@ -42,13 +42,12 @@ jobs:
             echo 'telegram_api_id=${{ secrets.TELEGRAM_API_ID_TWINK2 }}' > .env
             echo 'telegram_api_hash=${{ secrets.TELEGRAM_API_HASH_TWINK2 }}' >> .env
             echo 'anti_captcha_com_apikey=${{ secrets.ANTI_CAPTCHA_APIKEY }}' >> .env
-            echo 'minimum_hp_level_for_grinding=85' >> .env
+            echo 'minimum_hp_level_for_grinding=95' >> .env
             echo 'stop_if_equip_broken=false' >> .env
             echo 'notifications_enabled=false' >> .env
-            echo 'slow_mode=true' >> .env            
-            echo 'select_random_combo=false' >> .env
-            echo 'message_log_limit=300' >> .env
+            echo 'select_combo_strategy=tuned' >> .env
+            echo 'repair_locations_path="грейт,Цирта"' >> .env
 
             supervisorctl stop twink2:twink2-grinder
-            supervisorctl restart twink2:twink2-fisher
+            supervisorctl stop twink2:twink2-fisher
             supervisorctl stop twink2:twink2-farmer

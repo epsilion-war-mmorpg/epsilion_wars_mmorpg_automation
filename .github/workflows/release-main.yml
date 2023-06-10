@@ -46,8 +46,8 @@ jobs:
             echo 'stop_if_equip_broken=false' >> .env
             echo 'notifications_enabled=false' >> .env
             echo 'select_combo_strategy=tuned' >> .env
-            echo 'repair_locations_path="Троглодитов"' >> .env
+            echo 'repair_locations_path="Оазис"' >> .env
 
             supervisorctl stop main:main-grinder
             supervisorctl stop main:main-fisher
-            supervisorctl restart main:main-farmer
+            supervisorctl stop main:main-farmer

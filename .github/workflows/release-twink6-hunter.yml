@@ -53,4 +53,4 @@ jobs:
             supervisorctl stop twink6:twink6-grinder
             supervisorctl stop twink6:twink6-fisher
             supervisorctl stop twink6:twink6-farmer
-            supervisorctl restart twink6:twink6-hunter
+            supervisorctl stop twink6:twink6-hunter

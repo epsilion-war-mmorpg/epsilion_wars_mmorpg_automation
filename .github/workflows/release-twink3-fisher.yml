@@ -50,5 +50,5 @@ jobs:
             echo 'message_log_limit=300' >> .env
 
             supervisorctl stop twink3:twink3-grinder
-            supervisorctl restart twink3:twink3-fisher
+            supervisorctl stop twink3:twink3-fisher
             supervisorctl stop twink3:twink3-farmer

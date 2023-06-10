@@ -49,5 +49,5 @@ jobs:
             echo 'repair_locations_path="цирта"' >> .env
             echo 'skip_random_vendor_stop_words=""' >> .env
 
-            supervisorctl restart twink8:twink8-farmer
+            supervisorctl stop twink8:twink8-farmer
             supervisorctl stop twink8:twink8-hunter

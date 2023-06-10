@@ -50,4 +50,4 @@ jobs:
             echo 'skip_random_vendor_stop_words=""' >> .env
 
             supervisorctl stop twink9:twink9-farmer
-            supervisorctl restart twink9:twink9-fisher
+            supervisorctl stop twink9:twink9-fisher
