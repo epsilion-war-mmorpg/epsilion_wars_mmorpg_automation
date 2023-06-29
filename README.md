@@ -1,4 +1,4 @@
-Epsilion Trainer
+The Epsilion Trainer
 =================
 [![tests](https://github.com/esemi/epsilion_wars_mmorpg_automation/actions/workflows/tests.yml/badge.svg?branch=master)](https://github.com/esemi/epsilion_wars_mmorpg_automation/actions/workflows/tests.yml)
 [![linters](https://github.com/esemi/epsilion_wars_mmorpg_automation/actions/workflows/linters.yml/badge.svg?branch=master)](https://github.com/esemi/epsilion_wars_mmorpg_automation/actions/workflows/linters.yml)
@@ -6,7 +6,9 @@ Epsilion Trainer
 The Epsilion Trainer is an automated tool that allows users to quickly and easily level up their character in [the Epsilion War MMORPG](https://t.me/epsilionwarbot?start=ref-537453818).
 It automatically controls your character and instantly earns experience points, money and items.
 
-Adopted for grades prior to T4.
+[About project RUS](https://teletype.in/@esemiko/epsilion-trainer)
+
+[Feedback and support are welcome](https://t.me/esemiko)
 
 
 Table of Contents
@@ -22,7 +24,6 @@ Table of Contents
   * [Fishing](#fishing)
   * [Inventory](#inventory)
   * [What about the captcha?](#what-about-the-captcha)
-* [Roadmap](#roadmap)
 * [Developers](#developers)
   * [Run on server](#run-on-server)
   * [TData converter](#tdata-converter)
@@ -31,7 +32,7 @@ Table of Contents
 
 ## What about the rules?
 TL;DR Screw [the rules](https://teletype.in/@epsilionwar/HkPsNEfZL)
-
+![img.png](assets/block.png)
 
 ## Requirements
 1. [Python 3.11 or later](https://www.python.org/downloads/) and [pip](https://pip.pypa.io/en/stable/installation/) 
@@ -197,16 +198,6 @@ In this mode, the tool will only help you solve the captcha automatically and no
 ##### Settings
 `anti_captcha_com_apikey`: your account key (ex: 172ea50b3d12345678de199546c66b20)
 
-
-## Roadmap
-- setup twink 7 - hunter
-- setup twink 8 - leveling
-- setup twink 8 - hunter
-- setup twink 9 - leveling
-- setup twink 9 - hunter
-- make GIFs for readme
-- readme on teletype page and change link in settings/readme.md
-- contacts for support to readme.md
 
 ## Developers
 ### Run on server

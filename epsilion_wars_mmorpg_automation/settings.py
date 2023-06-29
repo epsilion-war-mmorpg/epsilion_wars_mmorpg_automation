@@ -52,7 +52,7 @@ class AppSettings(BaseSettings):
     tlg_client_retries: int = 30
     tlg_client_retry_delay: int = 15
     trainer_name: str = 'Epsilion Trainer'
-    trainer_public_link: str = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+    trainer_public_link: str = 'https://teletype.in/@esemiko/epsilion-trainer'
     debug: bool = Field(default=False)
     message_log_limit: int = 100
     hp_level_for_low_heal_pot: int = Field(default=75, ge=1, le=100)
