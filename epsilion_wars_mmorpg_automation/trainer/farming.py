@@ -60,8 +60,9 @@ async def _message_handler(event: events.NewMessage.Event) -> None:
     await event.message.mark_read()
 
     if isinstance(event, events.MessageEdited.Event):
-        select_callback = _select_action_by_event_update(event)
         # update handlers for repairing here
+        select_callback = _select_action_by_event_update(event)
+
     else:
         select_callback = _select_action_by_event(event)
 

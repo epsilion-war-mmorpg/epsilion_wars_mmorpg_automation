@@ -80,7 +80,7 @@ You can change the settings in the .env file as follows
 
 `minimum_hp_level_for_grinding`: Minimum HP level to begin grinding. Default level is 95%.
 
-`notifications_enabled`: Send alerts about important events. On by default.
+`notifications_enabled`: Send alerts about important events. Off by default.
 
 `auto_healing_enabled`: Using HP potions (I, II and III grades only). On by default.
 
