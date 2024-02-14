@@ -46,7 +46,7 @@ class AppSettings(BaseSettings):
 
     # developer section
     slow_mode: bool = Field(default=False, description='Used for fresh telegram accounts.')
-    ping_commands: str = ',.-+=/056789'
+    ping_commands: str = ',.-+=/0'
     game_username: str = 'EpsilionWarBot'
     game_username_backup: str = 'EpsilionRBRbot'
     tlg_client_retries: int = 30
