@@ -51,7 +51,7 @@ pip install -U poetry pip setuptools
 poetry install --only main
 ```
 
-Place the telegram credentials (from the previous step) in the `.env` file using
+Place the telegram credentials (from the previous step) in the `.env` file using ([see also example of settings file](https://github.com/epsilion-war-mmorpg/epsilion_wars_mmorpg_automation/blob/master/.env.example))
 ```shell
 cat > .env << EOF
 telegram_api_id=U_API_ID
