@@ -32,6 +32,7 @@ Table of Contents
 
 ## What about the rules?
 TL;DR Screw [the rules](https://teletype.in/@epsilionwar/HkPsNEfZL)
+
 ![img.png](assets/block.png)
 
 ## Requirements
