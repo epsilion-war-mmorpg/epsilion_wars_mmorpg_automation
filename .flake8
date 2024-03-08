@@ -33,6 +33,7 @@ per-file-ignores =
     epsilion_wars_mmorpg_automation/wait_utils.py: WPS115,
     epsilion_wars_mmorpg_automation/captcha/anti_captcha_provider.py: WPS229, WPS420, WPS604,
     epsilion_wars_mmorpg_automation/game/action/__init__.py: WPS412, F401,
+    epsilion_wars_mmorpg_automation/game/action/combo_strategy.py: WPS202,
     epsilion_wars_mmorpg_automation/game/action/common.py: WPS202,
     epsilion_wars_mmorpg_automation/game/state/__init__.py: WPS412, F401,
     epsilion_wars_mmorpg_automation/game/parsers.py: WPS202,

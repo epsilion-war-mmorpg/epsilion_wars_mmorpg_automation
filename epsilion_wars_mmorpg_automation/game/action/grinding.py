@@ -7,7 +7,7 @@ from telethon import events
 from epsilion_wars_mmorpg_automation import locks
 from epsilion_wars_mmorpg_automation.exceptions import InvalidMessageError
 from epsilion_wars_mmorpg_automation.game import parsers
-from epsilion_wars_mmorpg_automation.game.action import combo_selectors
+from epsilion_wars_mmorpg_automation.game.action import combo_strategy
 from epsilion_wars_mmorpg_automation.game.buttons import SEARCH_ENEMY, get_buttons_flat
 from epsilion_wars_mmorpg_automation.settings import app_settings
 from epsilion_wars_mmorpg_automation.telegram_client import client
@@ -76,11 +76,12 @@ async def select_combo(event: events.NewMessage.Event) -> None:
         raise InvalidMessageError('Combo selector buttons not found.')
 
     combo_selector = {
-        'simple': combo_selectors.simple_strategy,
-        'random': combo_selectors.random_strategy,
-        'random-or-skip': combo_selectors.random_or_skip_strategy,
-        'disabled': combo_selectors.disabled_strategy,
-        'tuned': combo_selectors.tuned_strategy,
+        'simple': combo_strategy.simple_strategy,
+        'random': combo_strategy.random_strategy,
+        'random-or-skip': combo_strategy.random_or_skip_strategy,
+        'disabled': combo_strategy.disabled_strategy,
+        'tuned': combo_strategy.tuned_strategy,
+        'priority': combo_strategy.priority_strategy,
     }[app_settings.select_combo_strategy]
 
     selected_option = combo_selector(event)
