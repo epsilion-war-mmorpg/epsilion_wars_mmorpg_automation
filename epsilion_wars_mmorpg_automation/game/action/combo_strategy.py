@@ -22,6 +22,18 @@ def random_strategy(event: events.NewMessage.Event) -> types.TypeKeyboardButton:
     return random.choice(combo_options)
 
 
+def priority_strategy(event: events.NewMessage.Event) -> types.TypeKeyboardButton:
+    """Return a combo bite by priority."""
+    options_by_priority: list[tuple[types.TypeKeyboardButton, int]] = [
+        (combo, app_settings.combo_priority.get(combo.text, 100))
+        for combo in get_buttons_flat(event)[:-2]
+    ]
+    options_by_priority.sort(
+        key=lambda button: button[1],
+    )
+    return options_by_priority[0][0]
+
+
 def random_or_skip_strategy(event: events.NewMessage.Event) -> types.TypeKeyboardButton:
     """Return a random one available or skip."""
     all_options = get_buttons_flat(event)

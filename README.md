@@ -92,6 +92,7 @@ You can change the settings in the .env file as follows
 `random` (choose a random one available), 
 `random-or-skip` (choose a random one available or skip turn), 
 `disabled` (do not use combo punches), 
+`priority` (choose combo based on its priority). 
 `tuned` [experimental] (choose combo based on its previous use). 
 
 `stop_if_captcha_fire`: Stop when captcha detected. Default is off.

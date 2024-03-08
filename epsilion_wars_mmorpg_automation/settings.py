@@ -21,7 +21,7 @@ class AppSettings(BaseSettings):
     stop_if_captcha_fire: bool = False
     captcha_solver_enabled: bool = True
 
-    select_combo_strategy: Literal['simple', 'random', 'random-or-skip', 'disabled', 'tuned'] = 'simple'
+    select_combo_strategy: Literal['simple', 'random', 'random-or-skip', 'disabled', 'tuned', 'priority'] = 'simple'
     skip_combo_chance: int = Field(default=30, description='Chance to skip combo bite if `random-or-skip` strategy selected')
 
     skip_random_vendor: bool = True
@@ -103,7 +103,12 @@ class AppSettings(BaseSettings):
         'Жизненная сила I(🗡1🥊1)': 450,
         '🍞 Корка хлеба [II]': 75,
         '🥪 Бутерброд [III]': 200,
-        '🥮 Пирог [IV]': 300,       
+        '🥮 Пирог [IV]': 300,
+    }
+    combo_priority: dict[str, int] = {
+        # 'Название приёма целиком': приоритет (чем меньше число - тем выше приоритет)
+        'Внутренняя сила (2🗡; 3🛡)': 2,
+        'По наитию (3 🥊)': 1,
     }
 
 
