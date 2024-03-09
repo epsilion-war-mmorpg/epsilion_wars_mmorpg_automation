@@ -32,6 +32,7 @@ Table of Contents
 
 ## What about the rules?
 TL;DR Screw [the rules](https://teletype.in/@epsilionwar/HkPsNEfZL)
+
 ![img.png](assets/block.png)
 
 ## Requirements
@@ -51,7 +52,7 @@ pip install -U poetry pip setuptools
 poetry install --only main
 ```
 
-Place the telegram credentials (from the previous step) in the `.env` file using
+Place the telegram credentials (from the previous step) in the `.env` file using ([see also example of settings file](https://github.com/epsilion-war-mmorpg/epsilion_wars_mmorpg_automation/blob/master/.env.example))
 ```shell
 cat > .env << EOF
 telegram_api_id=U_API_ID
@@ -91,6 +92,7 @@ You can change the settings in the .env file as follows
 `random` (choose a random one available), 
 `random-or-skip` (choose a random one available or skip turn), 
 `disabled` (do not use combo punches), 
+`priority` (choose combo based on its priority). 
 `tuned` [experimental] (choose combo based on its previous use). 
 
 `stop_if_captcha_fire`: Stop when captcha detected. Default is off.
