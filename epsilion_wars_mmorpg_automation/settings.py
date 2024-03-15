@@ -149,6 +149,32 @@ class AppSettings(BaseSettings):
         'Внутренняя сила (2🗡; 3🛡)': 2,
         'По наитию (3 🥊)': 1,
     }
+    enabled_potions: set[str] = {
+        '/use_reg24',
+        '/use_reg7',
+        '/use_reg3',
+        '/use_meat_eat',
+        '/use_fish_eat',
+        '/use_acvelia_eat',
+        '/use_snack_1',
+        '/use_snack_2',
+        '/use_snack_3',
+        '/use_buff_agi_1_1',
+        '/use_buff_agi_2_1',
+        '/use_buff_str_1_1',
+        '/use_buff_str_2_1',
+        '/use_buff_int_1_1',
+        '/use_buff_int_2_1',
+    }
+    enabled_scrolls: set[str] = {
+        '/use_p_luck',
+        '/use_luck',
+        '/use_prem24',
+        '/use_prem3',
+        '/use_prem7',
+        '/use_p_exp',
+        '/use_pgold',
+    }
 
 
 app_settings = AppSettings(

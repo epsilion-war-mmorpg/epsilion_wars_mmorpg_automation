@@ -17,6 +17,8 @@ _character_name_pattern = re.compile(r'(.*\s🔸\d+)[\s]{0,}❤️\(\d+/\d+\)', 
 _location_name_pattern = re.compile(r'(.{3,})\n\n.*', re.MULTILINE | re.UNICODE)
 _experience_gain_pattern = re.compile(r'✨\sопыта:\s(\d+)')
 _resource_counter_pattern = re.compile(r'(.*)\s-\s(\d+)шт', re.MULTILINE | re.UNICODE)
+_potion_command_pattern = re.compile(r'(/\w+)', re.MULTILINE | re.UNICODE)
+_scroll_command_pattern = re.compile(r'(/\w+)', re.MULTILINE | re.UNICODE)
 
 
 def get_turn_number(message_content: str) -> int:
@@ -143,3 +145,13 @@ def get_city_buttons(
                 filtered_buttons.append(button)
                 break
     return filtered_buttons
+
+
+def get_potions(original_message: str) -> list[str]:
+    """Return available potion commands."""
+    return list(_potion_command_pattern.findall(original_message))
+
+
+def get_scrolls(original_message: str) -> list[str]:
+    """Return available scrolls commands."""
+    return list(_scroll_command_pattern.findall(original_message))

@@ -142,3 +142,43 @@ async def exit_after_vendor(event: events.NewMessage.Event) -> None:
 
     await wait_for()
     await event.message.click(0)
+
+
+async def execute_command(entity: int, command: str) -> None:
+    """Execute custom command."""
+    logging.info('call command execution {0}'.format(command))
+    await wait_for()
+    await client.send_message(
+        entity=entity,
+        message=command,
+    )
+
+
+async def show_potions(entity: int | events.NewMessage.Event) -> None:
+    """Call show potions."""
+    logging.info('call show potions command')
+
+    if isinstance(entity, events.NewMessage.Event):
+        game_bot_id = entity.chat_id
+    else:
+        game_bot_id = entity
+
+    await execute_command(
+        entity=game_bot_id,
+        command='/potion',
+    )
+
+
+async def show_scrolls(entity: int | events.NewMessage.Event) -> None:
+    """Call show scrolls."""
+    logging.info('call show scrolls command')
+
+    if isinstance(entity, events.NewMessage.Event):
+        game_bot_id = entity.chat_id
+    else:
+        game_bot_id = entity
+
+    await execute_command(
+        entity=game_bot_id,
+        command='/свитки',
+    )

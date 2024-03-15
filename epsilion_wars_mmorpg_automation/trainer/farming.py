@@ -9,7 +9,7 @@ from epsilion_wars_mmorpg_automation.game import action, state
 from epsilion_wars_mmorpg_automation.settings import app_settings, game_bot_name
 from epsilion_wars_mmorpg_automation.telegram_client import client
 from epsilion_wars_mmorpg_automation.trainer import event_logging, loop
-from epsilion_wars_mmorpg_automation.trainer.handlers import common, farming, grinding
+from epsilion_wars_mmorpg_automation.trainer.handlers import common, farming, grinding, tear_up
 
 
 async def main(repair_locations_path: str = '') -> None:
@@ -48,7 +48,7 @@ async def main(repair_locations_path: str = '') -> None:
         ),
     )
 
-    await action.common_actions.ping(game_user.user_id)
+    await tear_up.show_potions(game_user.user_id)
     await loop.run_wait_loop(None)
     logging.info('end farming')
 
@@ -95,6 +95,9 @@ def _select_action_by_event(event: events.NewMessage.Event) -> Callable:
         (state.farming_states.is_repair_button_available, farming.repair_start),
         (state.vendor_states.is_random_vendor_meet, farming.skip_vendor),
         (state.vendor_states.is_random_vendor_meet_exit, action.common_actions.exit_after_vendor),
+
+        (state.inventory_states.is_potions_selector, tear_up.use_potions_and_show_scrolls),
+        (state.inventory_states.is_scrolls_selector, tear_up.use_scrolls_and_refresh),
     ]
 
     for check_function, callback_function in mapping:

@@ -27,3 +27,15 @@ def is_resource_pagination(event: events.NewMessage.Event) -> bool:
     if not found_buttons:
         return False
     return 'К ресурсам' in found_buttons[-1].text
+
+
+def is_potions_selector(event: events.NewMessage.Event) -> bool:
+    """Is a potion list."""
+    message = strip_message(event.message.message)
+    return '🧪 зелья' in message
+
+
+def is_scrolls_selector(event: events.NewMessage.Event) -> bool:
+    """Is a scrolls list."""
+    message = strip_message(event.message.message)
+    return '📃 свитки' in message
