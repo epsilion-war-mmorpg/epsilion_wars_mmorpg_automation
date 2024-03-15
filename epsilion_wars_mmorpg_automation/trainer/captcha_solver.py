@@ -18,7 +18,7 @@ async def main() -> None:
         'captcha_solver_enabled': app_settings.captcha_solver_enabled,
         'anti_captcha_enabled': bool(app_settings.anti_captcha_com_apikey),
     }
-    logging.info(f'start captcha-solver ({local_settings=})')
+    logging.info('start captcha-solver ({0})'.format(local_settings))
 
     if not app_settings.captcha_solver_enabled:
         logging.warning('Enable captcha_solver_enabled setting first')

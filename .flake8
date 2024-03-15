@@ -3,17 +3,35 @@ max-line-length = 125
 max-module-members = 9
 
 ignore =
-    DAR101,  # Missing parameter(s) in Docstring
-    DAR201,  # Missing "Returns" in Docstring
-    DAR401,  # Missing exception(s) in Raises section
+    # Missing parameter(s) in Docstring
+    DAR101,
 
-    WPS204,  # Found overused expression
-    WPS305,  # F-strings is OK
-    WPS306,  # Found class without a base class - dataclass used
-    WPS323,  # Found `%` string formatting - simple logging format
-    WPS332,  # Walrus operator is OK
+    # Missing "Returns" in Docstring
+    DAR201,
 
-    S311,    # Standard pseudo-random generators are not suitable for security/cryptographic purposes is OK for the project
+    # Missing exception(s) in Raises section
+    DAR401,
+
+    # Found overused expression
+    WPS204,
+
+    #  Found too long ``try`` body length
+    WPS229,
+
+    # F-strings is OK
+    WPS305,
+
+    # Found class without a base class - dataclass used
+    WPS306,
+
+    # Found `%` string formatting - simple logging format
+    WPS323,
+
+    # Found walrus operator
+    WPS332,
+
+    # Standard pseudo-random generators are not suitable for security/cryptographic purposes is OK for the project
+    S311,
 
 
 per-file-ignores =
@@ -26,7 +44,6 @@ per-file-ignores =
     #  WPS432   Found magic number - ok for settings
     #  WPS604   Found incorrect node inside `class` body - custom exceptions
     #  F401:    imported but unused
-
     epsilion_wars_mmorpg_automation/exceptions.py: WPS420, WPS604,
     epsilion_wars_mmorpg_automation/settings.py: WPS432,
     epsilion_wars_mmorpg_automation/shared_state.py: WPS407,

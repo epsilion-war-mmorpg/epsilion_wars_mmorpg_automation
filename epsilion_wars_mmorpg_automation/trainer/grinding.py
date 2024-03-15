@@ -27,7 +27,7 @@ async def main(execution_limit_minutes: int | None = None) -> None:
         'notifications_enabled': app_settings.notifications_enabled,
         'slow_mode': app_settings.slow_mode,
     }
-    logging.info(f'start grinding ({local_settings=})')
+    logging.info('start grinding ({0})'.format(local_settings))
     logging.info('move u character to hunting location first')
 
     me = await client.get_me()

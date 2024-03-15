@@ -60,7 +60,7 @@ async def simple_grammar(message: str, *_: Any) -> str | None:
 
     found_word_pattern = found.group('question').replace('*', '.').strip().lower()
     found_word_pattern = replace_eng_chars(found_word_pattern)
-    logging.debug(f'grammar captcha resolver: {found_word_pattern=}')
+    logging.debug('grammar captcha resolver: {0}'.format(found_word_pattern))
 
     for answer in _words:
         if re.match(found_word_pattern, answer):

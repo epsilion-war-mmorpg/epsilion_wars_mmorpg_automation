@@ -11,7 +11,7 @@ async def fishing_start(event: events.NewMessage.Event) -> None:
     logging.info('start fishing event')
     response = await action.fishing_actions.select_fishing_type(event)
     if response:
-        logging.info(f'{response.message=}')
+        logging.info(f'{response.message}')
         if state.fishing_states.is_rod_equip_needed(response.message):
             await action.common_actions.show_equip(event)
 

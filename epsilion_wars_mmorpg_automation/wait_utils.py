@@ -22,7 +22,7 @@ class WaitActions(enum.Enum):
 
 
 async def wait_for(timing: WaitActions = WaitActions.COMMON) -> None:
-    """Lets wait like human =)."""
+    """Let wait like human."""
     min_seconds, max_seconds, min_slow_mode, max_slow_mode = timing.value
     if app_settings.slow_mode:
         sleep_time = random.randint(min_slow_mode, max_slow_mode)

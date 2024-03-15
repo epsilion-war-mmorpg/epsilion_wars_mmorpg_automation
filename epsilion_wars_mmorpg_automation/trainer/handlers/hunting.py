@@ -11,7 +11,7 @@ async def hunting_start(event: events.NewMessage.Event) -> None:
     logging.info('start hunting event')
     response = await action.hunting_actions.select_hunt_type(event)
     if response:
-        logging.info(f'{response.message=}')
+        logging.info(f'{response.message}')
         if state.hunting_states.is_bow_equip_needed(response.message):
             await action.common_actions.show_equip(event)
 

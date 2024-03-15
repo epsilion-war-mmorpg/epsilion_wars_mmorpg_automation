@@ -24,7 +24,7 @@ async def main(repair_locations_path: str = '') -> None:
         'repair_locations_path': app_settings.repair_locations_path,
     }
     repair_locations_path = repair_locations_path or app_settings.repair_locations_path
-    logging.info(f'start farming ({local_settings=}), {repair_locations_path}')
+    logging.info(f'start farming ({local_settings}), {repair_locations_path}')
 
     shared_state.REPAIR_LOCATIONS_PATH = repair_locations_path.split(',')
 
