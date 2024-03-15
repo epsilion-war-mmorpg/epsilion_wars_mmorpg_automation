@@ -93,7 +93,7 @@ class AppSettings(BaseSettings):
         '⚒ Мастер брони Эгерь',
         '⚒ Кузнец Карбо',
         '⚒ Кузнец Оазис',
-        '⚒ Кузнец Горд',
+        'Кузнец Горд',
     }
     combo_lock_config: dict[str, int] = {
         # Inquisitor
