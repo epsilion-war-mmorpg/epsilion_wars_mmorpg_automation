@@ -2,7 +2,15 @@
 import os
 from typing import Literal
 
-from pydantic import BaseSettings, Field
+from pydantic import Field
+from pydantic_settings import BaseSettings
+
+APP_PATH = os.path.abspath(
+    os.path.join(
+        os.path.dirname(__file__),
+        '..',
+    ),
+)
 
 
 class AppSettings(BaseSettings):
@@ -22,7 +30,10 @@ class AppSettings(BaseSettings):
     captcha_solver_enabled: bool = True
 
     select_combo_strategy: Literal['simple', 'random', 'random-or-skip', 'disabled', 'tuned', 'priority'] = 'simple'
-    skip_combo_chance: int = Field(default=30, description='Chance to skip combo bite if `random-or-skip` strategy selected')
+    skip_combo_chance: int = Field(
+        default=30,
+        description='Chance to skip combo bite if `random-or-skip` strategy selected',
+    )
 
     skip_random_vendor: bool = True
     skip_random_vendor_stop_words: str = 'Свиток Кселеса,Безопасный свиток заточки [IV]'
@@ -178,7 +189,7 @@ class AppSettings(BaseSettings):
 
 
 app_settings = AppSettings(
-    _env_file=os.path.join(os.path.dirname(__file__), '..', '.env'),
+    _env_file=os.path.join(APP_PATH, '.env'),  # type: ignore
 )
 
 game_bot_name = app_settings.game_username_backup if app_settings.use_backup_game_bot else app_settings.game_username

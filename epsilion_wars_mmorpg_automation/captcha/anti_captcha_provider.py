@@ -59,7 +59,7 @@ class AntiCaptchaClient:
                 raise AntiCaptchaError('network error') from fetch_exc
 
         task_data = response.json()
-        logging.info(f'response createTask {task_data=}')
+        logging.info('response createTask {0}'.format(task_data))
         error = task_data.get('errorCode')
         if error:
             raise AntiCaptchaError(error)
@@ -88,7 +88,7 @@ class AntiCaptchaClient:
                 raise AntiCaptchaError('network error') from fetch_exc
 
         task_data = response.json()
-        logging.info(f'response getTaskResult {task_data=}')
+        logging.info('response getTaskResult {0}'.format(task_data))
         error = task_data.get('errorCode')
         if error:
             raise AntiCaptchaError(error)

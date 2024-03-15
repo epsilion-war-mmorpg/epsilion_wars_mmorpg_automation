@@ -10,7 +10,7 @@ from epsilion_wars_mmorpg_automation.settings import app_settings
 from epsilion_wars_mmorpg_automation.trainer import loop
 
 
-async def skip_turn_handler(event: events.NewMessage.Event) -> None:
+async def skip_turn_handler(_: events.NewMessage.Event) -> None:
     """Just skip event."""
     logging.info('skip event')
 
