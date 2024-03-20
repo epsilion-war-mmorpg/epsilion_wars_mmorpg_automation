@@ -24,14 +24,8 @@ def random_strategy(event: events.NewMessage.Event) -> types.TypeKeyboardButton:
 
 def priority_strategy(event: events.NewMessage.Event) -> types.TypeKeyboardButton:
     """Return a combo bite by priority."""
-    options_by_priority: list[tuple[types.TypeKeyboardButton, int]] = [
-        (combo, app_settings.combo_priority.get(combo.text, 100))
-        for combo in get_buttons_flat(event)[:-2]
-    ]
-    options_by_priority.sort(
-        key=lambda button: button[1],
-    )
-    return options_by_priority[0][0]
+    options_by_priority = _sort_by_priority(get_buttons_flat(event)[:-2])
+    return options_by_priority[0]
 
 
 def random_or_skip_strategy(event: events.NewMessage.Event) -> types.TypeKeyboardButton:
@@ -65,7 +59,8 @@ def tuned_strategy(event: events.NewMessage.Event) -> types.TypeKeyboardButton:
         logging.info('heal first {0}'.format(heal_option.text))
         return heal_option
 
-    if bite_option := _try_use_bite_combo(all_options, current_turn_number):
+    options_by_priority = _sort_by_priority(all_options[:-2])
+    if bite_option := _try_use_bite_combo(options_by_priority, current_turn_number):
         logging.info('selected bite {0}'.format(bite_option.text))
         return bite_option
 
@@ -79,6 +74,17 @@ def _get_combo_turn_lock(combo_name: str) -> int:
 
 def _get_combo_heal_hp_level(combo_name: str) -> int:
     return app_settings.combo_heal_hp.get(combo_name, 0)
+
+
+def _sort_by_priority(options: list[types.TypeKeyboardButton]) -> list[types.TypeKeyboardButton]:
+    options_by_priority: list[tuple[types.TypeKeyboardButton, int]] = [
+        (combo, app_settings.combo_priority.get(combo.text, 100))
+        for combo in options
+    ]
+    options_by_priority.sort(
+        key=lambda button: button[1],
+    )
+    return [option for option, _ in options_by_priority]
 
 
 def _try_heal_first(
@@ -115,7 +121,7 @@ def _try_use_bite_combo(
     all_options: list[types.TypeKeyboardButton],
     current_turn_number: int,
 ) -> types.TypeKeyboardButton | None:
-    for option in all_options[:-2]:
+    for option in all_options:
         if _get_combo_heal_hp_level(option.text):
             # ignore heal combos
             continue
