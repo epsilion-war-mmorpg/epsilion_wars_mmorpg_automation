@@ -6,7 +6,7 @@ authors = ["Simon <spam@esemi.ru>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = "^3.11"
 telethon = "^1.34.0"
 httpx = "^0.27.0"
 pydantic-settings = "^2.2.1"
@@ -26,7 +26,7 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.mypy]
-python_version = 3.12
+python_version = 3.11
 disallow_untyped_defs = true
 ignore_missing_imports = true
 

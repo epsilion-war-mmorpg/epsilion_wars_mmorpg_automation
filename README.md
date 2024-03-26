@@ -36,7 +36,7 @@ TL;DR Screw [the rules](https://teletype.in/@epsilionwar/HkPsNEfZL)
 ![img.png](assets/block.png)
 
 ## Requirements
-1. [Python 3.12 or later](https://www.python.org/downloads/) and [pip](https://pip.pypa.io/en/stable/installation/) 
+1. [Python 3.11 or later](https://www.python.org/downloads/) and [pip](https://pip.pypa.io/en/stable/installation/) 
 2. Telegram [API ID and token](https://docs.telethon.dev/en/stable/basic/signing-in.html#signing-in)
 3. [Registration](https://t.me/epsilionwarbot?start=ref-537453818) on the game.
 
