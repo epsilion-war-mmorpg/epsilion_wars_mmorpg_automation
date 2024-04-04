@@ -160,6 +160,7 @@ class AppSettings(BaseSettings):
         'Внутренняя сила (2🗡; 3🛡)': 2,
         'По наитию (3 🥊)': 1,
     }
+    use_potions: bool = Field(default=True)
     enabled_potions: set[str] = {
         '/use_reg24',
         '/use_reg7',
@@ -177,6 +178,7 @@ class AppSettings(BaseSettings):
         '/use_buff_int_1_1',
         '/use_buff_int_2_1',
     }
+    use_scrolls: bool = Field(default=True)
     enabled_scrolls: set[str] = {
         '/use_p_luck',
         '/use_luck',

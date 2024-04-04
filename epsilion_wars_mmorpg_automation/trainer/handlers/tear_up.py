@@ -19,11 +19,12 @@ async def use_potions_and_show_scrolls(event: events.NewMessage.Event) -> None:
     """Use potions and show scrolls after."""
     logger.info('Use potions handler')
     enabled_potions = app_settings.enabled_potions
-
     available_potions = parsers.get_potions(event.message.message)
-    for potion in available_potions:
-        if potion in enabled_potions:
-            await action.common_actions.execute_command(event.chat_id, potion)
+
+    if app_settings.use_potions:
+        for potion in available_potions:
+            if potion in enabled_potions:
+                await action.common_actions.execute_command(event.chat_id, potion)
 
     await action.common_actions.show_scrolls(event)
 
@@ -33,10 +34,11 @@ async def use_scrolls_and_refresh(event: events.NewMessage.Event) -> None:
     logger.info('Use scrolls handler')
 
     enabled_scrolls = app_settings.enabled_scrolls
-
     available_scrolls = parsers.get_scrolls(event.message.message)
-    for scroll in available_scrolls:
-        if scroll in enabled_scrolls:
-            await action.common_actions.execute_command(event.chat_id, scroll)
+
+    if app_settings.use_scrolls:
+        for scroll in available_scrolls:
+            if scroll in enabled_scrolls:
+                await action.common_actions.execute_command(event.chat_id, scroll)
 
     return await action.common_actions.ping(event)
