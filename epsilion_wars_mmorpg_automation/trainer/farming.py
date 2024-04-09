@@ -12,9 +12,10 @@ from epsilion_wars_mmorpg_automation.trainer import event_logging, loop
 from epsilion_wars_mmorpg_automation.trainer.handlers import common, farming, grinding, tear_up
 
 
-async def main(repair_locations_path: str = '') -> None:
+async def main(repair_locations_path: str = '', execution_limit_minutes: int | None = None) -> None:
     """Farming runner."""
     local_settings = {
+        'execution_limit_minutes': execution_limit_minutes or 'infinite',
         'minimum_hp_level_for_grinding': app_settings.minimum_hp_level_for_grinding,
         'auto_healing_enabled': app_settings.auto_healing_enabled,
         'select_combo_strategy': app_settings.select_combo_strategy,
@@ -49,7 +50,7 @@ async def main(repair_locations_path: str = '') -> None:
     )
 
     await tear_up.show_potions(game_user.user_id)
-    await loop.run_wait_loop(None)
+    await loop.run_wait_loop(execution_limit_minutes)
     logging.info('end farming')
 
 

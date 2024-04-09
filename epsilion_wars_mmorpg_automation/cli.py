@@ -63,9 +63,17 @@ def farming_start() -> None:
         default='',
         help='Path to the location with the blacksmith, separated by comma (ex. "грейт,цирта")',
     )
+    parser.add_argument(
+        '-t',
+        '--minutes',
+        dest='minutes_limit',
+        required=False,
+        type=int,
+        help='Execution limit in minutes',
+    )
     args = parser.parse_args()
 
-    _run(farming.main, repair_locations_path=args.path)
+    _run(farming.main, repair_locations_path=args.path, execution_limit_minutes=args.minutes_limit)
 
 
 def inventory_start() -> None:
