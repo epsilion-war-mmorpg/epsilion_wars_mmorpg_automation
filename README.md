@@ -46,7 +46,11 @@ TL;DR Screw [the rules](https://teletype.in/@epsilionwar/HkPsNEfZL)
 ## Installation Linux
 Use the following commands to download and install the latest version of Epsilion Trainer
 ```shell
-git clone https://github.com/esemi/epsilion_wars_mmorpg_automation.git
+add-apt-repository ppa:deadsnakes/ppa
+apt update
+apt install -y software-properties-common python3.12 python3.12-dev python3.12-venv git
+curl -sS https://bootstrap.pypa.io/get-pip.py | python3.12
+git clone https://github.com/epsilion-war-mmorpg/epsilion_wars_mmorpg_automation.git
 cd epsilion_wars_mmorpg_automation
 pip install -U poetry pip setuptools
 poetry install --only main
@@ -70,7 +74,7 @@ Sometimes you just need to take your character to repair_start equipment and ope
 
 Just get your character to the right location, equip PVE and run the Epsilion Trainer with `grind`. 
 
-If you prefer to hunt for a limited time, you can use `grind -t 30`: 
+If you prefer to hunt for a limited time, you can use `poetry run grind -t 30`: 
 it will only hunt for 30 minutes, after which it will automatically shut down.
 
 See also [grinding guide here](https://teletype.in/@esemiko/epsa-gringing) [RU lang].
