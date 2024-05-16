@@ -56,6 +56,7 @@ class AppSettings(BaseSettings):
     )
 
     # developer section
+    fast_mode: bool = Field(default=False)
     slow_mode: bool = Field(default=False, description='Used for fresh telegram accounts.')
     ping_commands: str = ',.-+=/0'
     game_username: str = 'EpsilionWarBot'
