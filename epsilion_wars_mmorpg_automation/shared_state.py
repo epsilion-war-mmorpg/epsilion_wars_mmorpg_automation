@@ -5,6 +5,7 @@ RESOURCE_TYPE: str = ''
 RESOURCE_COUNTERS: dict[str, int] = {}
 CHARACTER_NAME: str = ''
 GRINDING_LOCATION: str | None = None
+GRINDING_PAUSED: bool = False
 REPAIR_LOCATIONS_PATH: list[str] = []
 COMBO_TURN_LOCKS: dict[str, int] = {}
 

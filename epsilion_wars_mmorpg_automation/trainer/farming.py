@@ -6,6 +6,7 @@ from telethon import events, types
 
 from epsilion_wars_mmorpg_automation import shared_state, stats
 from epsilion_wars_mmorpg_automation.game import action, state
+from epsilion_wars_mmorpg_automation.plugins import manager
 from epsilion_wars_mmorpg_automation.settings import app_settings, game_bot_name
 from epsilion_wars_mmorpg_automation.telegram_client import client
 from epsilion_wars_mmorpg_automation.trainer import event_logging, loop
@@ -34,24 +35,31 @@ async def main(repair_locations_path: str = '', execution_limit_minutes: int | N
     game_user: types.InputPeerUser = await client.get_input_entity(game_bot_name)
     logging.info('game user is %s', game_user)
 
+    await _setup_handlers(game_user_id=game_user.user_id)
+
+    await tear_up.show_potions(game_user.user_id)
+    await loop.run_wait_loop(execution_limit_minutes)
+    logging.info('end farming')
+
+
+async def _setup_handlers(game_user_id: int) -> None:
+    if app_settings.self_manager_enabled:
+        manager.setup(client)
+
     client.add_event_handler(
         callback=_message_handler,
         event=events.NewMessage(
             incoming=True,
-            from_users=(game_user.user_id,),
+            from_users=(game_user_id,),
         ),
     )
     client.add_event_handler(
         callback=_message_handler,
         event=events.MessageEdited(
             incoming=True,
-            from_users=(game_user.user_id,),
+            from_users=(game_user_id,),
         ),
     )
-
-    await tear_up.show_potions(game_user.user_id)
-    await loop.run_wait_loop(execution_limit_minutes)
-    logging.info('end farming')
 
 
 async def _message_handler(event: events.NewMessage.Event) -> None:

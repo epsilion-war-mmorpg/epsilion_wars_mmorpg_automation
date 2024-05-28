@@ -25,6 +25,7 @@ class AppSettings(BaseSettings):
     notifications_enabled: bool = False
     favorites_enabled: bool = True
     auto_healing_enabled: bool = True
+    self_manager_enabled: bool = True
     stop_if_equip_broken: bool = True
     stop_if_captcha_fire: bool = False
     captcha_solver_enabled: bool = True

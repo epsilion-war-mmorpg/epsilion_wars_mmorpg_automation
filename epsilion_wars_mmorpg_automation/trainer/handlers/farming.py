@@ -62,6 +62,10 @@ async def farming_handler(event: events.NewMessage.Event) -> None:
         await action.reward_actions.show_rewards(event.chat_id)
         return
 
+    if shared_state.GRINDING_PAUSED:
+        logging.info('grinding paused')
+        return
+
     if shared_state.FARMING_STATE is None:
         await grinding.grinding_handler(event)
 
