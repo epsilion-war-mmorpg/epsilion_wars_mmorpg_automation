@@ -126,7 +126,14 @@ Restoring the maximum durability of items is also up to you.
 
 See also [farming math guide here](https://teletype.in/@esemiko/epsa-farming-economics) [RU lang].
 
-
+### Bot start/stop commands
+You can start/stop the bot by sending apropriate commands in @me channel (@Избранное).
+There are 3 commands:
+```
+'!exit' - force exit,
+'!stop' - pause farming,
+'!start' - resume farming.
+```
 ##### Settings
 `skip_random_vendor`: Skipping the random vendor you meet. On by default.
 
