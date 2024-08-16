@@ -127,7 +127,7 @@ Restoring the maximum durability of items is also up to you.
 See also [farming math guide here](https://teletype.in/@esemiko/epsa-farming-economics) [RU lang].
 
 ### Bot start/stop commands
-You can start/stop the bot by sending apropriate commands in @me channel (@Избранное).
+You can start/stop the bot by sending apropriate commands in @me channel (Избранное / Favorites).
 There are 3 commands:
 ```
 '!exit' - force exit,
@@ -138,7 +138,7 @@ There are 3 commands:
 `skip_random_vendor`: Skipping the random vendor you meet. On by default.
 
 `skip_random_vendor_stop_words`: Prevents the random vendor from skipping for rare items. 
-By default it does not skip `Свиток Кселеса` and `Безопасный свиток заточки [IV]`. 
+Empty by default, might be looks like `Кселес,Безопасный свиток заточки [IV]`. 
 
 `equip_farming_number`: Binding number of your farming equipment set. By default `1`.
 
