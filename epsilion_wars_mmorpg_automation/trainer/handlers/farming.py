@@ -5,7 +5,6 @@ import logging
 from telethon import events, types
 
 from epsilion_wars_mmorpg_automation import notifications, shared_state
-from epsilion_wars_mmorpg_automation.exceptions import InvalidMessageError
 from epsilion_wars_mmorpg_automation.game import action, parsers, state
 from epsilion_wars_mmorpg_automation.game.buttons import get_buttons_flat
 from epsilion_wars_mmorpg_automation.settings import app_settings
@@ -114,7 +113,7 @@ async def repair_or_go_to_next(event: events.NewMessage.Event) -> None:
         repair_location.lower() in location_name.lower()
         for repair_location in app_settings.repairman_locations
     )
-    logging.info(f'debug {location_name} {is_repairman_location} ')
+    logging.debug(f'debug {location_name} {is_repairman_location} ')
 
     if shared_state.FARMING_STATE is shared_state.FarmingState.need_repair:
         if is_repairman_location:
@@ -189,23 +188,27 @@ async def repair_item_approve(event: events.NewMessage.Event) -> None:
 
 async def skip_vendor(event: events.NewMessage.Event) -> None:
     """Skip vendor."""
-    logging.info('call skip vendor dialog {0}, {1}'.format(
-        app_settings.skip_random_vendor,
-        app_settings.skip_random_vendor_stop_words,
-    ))
-    message = parsers.strip_message(event.message.message)
-    inline_buttons = get_buttons_flat(event)
-    if not inline_buttons:
-        raise InvalidMessageError('Invalid vendor buttons.')
+    logging.info('call skip vendor dialog')
+
+    if not app_settings.skip_random_vendor:
+        await notifications.send_desktop_notify(
+            message='random vendor lock',
+            is_urgent=True,
+        )
+        return
 
     if app_settings.skip_random_vendor_stop_words:
+        message = parsers.strip_message(event.message.message)
         for stop_word in app_settings.skip_random_vendor_stop_words.split(','):
             if stop_word.strip().lower() in message:
+                await notifications.send_desktop_notify(
+                    message='random vendor lock by stop word',
+                    is_urgent=True,
+                )
                 return
 
-    if app_settings.skip_random_vendor:
-        await wait_for()
-        await event.message.click(len(inline_buttons) - 1)
+    await wait_for()
+    await event.message.click(-1)
 
 
 def _get_repairman(event: events.NewMessage.Event) -> str | None:

@@ -37,7 +37,7 @@ class AppSettings(BaseSettings):
     )
 
     skip_random_vendor: bool = True
-    skip_random_vendor_stop_words: str = 'Свиток Кселеса,Безопасный свиток заточки [IV]'
+    skip_random_vendor_stop_words: str = ''
     use_backup_game_bot: bool = False
     equip_farming_number: int = 1
     equip_travel_number: int = 2
