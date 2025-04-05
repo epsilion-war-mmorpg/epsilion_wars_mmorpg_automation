@@ -57,7 +57,7 @@ async def farming_handler(event: events.NewMessage.Event) -> None:
         shared_state.FARMING_STATE = None
         await action.common_actions.call_binding(event, app_settings.equip_farming_number)
 
-    if state.reward_states.have_unread_message(event):
+    if state.reward_states.have_unread_message(event) and app_settings.check_daily_rewards:
         await action.reward_actions.show_rewards(event.chat_id)
         return
 

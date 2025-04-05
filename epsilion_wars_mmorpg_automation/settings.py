@@ -28,6 +28,7 @@ class AppSettings(BaseSettings):
     self_manager_enabled: bool = True
     stop_if_equip_broken: bool = True
     stop_if_captcha_fire: bool = False
+    check_daily_rewards: bool = True
     captcha_solver_enabled: bool = True
 
     select_combo_strategy: Literal['simple', 'random', 'random-or-skip', 'disabled', 'tuned', 'priority'] = 'simple'
