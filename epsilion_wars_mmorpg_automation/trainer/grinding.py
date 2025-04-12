@@ -65,7 +65,6 @@ def _select_action_by_event(event: events.NewMessage.Event) -> Callable:
     mapping = [
         (common_states.is_captcha_message, common.captcha_fire_handler),
         (common_states.is_equip_broken_message, grinding.equip_broken_handler),
-        (grinding_states.is_battle_start_message, grinding.battle_start_handler),
         (grinding_states.is_selector_combo, grinding_actions.select_combo),
         (grinding_states.is_selector_attack_direction, grinding_actions.select_attack_direction),
         (grinding_states.is_selector_defence_direction, grinding_actions.select_defence_direction),
