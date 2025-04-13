@@ -4,7 +4,7 @@ from epsilion_wars_mmorpg_automation.stats import collector
 def test_get_averages_per_hour_happy_path(mocker):
     collector.reset()
     mocker.patch(
-        'epsilion_wars_mmorpg_automation.stats.collector._collecting_time',
+        'epsilion_wars_mmorpg_automation.stats.collector.get_total_time',
         return_value=15 * 60,
     )
     collector.inc_value('first', 1)
