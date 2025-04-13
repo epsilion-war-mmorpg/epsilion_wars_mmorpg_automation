@@ -26,16 +26,17 @@ class StatsCollector:
         """Get raw stats."""
         return self._counters_collector.most_common()
 
+    def get_total_time(self) -> float:
+        """Get total working time."""
+        return time.time() - self._start_time
+
     def get_averages_per_hour(self) -> list[tuple[str, float]]:
         """Get average stats."""
-        hours = self._collecting_time() / 60 / 60
+        hours = self.get_total_time() / 60 / 60
         return [
             (name, counter / hours)
             for name, counter in self._counters_collector.items()
         ]
-
-    def _collecting_time(self) -> float:
-        return time.time() - self._start_time
 
 
 collector = StatsCollector()

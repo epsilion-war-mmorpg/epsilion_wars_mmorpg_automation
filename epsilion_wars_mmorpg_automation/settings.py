@@ -22,6 +22,7 @@ class AppSettings(BaseSettings):
 
     # optional customer settings
     minimum_hp_level_for_grinding: int = Field(default=95, ge=1, le=100)
+    grinding_time_limit_minutes: int | None = Field(default=None)
     notifications_enabled: bool = False
     favorites_enabled: bool = True
     auto_healing_enabled: bool = True

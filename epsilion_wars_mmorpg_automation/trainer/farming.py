@@ -28,6 +28,7 @@ async def main(repair_locations_path: str = '', execution_limit_minutes: int | N
     repair_locations_path = repair_locations_path or app_settings.repair_locations_path
     logging.info(f'start farming ({local_settings}), {repair_locations_path}')
 
+    app_settings.grinding_time_limit_minutes = execution_limit_minutes
     shared_state.REPAIR_LOCATIONS_PATH = repair_locations_path.split(',')
 
     logging.info('auth as %s', (await client.get_me()).username)
@@ -38,7 +39,7 @@ async def main(repair_locations_path: str = '', execution_limit_minutes: int | N
     await _setup_handlers(game_user_id=game_user.user_id)
 
     await tear_up.show_potions(game_user.user_id)
-    await loop.run_wait_loop(execution_limit_minutes)
+    await loop.run_wait_loop(None)
     logging.info('end farming')
 
 

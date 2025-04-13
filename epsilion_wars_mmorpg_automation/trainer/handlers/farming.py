@@ -4,11 +4,12 @@ import logging
 
 from telethon import events, types
 
-from epsilion_wars_mmorpg_automation import notifications, shared_state
+from epsilion_wars_mmorpg_automation import notifications, shared_state, stats
 from epsilion_wars_mmorpg_automation.game import action, parsers, state
 from epsilion_wars_mmorpg_automation.game.buttons import get_buttons_flat
 from epsilion_wars_mmorpg_automation.settings import app_settings
 from epsilion_wars_mmorpg_automation.trainer.handlers import grinding
+from epsilion_wars_mmorpg_automation.trainer.loop import exit_request
 from epsilion_wars_mmorpg_automation.wait_utils import wait_for
 
 
@@ -59,6 +60,9 @@ async def farming_handler(event: events.NewMessage.Event) -> None:
 
     if state.reward_states.have_unread_message(event) and app_settings.check_daily_rewards:
         await action.reward_actions.show_rewards(event.chat_id)
+        return
+
+    if _is_stop_needed():
         return
 
     if shared_state.GRINDING_PAUSED:
@@ -219,3 +223,15 @@ def _get_repairman(event: events.NewMessage.Event) -> str | None:
             if test_name in npc.text.strip():
                 return npc.text
     return None
+
+
+def _is_stop_needed() -> bool:
+    if not app_settings.grinding_time_limit_minutes:
+        return False
+
+    soft_limit_seconds = app_settings.grinding_time_limit_minutes * 60
+    if stats.collector.get_total_time() >= soft_limit_seconds:
+        exit_request()
+        return True
+
+    return False
