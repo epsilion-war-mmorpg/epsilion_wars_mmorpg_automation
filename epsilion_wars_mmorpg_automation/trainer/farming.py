@@ -84,7 +84,6 @@ def _select_action_by_event(event: events.NewMessage.Event) -> Callable:
         (state.common_states.is_captcha_message, common.captcha_fire_handler),
         (state.common_states.is_hp_updated_message, action.common_actions.ping),
         (state.common_states.is_equip_broken_message, farming.equip_broken_handler),
-        (state.grinding_states.is_battle_start_message, grinding.battle_start_handler),
         (state.grinding_states.is_selector_combo, action.grinding_actions.select_combo),
         (state.grinding_states.is_selector_attack_direction, action.grinding_actions.select_attack_direction),
         (state.grinding_states.is_selector_defence_direction, action.grinding_actions.select_defence_direction),
