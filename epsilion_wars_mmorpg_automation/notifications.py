@@ -1,20 +1,25 @@
 """Desktop and other notifications."""
+from functools import lru_cache
 
 from desktop_notifier import DesktopNotifier, Urgency
 
 from epsilion_wars_mmorpg_automation.settings import app_settings
 from epsilion_wars_mmorpg_automation.telegram_client import client
 
-notifier = DesktopNotifier(
-    app_name=app_settings.trainer_name,
-    app_icon=None,
-)
+
+@lru_cache(maxsize=1)
+def _get_notifier() -> DesktopNotifier:
+    """Create desktop notifier only when desktop notifications are enabled."""
+    return DesktopNotifier(
+        app_name=app_settings.trainer_name,
+        app_icon=None,
+    )
 
 
 async def send_desktop_notify(message: str, is_urgent: bool = False) -> None:
     """Send desktop notification."""
     if app_settings.notifications_enabled:
-        await notifier.send(
+        await _get_notifier().send(
             urgency=Urgency.Normal if is_urgent else Urgency.Low,
             title=app_settings.trainer_name,
             message=message,

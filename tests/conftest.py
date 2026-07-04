@@ -1,6 +1,10 @@
 import asyncio
+import os
 
 import pytest
+
+os.environ.setdefault('EPSA_DISABLE_DOTENV', '1')
+os.environ.pop('DEBUG', None)
 
 from epsilion_wars_mmorpg_automation.settings import app_settings
 

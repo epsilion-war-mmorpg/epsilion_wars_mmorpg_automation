@@ -1,6 +1,16 @@
 name: tests
 
-on: [push]
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+env:
+  EPSA_DISABLE_DOTENV: "1"
+  PIP_DISABLE_PIP_VERSION_CHECK: "1"
+  POETRY_VIRTUALENVS_IN_PROJECT: "true"
 
 jobs:
   tests:
@@ -9,18 +19,20 @@ jobs:
       matrix:
         python-version: ['3.11', '3.12']
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v7.0.0
 
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v1
+      uses: actions/setup-python@v6.3.0
       with:
         python-version: ${{ matrix.python-version }}
+        cache: poetry
+        cache-dependency-path: poetry.lock
 
     - name: Install dependencies
       run: |
-        pip install poetry
+        python -m pip install "poetry==1.8.5"
         poetry --version
-        poetry install
+        poetry install --with dev --sync
 
     - name: Run tests
       run: |
