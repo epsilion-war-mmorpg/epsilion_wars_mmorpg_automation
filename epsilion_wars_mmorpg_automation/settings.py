@@ -197,14 +197,8 @@ class AppSettings(BaseSettings):
     }
 
 
-def _get_env_file() -> str | None:
-    if os.environ.get('EPSA_DISABLE_DOTENV') == '1':
-        return None
-    return os.environ.get('EPSA_ENV_FILE') or os.path.join(APP_PATH, '.env')
-
-
 app_settings = AppSettings(
-    _env_file=_get_env_file(),  # type: ignore
+    _env_file=os.path.join(APP_PATH, '.env'),  # type: ignore
 )
 
 game_bot_name = app_settings.game_username_backup if app_settings.use_backup_game_bot else app_settings.game_username

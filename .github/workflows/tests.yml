@@ -8,9 +8,7 @@ permissions:
   contents: read
 
 env:
-  EPSA_DISABLE_DOTENV: "1"
   PIP_DISABLE_PIP_VERSION_CHECK: "1"
-  POETRY_VIRTUALENVS_IN_PROJECT: "true"
 
 jobs:
   tests:
@@ -25,8 +23,6 @@ jobs:
       uses: actions/setup-python@v6.3.0
       with:
         python-version: ${{ matrix.python-version }}
-        cache: poetry
-        cache-dependency-path: poetry.lock
 
     - name: Install dependencies
       run: |
