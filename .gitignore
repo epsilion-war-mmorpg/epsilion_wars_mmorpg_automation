@@ -1,11 +1,13 @@
 .mypy_cache
 .pytest_cache
 venv
+.venv
 __pycache__
 .env
 .coverage
 *.pyc
 coverage.xml
+docs/
 .epsilion_automation_session.session*
 *.log
 .sessions/*
